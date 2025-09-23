@@ -1,0 +1,28 @@
+[
+  {
+    "id": "46aaad5b-a970-4d54-8b92-2bc9dbb42861",
+    "title": "AC Not Working",
+    "description": "The AC in room 101 is not cooling properly",
+    "category": "Facilities",
+    "department": "Facilities Management",
+    "priority": "High",
+    "contactInfo": "test@example.com",
+    "userType": "Student",
+    "status": "Pending",
+    "createdAt": "2025-08-31T16:18:57.621248Z",
+    "aiAnalyzed": false
+  },
+  {
+    "id": "35332dea-fb39-483d-90d8-91842e5732b5",
+    "title": "Test Complaint",
+    "description": "This is a test complaint",
+    "category": "Test",
+    "department": "Test Department",
+    "priority": "Medium",
+    "contactInfo": "test@example.com",
+    "userType": "Test",
+    "status": "Pending",
+    "createdAt": "2025-08-31T16:40:31.181679Z",
+    "aiAnalyzed": false
+  }
+]
