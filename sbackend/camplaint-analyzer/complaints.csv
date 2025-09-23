@@ -59,3 +59,38 @@ complaint_text,category,priority,department,type
 "Need to book the seminar hall for an event",Admin,Medium,Admin Office,Non-Technical
 "The security cameras in the parking lot are not working",Infrastructure,High,Security Office,Technical
 "The syllabus was not completed before the exams",Academics,High,Academics Department,Non-Technical
+"There is a power outage in Block C every evening",Infrastructure,Critical,Electrical Department,Technical
+"Need immediate medical help at the sports ground",Admin,Critical,Medical Center,Non-Technical
+"Fire alarm keeps malfunctioning in Chemistry lab",Infrastructure,High,Safety Department,Technical
+"Request for wheelchair access ramp at auditorium entrance",Infrastructure,Medium,Maintenance,Non-Technical
+"Exam timetable was released with conflicting dates",Academics,High,Exam Cell,Non-Technical
+"The hostel cafeteria serves stale food",Hostel,High,Catering Services,Non-Technical
+"Scholarship disbursement is delayed",Admin,High,Accounts Department,Non-Technical
+"Audio system feedback noise during conferences",IT,Medium,IT Department,Technical
+"Need extension of library hours during exams",Library,Medium,Library,Non-Technical
+"Unauthorized parking blocking emergency exit",Security,Critical,Security Office,Non-Technical
+"AC units in the library are not cooling",Infrastructure,Medium,Maintenance,Technical
+"Sports ground floodlights are not turning on",Infrastructure,High,Electrical Department,Technical
+"Campus ATM machine is out of cash frequently",Admin,Medium,Bank Liaison Office,Non-Technical
+"Request vegetarian meal options in hostel mess",Hostel,Low,Catering Services,Non-Technical
+"Chemistry lab lacks safety goggles",Infrastructure,High,Safety Department,Technical
+"College app crashes on login screen",IT,High,IT Department,Technical
+"Wi-Fi speed drops during online exams",IT,Critical,IT Department,Technical
+"Need shuttle service for late evening classes",Transport,Medium,Transport Department,Non-Technical
+"Drainage clog causing foul smell near cafeteria",Infrastructure,Medium,Maintenance,Non-Technical
+"Scholarship portal shows incorrect eligibility",Admin,High,Accounts Department,Technical
+"Broken benches in the central park area",Infrastructure,Low,Housekeeping,Non-Technical
+"Request for additional reference books on AI",Library,Medium,Library,Non-Technical
+"Lab printer is jammed and low on toner",IT,Low,IT Department,Technical
+"Water purifier filters need replacement",Hostel,Medium,Hostel Maintenance,Technical
+"Faculty not following the attendance policy",Academics,Medium,Academic Office,Non-Technical
+"Late night noise disturbance in Hostel Block B",Hostel,Medium,Hostel Warden,Non-Technical
+"Need extension cord points in electronics lab",Infrastructure,Low,Maintenance,Technical
+"Career portal login credentials not received",Admin,Medium,Placement Cell,Technical
+"Fire extinguishers past expiry date",Infrastructure,Critical,Safety Department,Technical
+"Broken street lights on pathway to hostel",Infrastructure,High,Electrical Department,Technical
+"Wrong grade uploaded on student portal",Academics,High,Exam Cell,Technical
+"Bus route information not updated",Transport,Low,Transport Department,Non-Technical
+"Request for mental health counseling services",Health,Medium,Counseling Center,Non-Technical
+"Inconsistent water supply in girls hostel",Hostel,High,Hostel Maintenance,Non-Technical
+"Projector bulb fused in Lecture Hall 3",IT,Medium,IT Department,Technical

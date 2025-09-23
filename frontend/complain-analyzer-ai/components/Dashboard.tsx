@@ -232,8 +232,8 @@ export function Dashboard() {
                   <div className="pt-2 border-t border-border/50 mt-2">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
                       <div className="flex items-center gap-1.5">
-                        <span className="font-medium text-muted-foreground">Category:</span>
-                        <span className="font-medium">{complaint.category}</span>
+                        <span className="font-medium text-muted-foreground">Type:</span>
+                        <span className="font-medium">{complaint.type}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className="font-medium text-muted-foreground">Department:</span>

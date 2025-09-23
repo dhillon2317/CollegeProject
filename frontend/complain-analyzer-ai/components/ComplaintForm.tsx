@@ -22,6 +22,7 @@ export function ComplaintForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<{ category?: string; priority?: string; department?: string; userType?: string; aiConfidence?: number }>({});
   const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",
@@ -96,7 +97,7 @@ export function ComplaintForm() {
       return;
     }
 
-    setIsLoading(true);
+    setIsAnalyzing(true);
     try {
       const analysis = await analyzeComplaint(formData.description);
       if (analysis) {
@@ -107,6 +108,13 @@ export function ComplaintForm() {
           department: analysis.assignedDepartment || prev.department,
           userType: analysis.type || prev.userType
         }));
+        setAnalysisResult({
+          category: analysis.category,
+          priority: analysis.priority,
+          department: analysis.assignedDepartment,
+          userType: analysis.type,
+          aiConfidence: analysis.aiConfidence,
+        });
         toast.success('Complaint analyzed successfully!');
       }
     } catch (error) {
@@ -114,7 +122,6 @@ export function ComplaintForm() {
       toast.error('Failed to analyze complaint');
     } finally {
       setIsAnalyzing(false);
-      setIsLoading(false);
     }
   };
 
@@ -123,11 +130,22 @@ export function ComplaintForm() {
     setIsLoading(true);
     
     try {
-      const requestBody = {
+      // Always run AI analysis just before submitting
+      const analysis = await analyzeComplaint(formData.description);
+      const enriched = analysis ? {
         ...formData,
-        status: 'Pending',
-        createdAt: new Date().toISOString(),
+        category: analysis.category,
+        priority: analysis.priority,
+        department: analysis.assignedDepartment,
+        userType: analysis.type,
+        sentiment: analysis.sentiment,
         aiAnalyzed: true
+      } : { ...formData, aiAnalyzed: false };
+
+      const requestBody = {
+        ...enriched,
+        status: 'Pending',
+        createdAt: new Date().toISOString()
       };
       
       console.log('Sending request to backend:', JSON.stringify(requestBody, null, 2));
@@ -219,7 +237,7 @@ export function ComplaintForm() {
                   disabled={isLoading || !formData.description}
                   className="text-sm"
                 >
-                  {isLoading ? (
+                  {isAnalyzing ? (
                     <Loader2 className="h-4 w-4 animate-spin mr-1" />
                   ) : (
                     <Sparkles className="h-4 w-4 mr-1" />
@@ -269,7 +287,25 @@ export function ComplaintForm() {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {analysisResult.aiConfidence !== undefined && (
+              <div className="border p-4 rounded-md bg-gray-50 space-y-1 text-sm">
+                <p className="font-medium mb-1">AI Prediction</p>
+                <p><strong>Category:</strong> {analysisResult.category}</p>
+                <p><strong>Priority:</strong> {analysisResult.priority}</p>
+                <p><strong>Department:</strong> {analysisResult.department}</p>
+                <p><strong>User Type:</strong> {analysisResult.userType}</p>
+                <p><strong>Confidence:</strong> {analysisResult.aiConfidence}%</p>
+              </div>
+            )}
+
+            {/* hidden fields sent with form */}
+            <>
+              <input type="hidden" name="category" value={formData.category} />
+            <input type="hidden" name="priority" value={formData.priority} />
+              <input type="hidden" name="department" value={formData.department} />
+            </>
+
+            {/*
               <div className="space-y-2">
                 <Label htmlFor="category">Category *</Label>
                 <Select
@@ -289,7 +325,7 @@ export function ComplaintForm() {
                 </Select>
               </div>
 
-              {/* <div className="space-y-2">
+              <div className="space-y-2">
                 <Label htmlFor="department">Department *</Label>
                 <Select
                   value={formData.department}
@@ -306,27 +342,8 @@ export function ComplaintForm() {
                     ))}
                   </SelectContent>
                 </Select>
-              </div> */}
-            </div>
-
-            {/* <div className="space-y-2">
-              <Label>Priority Level</Label>
-              <Select
-                value={formData.priority}
-                onValueChange={(value) => handleSelectChange(value, 'priority')}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="How urgent is this issue?" />
-                </SelectTrigger>
-                <SelectContent>
-                  {priorities.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      {level}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div> */}
+              </div>
+            */}
 
             <div className="flex justify-end">
               <Button type="submit" disabled={isLoading}>

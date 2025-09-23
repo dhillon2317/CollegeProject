@@ -4,11 +4,28 @@ import { Progress } from "./ui/progress";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { TrendingUp, AlertTriangle, Clock, Target, Users, Zap } from "lucide-react";
 import { getCurrentDomain } from "./DomainConfig";
+import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
+
+interface Complaint {
+  _id:string; category:string; priority:string; department:string; type:string; userType:string; createdAt:string;
+}
 
 export function Analytics() {
   const domain = getCurrentDomain();
   
-  // College-specific analytics data
+  const [complaints,setComplaints]=useState<Complaint[]>([]);
+  const [isLoading,setIsLoading]=useState(true);
+
+  useEffect(()=>{
+    fetch('http://localhost:5001/api/complaints')
+      .then(r=>r.json())
+      .then(data=>setComplaints(data))
+      .catch(()=>{})
+      .finally(()=>setIsLoading(false));
+  },[]);
+
+  // Derived analytics data
   const complaintsOverTime = [
     { month: "Feb", complaints: 28, resolved: 25 },
     { month: "Mar", complaints: 35, resolved: 31 },
@@ -18,14 +35,10 @@ export function Analytics() {
     { month: "Jul", complaints: 38, resolved: 35 },
   ];
 
-  const categoryData = [
-    { name: "Infrastructure/Facilities", value: 28, color: "#8884d8" },
-    { name: "Fee & Financial Issues", value: 22, color: "#82ca9d" },
-    { name: "IT & Technical Support", value: 18, color: "#ffc658" },
-    { name: "Food Services/Canteen", value: 15, color: "#ff7300" },
-    { name: "Parking & Transportation", value: 10, color: "#0088fe" },
-    { name: "Other", value: 7, color: "#00C49F" },
-  ];
+  const categoryCount:Record<string,number>={};
+complaints.forEach(c=>{categoryCount[c.category]=(categoryCount[c.category]||0)+1});
+const categoryData = Object.entries(categoryCount).map(([name,value])=>({name,value,color:"#8884d8"}));
+
 
   const departmentPerformance = [
     { department: "IT Department", avgResolutionTime: 1.2, satisfactionScore: 4.3 },
@@ -78,12 +91,10 @@ export function Analytics() {
     { period: "Sem End", complaints: 25, type: "Administrative" },
   ];
 
-  const userTypeData = [
-    { type: "Students", percentage: 78, complaints: 156 },
-    { type: "Faculty/Staff", percentage: 18, complaints: 36 },
-    { type: "Parents", percentage: 3, complaints: 6 },
-    { type: "Visitors", percentage: 1, complaints: 2 },
-  ];
+  const userTypeCount:Record<string,number>={};
+complaints.forEach(c=>{userTypeCount[c.userType]=(userTypeCount[c.userType]||0)+1});
+const totalComplaints=complaints.length||1;
+const userTypeData = Object.entries(userTypeCount).map(([type,complaints])=>({type,complaints,percentage:Math.round((complaints as number)/totalComplaints*100)}));
 
   const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff7300", "#0088fe", "#00C49F"];
 

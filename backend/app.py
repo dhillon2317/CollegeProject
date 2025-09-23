@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from pymongo import MongoClient
 from bson import json_util
 from dotenv import load_dotenv
+from nltk.sentiment import SentimentIntensityAnalyzer
 from pathlib import Path
 
 # Load environment variables
@@ -23,15 +24,43 @@ def get_db():
     return client['complaint_analyzer']
 
 # --- Load All Models ---
-MODELS_DIR = 'models'
+# Determine the most likely location of the trained model artefacts.
+# 1. <backend>/models (preferred)
+# 2. <project_root>/sbackend/camplaint-analyzer/models (fallback – where train.py currently saves)
+BASE_DIR = Path(__file__).resolve().parent
+possible_model_dirs = [
+    BASE_DIR / 'models',
+    BASE_DIR.parent / 'sbackend' / 'camplaint-analyzer' / 'models'
+]
+MODELS_DIR = None
+for p in possible_model_dirs:
+    if p.exists():
+        MODELS_DIR = p
+        break
+if MODELS_DIR is None:
+    # Default to <backend>/models even if it does not exist yet.
+    MODELS_DIR = BASE_DIR / 'models'
+
+# Try loading all four models. If any are missing, set a flag so the /analyze
+# endpoint can respond with a meaningful error instead of crashing.
+models_loaded = False
+# Sentiment analyzer (VADER)
 try:
-    category_model = joblib.load(os.path.join(MODELS_DIR, 'category_model.pkl'))
-    priority_model = joblib.load(os.path.join(MODELS_DIR, 'priority_model.pkl'))
-    type_model = joblib.load(os.path.join(MODELS_DIR, 'type_model.pkl'))
-    department_model = joblib.load(os.path.join(MODELS_DIR, 'department_model.pkl'))
-    print("All 4 models loaded successfully.")
+    sia = SentimentIntensityAnalyzer()
+except LookupError:
+    import nltk
+    nltk.download('vader_lexicon')
+    sia = SentimentIntensityAnalyzer()
+try:
+    category_model = joblib.load(MODELS_DIR / 'category_model.pkl')
+    priority_model = joblib.load(MODELS_DIR / 'priority_model.pkl')
+    type_model = joblib.load(MODELS_DIR / 'type_model.pkl')
+    department_model = joblib.load(MODELS_DIR / 'department_model.pkl')
+    models_loaded = True
+    print(f"Models loaded successfully from '{MODELS_DIR}'.")
 except FileNotFoundError:
-    print("Error: Model files not found. Please run train.py first.")
+    print("Error: One or more model files not found in", MODELS_DIR)
+    print("Please run the training script to generate the necessary .pkl files.")
 
 @app.route('/analyze', methods=['POST'])
 def analyze_complaint():
@@ -42,12 +71,24 @@ def analyze_complaint():
         if not complaint_text:
             return jsonify({'error': 'Complaint text cannot be empty'}), 400
 
+        if not models_loaded:
+            return jsonify({'error': 'AI models are not available on the server. Please train the models and restart the backend.'}), 503
+
         # Predictions from all models
         predicted_category = category_model.predict([complaint_text])[0]
         predicted_priority = priority_model.predict([complaint_text])[0]
         predicted_type = type_model.predict([complaint_text])[0]
         assigned_department = department_model.predict([complaint_text])[0]
         
+        # Sentiment
+        sent_score = sia.polarity_scores(complaint_text)['compound']
+        if sent_score >= 0.05:
+            sentiment = 'Positive'
+        elif sent_score <= -0.05:
+            sentiment = 'Negative'
+        else:
+            sentiment = 'Neutral'
+
         # Confidence score
         category_probas = category_model.predict_proba([complaint_text])
         confidence = round(category_probas.max() * 100, 2)
@@ -58,7 +99,8 @@ def analyze_complaint():
             'priority': predicted_priority,
             'type': predicted_type,
             'assignedDepartment': assigned_department,
-            'aiConfidence': confidence
+            'aiConfidence': confidence,
+            'sentiment': sentiment
         }
         
         return jsonify(response)
@@ -90,11 +132,34 @@ def create_complaint():
             'userType': data['userType'],
             'status': data.get('status', 'Pending'),
             'createdAt': data.get('createdAt', datetime.utcnow()),
-            'aiAnalyzed': data.get('aiAnalyzed', False)
+            'aiAnalyzed': data.get('aiAnalyzed', False),
+            'sentiment': data.get('sentiment')
         }
         
         result = complaints.insert_one(new_complaint)
         new_complaint['_id'] = str(result.inserted_id)
+
+        # --- Append to incremental CSV for future model training ---
+        try:
+            import csv
+            BASE_DIR = Path(__file__).resolve().parent.parent  # project root
+            inc_csv = BASE_DIR / 'sbackend' / 'camplaint-analyzer' / 'user_data.csv'
+            inc_csv.parent.mkdir(parents=True, exist_ok=True)
+            write_header = not inc_csv.exists()
+            with inc_csv.open('a', newline='', encoding='utf-8') as f:
+                writer = csv.writer(f)
+                if write_header:
+                    writer.writerow(['complaint_text', 'category', 'priority', 'department', 'type', 'sentiment'])
+                writer.writerow([
+                    new_complaint['description'],
+                    new_complaint['category'],
+                    new_complaint['priority'],
+                    new_complaint['department'],
+                    new_complaint['userType'],
+                    new_complaint.get('sentiment', '')
+                ])
+        except Exception as log_e:
+            print('Warning: could not append to incremental CSV:', log_e)
         
         return json_util.dumps(new_complaint), 201
         

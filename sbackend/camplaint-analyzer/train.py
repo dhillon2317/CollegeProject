@@ -6,14 +6,29 @@ from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report
 import joblib
 import os
+from pathlib import Path
 
 print("Training script started...")
 
-# --- Step 1: Load Data ---
-DATA_PATH = os.path.join(os.path.dirname(__file__), 'complaints.csv')
-df = pd.read_csv(DATA_PATH)
-df.dropna(subset=['complaint_text', 'category', 'priority', 'type', 'department'], inplace=True)
-print(f"Data loaded successfully. Total complaints: {len(df)}")
+# --- Step 1: Load Data (base + incremental) ---
+BASE_DIR = Path(__file__).parent
+main_csv = BASE_DIR / 'complaints.csv'
+inc_csv  = BASE_DIR / 'user_data.csv'
+
+print("Loading training data ...")
+
+df_main = pd.read_csv(main_csv)
+if inc_csv.exists():
+    df_inc = pd.read_csv(inc_csv)
+    print(f"Found incremental user data: {len(df_inc)} rows")
+    df = pd.concat([df_main, df_inc], ignore_index=True)
+else:
+    df = df_main
+
+# ensure required columns and drop empties
+required_cols = ['complaint_text', 'category', 'priority', 'type', 'department']
+df.dropna(subset=required_cols, inplace=True)
+print(f"Total complaints in training set: {len(df)}")
 
 X = df['complaint_text']
 
