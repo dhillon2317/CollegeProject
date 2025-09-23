@@ -1,15 +1,17 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import joblib
-import os
-import json
-import uuid
-from datetime import datetime, timedelta
-from pymongo import MongoClient
-from bson import json_util
 from dotenv import load_dotenv
+import joblib
+import pandas as pd
 from nltk.sentiment import SentimentIntensityAnalyzer
-from pathlib import Path
+import nltk
+nltk.download('vader_lexicon')
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Load environment variables
 load_dotenv()
@@ -17,106 +19,92 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+# Global variables for models
+category_model = None
+priority_model = None
+type_model = None
+department_model = None
+sia = None
+models_loaded = False
+
+def load_models():
+    """Load all required ML models"""
+    global category_model, priority_model, type_model, department_model, sia, models_loaded
+    
+    try:
+        # Load sentiment analyzer
+        nltk.download('vader_lexicon')
+        sia = SentimentIntensityAnalyzer()
+        
+        # Load ML models - update these paths as needed
+        model_dir = os.path.join(os.path.dirname(__file__), 'models')
+        
+        category_model = joblib.load(os.path.join(model_dir, 'category_model.pkl'))
+        priority_model = joblib.load(os.path.join(model_dir, 'priority_model.pkl'))
+        type_model = joblib.load(os.path.join(model_dir, 'type_model.pkl'))
+        department_model = joblib.load(os.path.join(model_dir, 'department_model.pkl'))
+        
+        models_loaded = True
+        logger.info("All models loaded successfully")
+    except Exception as e:
+        logger.error(f"Error loading models: {str(e)}")
+        models_loaded = False
+
+# Load models when the app starts
+load_models()
+
 # MongoDB connection
 def get_db():
     MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/')
     client = MongoClient(MONGODB_URI)
     return client['complaint_analyzer']
 
-# --- Load All Models ---
-# Determine the most likely location of the trained model artefacts.
-# 1. <backend>/models (preferred)
-# 2. <project_root>/sbackend/camplaint-analyzer/models (fallback – where train.py currently saves)
-BASE_DIR = Path(__file__).resolve().parent
-possible_model_dirs = [
-    BASE_DIR / 'models',
-    BASE_DIR.parent / 'sbackend' / 'camplaint-analyzer' / 'models'
-]
-MODELS_DIR = None
-for p in possible_model_dirs:
-    if p.exists():
-        MODELS_DIR = p
-        break
-if MODELS_DIR is None:
-    # Default to <backend>/models even if it does not exist yet.
-    MODELS_DIR = BASE_DIR / 'models'
+# Health check endpoint
+@app.route('/health')
+def health_check():
+    return jsonify({
+        'status': 'ok',
+        'models_loaded': models_loaded
+    })
 
-# Try loading all four models. If any are missing, set a flag so the /analyze
-# endpoint can respond with a meaningful error instead of crashing.
-models_loaded = False
-# Sentiment analyzer (VADER)
-try:
-    sia = SentimentIntensityAnalyzer()
-except LookupError:
-    import nltk
-    nltk.download('vader_lexicon')
-    sia = SentimentIntensityAnalyzer()
-try:
-    category_model = joblib.load(MODELS_DIR / 'category_model.pkl')
-    priority_model = joblib.load(MODELS_DIR / 'priority_model.pkl')
-    type_model = joblib.load(MODELS_DIR / 'type_model.pkl')
-    department_model = joblib.load(MODELS_DIR / 'department_model.pkl')
-    models_loaded = True
-    print(f"Models loaded successfully from '{MODELS_DIR}'.")
-except FileNotFoundError:
-    print("Error: One or more model files not found in", MODELS_DIR)
-    print("Please run the training script to generate the necessary .pkl files.")
-
-@app.route('/analyze', methods=['POST'])
+# Analyze complaint endpoint
+@app.route('/api/analyze', methods=['POST'])
 def analyze_complaint():
     try:
-        data = request.get_json(force=True)
+        data = request.get_json()
         complaint_text = data.get('complaint', '')
-
+        
         if not complaint_text:
-            return jsonify({'error': 'Complaint text cannot be empty'}), 400
+            return jsonify({'error': 'Complaint text is required'}), 400
 
         if not models_loaded:
-            return jsonify({'error': 'AI models are not available on the server. Please train the models and restart the backend.'}), 503
+            return jsonify({'error': 'AI models not loaded'}), 503
 
-        # Predictions from all models
+        # Make predictions
         predicted_category = str(category_model.predict([complaint_text])[0])
         predicted_priority = str(priority_model.predict([complaint_text])[0])
         predicted_type = str(type_model.predict([complaint_text])[0])
         assigned_department = str(department_model.predict([complaint_text])[0])
         
-        # Debug print
-        print(f"Raw type prediction: {predicted_type}")
-        
-        # Sentiment
-        sent_score = sia.polarity_scores(complaint_text)['compound']
-        if sent_score >= 0.05:
-            sentiment = 'Positive'
-        elif sent_score <= -0.05:
-            sentiment = 'Negative'
-        else:
-            sentiment = 'Neutral'
+        # Sentiment analysis
+        sentiment_score = sia.polarity_scores(complaint_text)['compound']
+        sentiment = 'Positive' if sentiment_score >= 0.05 else 'Negative' if sentiment_score <= -0.05 else 'Neutral'
 
-        # Confidence score
-        category_probas = category_model.predict_proba([complaint_text])
-        confidence = round(category_probas.max() * 100, 2)
+        # Determine if technical
+        is_technical = predicted_type.lower() == 'technical'
 
-        # Ensure type is properly set to Technical or Non-Technical
-        predicted_type = 'Technical' if predicted_type.lower() == 'technical' else 'Non-Technical'
-        is_technical = predicted_type == 'Technical'
-        print(f"Processed type: {predicted_type}, is_technical: {is_technical}")
-
-        response = {
-            'complaintText': complaint_text,
+        return jsonify({
             'category': predicted_category,
             'priority': predicted_priority,
-            'type': predicted_type,  # This should be 'Technical' or 'Non-Technical' from the model
-            'assignedDepartment': assigned_department,
-            'aiConfidence': confidence,
+            'type': predicted_type,
+            'department': assigned_department,
             'sentiment': sentiment,
             'isTechnical': is_technical
-        }
-        
-        return jsonify(response)
+        })
 
     except Exception as e:
-        print(f"An error occurred: {e}")
-        return jsonify({'error': 'An error occurred during analysis.'}), 500
+        logger.error(f"Error in analyze_complaint: {str(e)}")
+        return jsonify({'error': str(e)}), 500
 
 # Create a new complaint
 @app.route('/api/complaints', methods=['POST'])
@@ -236,4 +224,5 @@ def update_complaint(complaint_id):
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
