@@ -121,6 +121,7 @@ export function ComplaintAnalysis({ complaintId, onChangeDomain }: ComplaintAnal
     }
   };
 
+
   return (
     <div className="space-y-6">
 

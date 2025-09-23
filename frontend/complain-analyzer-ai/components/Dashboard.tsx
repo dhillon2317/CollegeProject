@@ -21,6 +21,7 @@ interface Complaint {
   status: string;
   createdAt: string;
   aiAnalyzed?: boolean;
+  isTechnical?: boolean;
 }
 
 interface ComplaintStats {
@@ -169,9 +170,9 @@ export function Dashboard() {
               Latest complaints with AI-powered categorization and priority assessment
             </CardDescription>
           </div>
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <Button
+            variant="outline"
+            size="sm"
             onClick={handleRefresh}
             disabled={isRefreshing}
             className="flex items-center gap-2"
@@ -214,26 +215,28 @@ export function Dashboard() {
                           </div>
                         </div>
                       </div>
-                      
+
                       {complaint.description && (
                         <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
                           {complaint.description}
                         </p>
                       )}
                     </div>
-                    
+
                     {complaint.aiAnalyzed && (
                       <Badge variant="secondary" className="ml-2 bg-green-100 text-green-800 hover:bg-green-100">
                         AI Analyzed
                       </Badge>
                     )}
                   </div>
-                  
+
                   <div className="pt-2 border-t border-border/50 mt-2">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
                       <div className="flex items-center gap-1.5">
-                        <span className="font-medium text-muted-foreground">Type:</span>
-                        <span className="font-medium">{complaint.type}</span>
+                        <span className="font-medium text-muted-foreground">Category:</span>
+                        <div className="px-2 py-0.5 rounded-md text-xs font-medium border whitespace-nowrap bg-gray-50 text-gray-700 border-gray-200">
+                          {complaint.category}
+                        </div>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className="font-medium text-muted-foreground">Department:</span>
@@ -253,7 +256,7 @@ export function Dashboard() {
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
               ))
             ) : (

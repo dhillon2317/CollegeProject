@@ -1,10 +1,10 @@
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Progress } from "./ui/progress";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { TrendingUp, AlertTriangle, Clock, Target, Users, Zap } from "lucide-react";
 import { getCurrentDomain } from "./DomainConfig";
-import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 
 interface Complaint {
@@ -38,6 +38,14 @@ export function Analytics() {
   const categoryCount:Record<string,number>={};
 complaints.forEach(c=>{categoryCount[c.category]=(categoryCount[c.category]||0)+1});
 const categoryData = Object.entries(categoryCount).map(([name,value])=>({name,value,color:"#8884d8"}));
+  const defaultCategoryData = [
+    { name: "Fee & Financial Issues", value: 22, color: "#82ca9d" },
+    { name: "IT & Technical Support", value: 18, color: "#ffc658" },
+    { name: "Food Services/Canteen", value: 15, color: "#ff7300" },
+    { name: "Parking & Transportation", value: 10, color: "#0088fe" },
+    { name: "Other", value: 7, color: "#00C49F" },
+  ];
+  const pieChartData = categoryData.length ? categoryData : defaultCategoryData;
 
 
   const departmentPerformance = [
@@ -91,10 +99,24 @@ const categoryData = Object.entries(categoryCount).map(([name,value])=>({name,va
     { period: "Sem End", complaints: 25, type: "Administrative" },
   ];
 
+    // Calculate user type distribution
   const userTypeCount:Record<string,number>={};
-complaints.forEach(c=>{userTypeCount[c.userType]=(userTypeCount[c.userType]||0)+1});
-const totalComplaints=complaints.length||1;
-const userTypeData = Object.entries(userTypeCount).map(([type,complaints])=>({type,complaints,percentage:Math.round((complaints as number)/totalComplaints*100)}));
+  complaints.forEach(c=>{userTypeCount[c.userType]=(userTypeCount[c.userType]||0)+1});
+  const totalComplaints=complaints.length||1;
+  const userTypeData = Object.entries(userTypeCount).map(([type,complaints])=>({type,complaints,percentage:Math.round((complaints as number)/totalComplaints*100)}));
+
+  // Calculate complaint type distribution
+  const typeCount:Record<string,number>={};
+  complaints.forEach(c=>{typeCount[c.type]=(typeCount[c.type]||0)+1});
+  const typeData = Object.entries(typeCount).map(([name,value])=>({name,value,color:"#8884d8"}));
+  const defaultTypeData = [
+    { name: "Academic", value: 35, color: "#8884d8" },
+    { name: "Infrastructure", value: 25, color: "#82ca9d" },
+    { name: "Administrative", value: 20, color: "#ffc658" },
+    { name: "Facilities", value: 15, color: "#ff7300" },
+    { name: "Other", value: 5, color: "#0088fe" },
+  ];
+  const pieTypeData = typeData.length ? typeData : defaultTypeData;
 
   const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff7300", "#0088fe", "#00C49F"];
 
@@ -198,15 +220,15 @@ const userTypeData = Object.entries(userTypeCount).map(([type,complaints])=>({ty
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
-                  data={categoryData}
+                  data={pieChartData}
                   cx="50%"
                   cy="50%"
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"
-                  label={({ name, percent }) => `${name.split('/')[0]} ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent = 0 }) => `${name.split('/')[0]} ${(percent * 100).toFixed(0)}%`}
                 >
-                  {categoryData.map((entry, index) => (
+                  {pieChartData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
@@ -217,28 +239,58 @@ const userTypeData = Object.entries(userTypeCount).map(([type,complaints])=>({ty
         </Card>
       </div>
 
-      {/* User Type Analysis */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Complaints by User Type</CardTitle>
-          <CardDescription>Who is submitting complaints and their satisfaction levels</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {userTypeData.map((userType, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">{userType.type}</span>
-                  <div className="text-sm text-muted-foreground">
-                    {userType.complaints} complaints ({userType.percentage}%)
+      {/* Complaints by Type */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Complaints by Type</CardTitle>
+            <CardDescription>Distribution of complaint types across the institution</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={pieTypeData}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                >
+                  {pieTypeData.map((entry, index) => (
+                    <Cell key={`type-cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* User Type Analysis */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Complaints by User Type</CardTitle>
+            <CardDescription>Who is submitting complaints and their satisfaction levels</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {userTypeData.map((userType, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-medium">{userType.type}</span>
+                    <div className="text-sm text-muted-foreground">
+                      {userType.complaints} complaints ({userType.percentage}%)
+                    </div>
                   </div>
+                  <Progress value={userType.percentage} />
                 </div>
-                <Progress value={userType.percentage} />
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Department Performance */}
       <Card>

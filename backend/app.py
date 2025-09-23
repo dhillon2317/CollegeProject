@@ -75,10 +75,13 @@ def analyze_complaint():
             return jsonify({'error': 'AI models are not available on the server. Please train the models and restart the backend.'}), 503
 
         # Predictions from all models
-        predicted_category = category_model.predict([complaint_text])[0]
-        predicted_priority = priority_model.predict([complaint_text])[0]
-        predicted_type = type_model.predict([complaint_text])[0]
-        assigned_department = department_model.predict([complaint_text])[0]
+        predicted_category = str(category_model.predict([complaint_text])[0])
+        predicted_priority = str(priority_model.predict([complaint_text])[0])
+        predicted_type = str(type_model.predict([complaint_text])[0])
+        assigned_department = str(department_model.predict([complaint_text])[0])
+        
+        # Debug print
+        print(f"Raw type prediction: {predicted_type}")
         
         # Sentiment
         sent_score = sia.polarity_scores(complaint_text)['compound']
@@ -93,14 +96,20 @@ def analyze_complaint():
         category_probas = category_model.predict_proba([complaint_text])
         confidence = round(category_probas.max() * 100, 2)
 
+        # Ensure type is properly set to Technical or Non-Technical
+        predicted_type = 'Technical' if predicted_type.lower() == 'technical' else 'Non-Technical'
+        is_technical = predicted_type == 'Technical'
+        print(f"Processed type: {predicted_type}, is_technical: {is_technical}")
+
         response = {
             'complaintText': complaint_text,
             'category': predicted_category,
             'priority': predicted_priority,
-            'type': predicted_type,
+            'type': predicted_type,  # This should be 'Technical' or 'Non-Technical' from the model
             'assignedDepartment': assigned_department,
             'aiConfidence': confidence,
-            'sentiment': sentiment
+            'sentiment': sentiment,
+            'isTechnical': is_technical
         }
         
         return jsonify(response)
