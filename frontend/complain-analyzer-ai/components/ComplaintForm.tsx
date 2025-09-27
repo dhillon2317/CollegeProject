@@ -1,14 +1,26 @@
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { CheckCircle, Send, Sparkles, Loader2 } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 import { Label } from "./ui/label";
 import React from "react";
 import { toast } from "sonner";
-  type FormData = {
+type FormData = {
   title: string;
   description: string;
   category: string;
@@ -22,152 +34,215 @@ export function ComplaintForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",
     category: "",
     department: "",
-    priority: "Medium",
+    priority: "", // Default priority is now empty
     contactInfo: "",
-    userType: "Student"
+    userType: "Student",
   });
 
-  const categories = [
-    "Academic",
-    "Facilities",
-    "Staff Related",
-    "Hygiene & Sanitation",
-    "Security",
-    "Other"
+  // The 'categories', 'departments', and 'priorities' arrays are no longer needed.
+  // const categories = [
+  //   "Academic",
+  //   "Facilities",
+  //   "Staff Related",
+  //   "Hygiene & Sanitation",
+  //   "Security",
+  //   "Other",
+  // ];
+  // const departments = [
+  //   "Academic Office",
+  //   "Facilities Management",
+  //   "IT Department",
+  //   "Human Resources",
+  //   "Student Affairs",
+  //   "Security",
+  // ];
+  // const priorities = ["Low", "Medium", "High", "Critical"];
+
+  const userTypes = [
+    "Student",
+    "Faculty/Staff",
+    "Parent/Guardian",
+    "Visitor",
+    "Other",
   ];
 
-  const departments = [
-    "Academic Office",
-    "Facilities Management",
-    "IT Department",
-    "Human Resources",
-    "Student Affairs",
-    "Security"
-  ];
+  // The 'categories' array is no longer needed as it's determined by AI.
+  // const categories = [
+  //   "Academic",
+  //   "Facilities",
+  //   "Staff Related",
+  //   "Hygiene & Sanitation",
+  //   "Security",
+  //   "Other",
+  // ];
 
-  const priorities = ["Low", "Medium", "High", "Critical"];
-  const userTypes = ["Student", "Faculty/Staff", "Parent/Guardian", "Visitor", "Other"];
+  //   "Other",
+  // ];
+
+  // const departments = [
+  //   "Academic Office",
+  //   "Facilities Management",
+  //   "IT Department",
+  //   "Human Resources",
+  //   "Student Affairs",
+  //   "Security",
+  // ];
+
+  // const priorities = ["Low", "Medium", "High", "Critical"];
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
   const handleSelectChange = (value: string, name: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const analyzeComplaint = async (text: string) => {
+    if (!text) {
+      toast.warning("Please enter a complaint description first.");
+      return null;
+    }
+
+    setIsAnalyzing(true);
     try {
-      const response = await fetch('http://localhost:5001/analyze', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/analyze", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ complaint: text }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to analyze complaint');
+        const errorData = await response
+          .json()
+          .catch(() => ({ error: "Failed to analyze complaint" }));
+        throw new Error(errorData.error || "Analysis failed");
       }
 
       const data = await response.json();
+      toast.success("Complaint analyzed successfully!");
       return data;
     } catch (error) {
-      console.error('Error analyzing complaint:', error);
-      toast.error('Failed to analyze complaint. Using default values.');
+      console.error("Error analyzing complaint:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred.";
+      toast.error(`Analysis Error: ${errorMessage}`);
       return null;
+    } finally {
+      setIsAnalyzing(false);
     }
   };
 
   const handleAnalyze = async () => {
-    if (!formData.description) {
-      toast.warning('Please enter a complaint description first');
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const analysis = await analyzeComplaint(formData.description);
-      if (analysis) {
-        setFormData(prev => ({
-          ...prev,
-          category: analysis.category || prev.category,
-          priority: analysis.priority || prev.priority,
-          department: analysis.assignedDepartment || prev.department,
-          userType: analysis.type || prev.userType
-        }));
-        toast.success('Complaint analyzed successfully!');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      toast.error('Failed to analyze complaint');
-    } finally {
-      setIsAnalyzing(false);
-      setIsLoading(false);
+    const analysis = await analyzeComplaint(formData.description);
+    if (analysis) {
+      setFormData((prev) => ({
+        ...prev,
+        category: analysis.category || prev.category,
+        priority: analysis.priority || prev.priority,
+        department: analysis.assignedDepartment || prev.department,
+        // Assuming your 'type' model predicts the userType
+        userType: analysis.type || prev.userType,
+      }));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
+      let finalFormData = { ...formData };
+
+      // If category is missing, it means AI analysis hasn't been run.
+      // Run it now before submitting.
+      if (!finalFormData.category) {
+        toast.info("AI is analyzing your complaint before submission...");
+        const analysis = await analyzeComplaint(formData.description);
+        if (analysis) {
+          finalFormData = {
+            ...finalFormData,
+            category: analysis.category,
+            priority: analysis.priority,
+            department: analysis.assignedDepartment,
+            userType: analysis.type,
+          };
+        } else {
+          // If analysis fails, stop the submission
+          throw new Error("AI analysis failed. Please try again.");
+        }
+      }
+
       const requestBody = {
-        ...formData,
-        status: 'Pending',
+        ...finalFormData,
+        status: "Pending",
         createdAt: new Date().toISOString(),
-        aiAnalyzed: true
+        aiAnalyzed: true,
       };
-      
-      console.log('Sending request to backend:', JSON.stringify(requestBody, null, 2));
-      
-      const response = await fetch('http://localhost:5001/api/complaints', {
-        method: 'POST',
+
+      console.log(
+        "Sending request to backend:",
+        JSON.stringify(requestBody, null, 2)
+      );
+
+      const response = await fetch("http://localhost:5001/api/complaints", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
       });
 
       const responseData = await response.json().catch(() => ({}));
-      
+
       if (!response.ok) {
-        console.error('Backend error response:', response.status, response.statusText, responseData);
-        throw new Error(responseData.error || 'Failed to submit complaint');
+        console.error(
+          "Backend error response:",
+          response.status,
+          response.statusText,
+          responseData
+        );
+        throw new Error(
+          responseData.error ||
+            `Failed to submit complaint. Status: ${response.status}`
+        );
       }
 
-      console.log('Complaint submitted successfully:', responseData);
+      console.log("Complaint submitted successfully:", responseData);
       setIsSubmitted(true);
-      toast.success('Complaint submitted successfully!');
-      
-      // Reset form after 3 seconds
+      toast.success("Complaint submitted successfully!");
+
       setTimeout(() => {
         setFormData({
           title: "",
           description: "",
           category: "",
           department: "",
-          priority: "Medium",
+          priority: "", // Reset priority
           contactInfo: "",
-          userType: "Student"
+          userType: "Student",
         });
         setIsSubmitted(false);
       }, 3000);
-      
     } catch (error) {
-      console.error('Error submitting complaint:', error);
-      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+      console.error("Error submitting complaint:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred";
       toast.error(`Failed to submit complaint: ${errorMessage}`);
     } finally {
       setIsLoading(false);
@@ -178,9 +253,15 @@ export function ComplaintForm() {
     return (
       <div className="text-center p-8">
         <CheckCircle className="mx-auto h-12 w-12 text-green-500 mb-4" />
-        <h3 className="text-xl font-semibold mb-2">Complaint Submitted Successfully!</h3>
-        <p className="text-gray-600 mb-4">Your complaint has been received and is being processed.</p>
-        <Button onClick={() => window.location.reload()}>Submit Another Complaint</Button>
+        <h3 className="text-xl font-semibold mb-2">
+          Complaint Submitted Successfully!
+        </h3>
+        <p className="text-gray-600 mb-4">
+          Your complaint has been received and is being processed.
+        </p>
+        <Button onClick={() => window.location.reload()}>
+          Submit Another Complaint
+        </Button>
       </div>
     );
   }
@@ -202,7 +283,7 @@ export function ComplaintForm() {
                 id="title"
                 placeholder="Brief title of your complaint"
                 value={formData.title}
-                onChange={(e) => handleInputChange('title', e.target.value)}
+                onChange={(e) => handleInputChange("title", e.target.value)}
                 className="border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary"
                 required
               />
@@ -211,15 +292,15 @@ export function ComplaintForm() {
             <div className="space-y-2">
               <div className="flex justify-between items-center">
                 <Label htmlFor="description">Complaint Details *</Label>
-                <Button 
+                <Button
                   type="button"
                   variant="ghost"
                   size="sm"
                   onClick={handleAnalyze}
-                  disabled={isLoading || !formData.description}
+                  disabled={isAnalyzing || !formData.description}
                   className="text-sm"
                 >
-                  {isLoading ? (
+                  {isAnalyzing ? (
                     <Loader2 className="h-4 w-4 animate-spin mr-1" />
                   ) : (
                     <Sparkles className="h-4 w-4 mr-1" />
@@ -232,7 +313,9 @@ export function ComplaintForm() {
                 placeholder="Please describe your complaint in detail..."
                 className="min-h-[120px] border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary"
                 value={formData.description}
-                onChange={(e) => handleInputChange('description', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("description", e.target.value)
+                }
                 required
               />
             </div>
@@ -241,7 +324,7 @@ export function ComplaintForm() {
               <Label htmlFor="userType">You are *</Label>
               <Select
                 value={formData.userType}
-                onValueChange={(value) => handleSelectChange(value, 'userType')}
+                onValueChange={(value) => handleSelectChange(value, "userType")}
               >
                 <SelectTrigger className="border-2 border-gray-200 focus:ring-1 focus:ring-primary focus:border-primary">
                   <SelectValue placeholder="Select your role" />
@@ -263,70 +346,16 @@ export function ComplaintForm() {
                 type="email"
                 placeholder="Your email or phone number"
                 value={formData.contactInfo}
-                onChange={(e) => handleInputChange('contactInfo', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("contactInfo", e.target.value)
+                }
                 className="border-2 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary"
                 required
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="category">Category *</Label>
-                <Select
-                  value={formData.category}
-                  onValueChange={(value) => handleSelectChange(value, 'category')}
-                >
-                  <SelectTrigger className="border-2 border-gray-200 focus:ring-1 focus:ring-primary focus:border-primary">
-                    <SelectValue placeholder="Select a category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* <div className="space-y-2">
-                <Label htmlFor="department">Department *</Label>
-                <Select
-                  value={formData.department}
-                  onValueChange={(value) => handleSelectChange(value, 'department')}
-                >
-                  <SelectTrigger className="border-2 border-gray-200 focus:ring-1 focus:ring-primary focus:border-primary">
-                    <SelectValue placeholder="Select department" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {departments.map((dept) => (
-                      <SelectItem key={dept} value={dept}>
-                        {dept}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div> */}
-            </div>
-
-            {/* <div className="space-y-2">
-              <Label>Priority Level</Label>
-              <Select
-                value={formData.priority}
-                onValueChange={(value) => handleSelectChange(value, 'priority')}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="How urgent is this issue?" />
-                </SelectTrigger>
-                <SelectContent>
-                  {priorities.map((level) => (
-                    <SelectItem key={level} value={level}>
-                      {level}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div> */}
+            {/* Department and Priority are now handled by AI and are not user-selectable fields. */}
+            {/* You can see the AI-selected values on the dashboard. */}
 
             <div className="flex justify-end">
               <Button type="submit" disabled={isLoading}>
@@ -343,7 +372,6 @@ export function ComplaintForm() {
                 )}
               </Button>
             </div>
-
           </div>
         </form>
       </CardContent>

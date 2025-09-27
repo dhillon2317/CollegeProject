@@ -6,3 +6,7 @@ torch
 scikit-learn
 spacy
 sentence-transformers
+flask
+pymongo
+flask-cors
+dotenv
