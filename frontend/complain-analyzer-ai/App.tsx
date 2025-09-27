@@ -18,8 +18,7 @@ import {
 
 import { Dashboard } from "./components/Dashboard";
 import { ComplaintForm } from "./components/ComplaintForm";
-import { ComplaintAnalysis } from "./components/ComplaintAnalysis";
-import { Analytics } from "./components/Analytics";
+import { ComplaintAnalytics } from "./components/ComplaintAnalytics";
 import { DomainSelector } from "./components/DomainSelector";
 import { getCurrentDomain, type DomainConfig } from "./components/DomainConfig";
 
@@ -105,7 +104,7 @@ export default function App() {
       {/* Main Content */}
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList id="selector-elector" className="bg-muted text-muted-foreground items-center justify-center rounded-[25px] py-[2px] px-[-1px] grid w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl grid-cols-4 mb-4 md:mb-6 h-11 mx-auto">
+          <TabsList id="selector-elector" className="bg-muted text-muted-foreground items-center justify-center rounded-[25px] py-[2px] px-[-1px] grid w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl grid-cols-3 mb-4 md:mb-6 h-11 mx-auto">
             <TabsTrigger value="dashboard" className="flex items-center justify-center gap-1 py-2 text-xs md:text-sm rounded-[25px] min-w-0">
               <LayoutDashboard className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               <span className="hidden md:inline truncate">Dashboard</span>
@@ -113,10 +112,6 @@ export default function App() {
             <TabsTrigger value="submit" className="flex items-center justify-center gap-1 py-2 text-xs md:text-sm rounded-[25px] min-w-0">
               <Plus className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               <span className="hidden md:inline truncate">Submit</span>
-            </TabsTrigger>
-            <TabsTrigger value="analysis" className="flex items-center justify-center gap-1 py-2 text-xs md:text-sm rounded-[25px] min-w-0">
-              <Brain className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
-              <span className="hidden md:inline truncate">Analysis</span>
             </TabsTrigger>
             <TabsTrigger value="analytics" className="flex items-center justify-center gap-1 py-2 text-xs md:text-sm rounded-[25px] min-w-0">
               <BarChart3 className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
@@ -147,16 +142,6 @@ export default function App() {
             <ComplaintForm />
           </TabsContent>
 
-          <TabsContent value="analysis" className="space-y-4 md:space-y-6">
-            <div className="mb-4 md:mb-6">
-              <h2 className="text-xl md:text-2xl font-semibold mb-2">Detailed AI Analysis</h2>
-              <p className="text-sm md:text-base text-muted-foreground">
-                In-depth analysis of a college complaint with AI-generated insights and recommended actions
-              </p>
-            </div>
-            <ComplaintAnalysis complaintId="C001" onChangeDomain={handleChangeDomain} />
-          </TabsContent>
-
           <TabsContent value="analytics" className="space-y-4 md:space-y-6">
             <div className="mb-4 md:mb-6">
               <h2 className="text-xl md:text-2xl font-semibold mb-2">Analytics & Insights</h2>
@@ -165,7 +150,7 @@ export default function App() {
                 specific to {selectedDomain.name.toLowerCase()}s
               </p>
             </div>
-            <Analytics />
+            <ComplaintAnalytics />
           </TabsContent>
         </Tabs>
       </div>
