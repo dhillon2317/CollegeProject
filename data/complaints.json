@@ -1,1 +1,28 @@
-[]
+[
+    {
+        "_id": "1",
+        "title": "campus issue",
+        "description": "The campus needs more dustbins",
+        "category": "Infrastructure",
+        "department": "Housekeeping",
+        "priority": "Low",
+        "contactInfo": "soorma@gmail.com",
+        "userType": "Non-Technical",
+        "status": "Pending",
+        "createdAt": "2025-09-27T17:08:25.796328",
+        "aiAnalyzed": true
+    },
+    {
+        "_id": "2",
+        "title": "contaminated water",
+        "description": "water is contaminated in college premises",
+        "category": "Infrastructure",
+        "department": "Maintenance",
+        "priority": "Medium",
+        "contactInfo": "sdsdsd@gmail.com",
+        "userType": "Non-Technical",
+        "status": "Pending",
+        "createdAt": "2025-09-28T06:24:40.294337",
+        "aiAnalyzed": true
+    }
+]

@@ -26,6 +26,25 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [selectedDomain, setSelectedDomain] = useState<DomainConfig | null>(null);
   const [showDomainSelector, setShowDomainSelector] = useState(false);
+  const [complaints, setComplaints] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const fetchComplaints = async () => {
+    try {
+      const response = await fetch('http://localhost:5001/api/complaints');
+      if (!response.ok) {
+        throw new Error('Failed to fetch complaints');
+      }
+      const data = await response.json();
+      setComplaints(data);
+    } catch (error) {
+      console.error('Error fetching complaints:', error);
+    } finally {
+      setIsLoading(false);
+      setIsRefreshing(false);
+    }
+  };
 
   useEffect(() => {
     const domain = getCurrentDomain();
@@ -36,6 +55,7 @@ export default function App() {
     } else {
       setSelectedDomain(domain);
     }
+    fetchComplaints();
   }, []);
 
   const handleDomainSelected = (domain: DomainConfig) => {
@@ -128,7 +148,12 @@ export default function App() {
                 Overview of all complaints and their AI-powered analysis status for your institution
               </p>
             </div>
-            <Dashboard />
+            <Dashboard 
+              complaints={complaints}
+              isLoading={isLoading}
+              isRefreshing={isRefreshing}
+              onRefresh={fetchComplaints}
+            />
           </TabsContent>
 
           <TabsContent value="submit" className="space-y-4 md:space-y-6">
@@ -150,7 +175,7 @@ export default function App() {
                 specific to {selectedDomain.name.toLowerCase()}s
               </p>
             </div>
-            <ComplaintAnalytics />
+            <ComplaintAnalytics complaints={complaints} />
           </TabsContent>
         </Tabs>
       </div>

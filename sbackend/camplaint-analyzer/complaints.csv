@@ -1,61 +1,1601 @@
 complaint_text,category,priority,department,type
-"Ceiling fan not working in Lecture Hall 3",Infrastructure,Medium,Maintenance,Non-Technical
-"WIFI connectivity issues in Computer Lab",IT,High,IT Department,Technical
-"Library mein AC theek se cool nahi kar raha",Infrastructure,Low,Maintenance,Non-Technical
-"Exam results mein galti hai",Academics,High,Exam Cell,Non-Technical
-"Projector is broken in the main seminar room",IT,High,IT Department,Technical
-"Need new books for the civil engineering course",Academics,Low,Library,Non-Technical
-"Washroom on the second floor is not clean",Infrastructure,Medium,Housekeeping,Non-Technical
-"My ID card is lost, need to apply for a new one",Admin,Medium,Admin Office,Non-Technical
-"Hostel room window pane is cracked",Hostel,Medium,Hostel Maintenance,Non-Technical
-"The syllabus for the maths exam is not clear",Academics,Medium,Academics Department,Non-Technical
-"University website is down since morning",IT,High,IT Department,Technical
-"Canteen food quality is very bad",Admin,Low,Canteen Committee,Non-Technical
-"Need a bonafide certificate for my internship",Admin,Low,Admin Office,Non-Technical
-"Lab assistant is not available during practicals",Academics,Medium,Academics Department,Non-Technical
-"Water cooler on the ground floor is not working",Infrastructure,Medium,Maintenance,Non-Technical
-"My attendance record is showing incorrect data",Academics,High,Exam Cell,Technical
-"Slow internet speed in the entire campus",IT,Medium,IT Department,Technical
-"Security guard was rude at the main gate",Admin,Low,Security Office,Non-Technical
-"Hostel mess food is repetitive and tasteless",Hostel,Medium,Hostel Warden,Non-Technical
-"Request to arrange a guest lecture on AI",Academics,Low,Academics Department,Non-Technical
-"Classroom benches are broken in Room 204",Infrastructure,Medium,Maintenance,Non-Technical
-"Need access to new software in the computer lab",IT,Medium,IT Department,Technical
-"Fee payment portal is showing an error",Admin,High,Accounts Department,Technical
-"Street lights near the girls hostel are not working",Infrastructure,High,Maintenance,Non-Technical
-"My scholarship application status is still pending",Admin,Medium,Admin Office,Non-Technical
-"Hostel geyser is not working in block C",Hostel,High,Hostel Maintenance,Non-Technical
-"Library timings should be extended during exams",Academics,Medium,Library,Non-Technical
-"There are too many mosquitos in the classroom",Infrastructure,Low,Housekeeping,Non-Technical
-"The practical exam dates are clashing with theory papers",Academics,High,Exam Cell,Non-Technical
-"Need a No Dues Certificate for leaving college",Admin,High,Admin Office,Non-Technical
-"Biometric attendance machine is not working",IT,High,IT Department,Technical
-"Sports equipment is old and needs replacement",Admin,Medium,Sports Committee,Non-Technical
-"The chemistry lab is out of essential chemicals",Academics,High,Academics Department,Non-Technical
-"Request for a parking sticker for my vehicle",Admin,Low,Admin Office,Non-Technical
-"The fire extinguisher on my floor has expired",Infrastructure,High,Maintenance,Non-Technical
-"My login credentials for the student portal are not working",IT,High,IT Department,Technical
-"Need transcripts for higher studies application",Admin,High,Exam Cell,Non-Technical
-"The water purifier in the hostel is not clean",Hostel,Medium,Hostel Maintenance,Non-Technical
-"Please arrange for pest control in the hostel rooms",Hostel,Medium,Hostel Warden,Non-Technical
-"The college bus is always late",Admin,Medium,Transport Department,Non-Technical
-"Microphone in Auditorium is not working properly",IT,Medium,IT Department,Technical
-"The library's online database subscription has expired",Library,High,Library,Technical
-"Need to report a case of ragging",Admin,High,Anti-Ragging Cell,Non-Technical
-"The college website has outdated information",IT,Low,IT Department,Technical
-"Request to form a new student club",Academics,Low,Academics Department,Non-Technical
-"The drinking water tastes weird",Infrastructure,Medium,Maintenance,Non-Technical
-"My submitted assignment is not showing as graded",Academics,Medium,Academics Department,Technical
-"The campus Wi-Fi blocks certain educational websites",IT,Medium,IT Department,Technical
-"There is a water leakage in my hostel room ceiling",Hostel,High,Hostel Maintenance,Non-Technical
-"The lab computers have very old versions of software",IT,Medium,IT Department,Technical
-"Request for re-evaluation of my exam paper",Academics,High,Exam Cell,Non-Technical
-"The campus needs more dustbins",Infrastructure,Low,Housekeeping,Non-Technical
-"The online fee receipt is not getting generated",Admin,High,Accounts Department,Technical
-"Need information about the upcoming placement drive",Academics,Medium,Placement Cell,Non-Technical
-"The elevator in the main building is stuck",Infrastructure,High,Maintenance,Non-Technical
-"My name is spelled incorrectly on the mark sheet",Academics,High,Exam Cell,Non-Technical
-"The LAN port in my hostel room is not active",Hostel,Medium,IT Department,Technical
-"Need to book the seminar hall for an event",Admin,Medium,Admin Office,Non-Technical
-"The security cameras in the parking lot are not working",Infrastructure,High,Security Office,Technical
-"The syllabus was not completed before the exams",Academics,High,Academics Department,Non-Technical
+"The library needs more copies of the new engineering textbook.",Library,Medium,Library,Non-Technical
+"The Wi-Fi connection in the engineering building is unreliable.",IT,High,IT Department,Technical
+"The water dispenser on the 4th floor is broken.",Infrastructure,Medium,Maintenance,Non-Technical
+"My request for a transcript has been pending for two weeks.",Admin,High,Admin Office,Non-Technical
+"The projector in lecture hall 5 is not working.",IT,Medium,IT Department,Technical
+"The restrooms in the arts building are not clean.",Infrastructure,Medium,Housekeeping,Non-Technical
+"I need a fee receipt for the current semester.",Admin,Low,Accounts Department,Non-Technical
+"The latest version of the design software is not available in the computer lab.",IT,Medium,IT Department,Technical
+"My attendance for the history class is marked incorrectly.",Academics,High,Exam Cell,Technical
+"The food in the main cafeteria is often cold.",Hostel,Medium,Hostel Warden,Non-Technical
+"Request for a workshop on public speaking.",Academics,Low,Academics Department,Non-Technical
+"The gym equipment is outdated and needs replacement.",Infrastructure,Medium,Sports Committee,Non-Technical
+"My student ID card has a spelling error.",Admin,Medium,Admin Office,Non-Technical
+"The chemistry lab is missing essential safety equipment.",Academics,High,Academics Department,Non-Technical
+"The fire alarm on the 3rd floor went off for no reason.",Infrastructure,High,Maintenance,Non-Technical
+"I can't access the online student portal.",IT,High,IT Department,Technical
+"I need a recommendation letter for a scholarship application.",Admin,Low,Admin Office,Non-Technical
+"The door to my hostel room won't lock properly.",Hostel,High,Hostel Maintenance,Non-Technical
+"The final exam schedule conflicts with a religious holiday.",Academics,High,Exam Cell,Non-Technical
+"The campus needs more ramps for wheelchair accessibility.",Infrastructure,High,Maintenance,Non-Technical
+"The online library resources are not accessible off-campus.",Library,Medium,Library,Technical
+"A security guard was unhelpful when I reported a lost item.",Admin,Low,Security Office,Non-Technical
+"The physics lab is short on necessary supplies.",Academics,High,Academics Department,Non-Technical
+"Request to form a new debate club.",Academics,Low,Academics Department,Non-Technical
+"The drinking water from the fountain has a strange taste.",Infrastructure,Medium,Maintenance,Non-Technical
+"My assignment submission is not showing up on the course website.",Academics,Medium,Academics Department,Technical
+"The campus Wi-Fi is blocking access to a research database.",IT,Medium,IT Department,Technical
+"There is a water leak in the ceiling of the library.",Infrastructure,High,Maintenance,Non-Technical
+"The software in the computer lab is not up-to-date.",IT,Medium,IT Department,Technical
+"I requested a re-evaluation of my exam, but I haven't heard back.",Academics,High,Exam Cell,Non-Technical
+"The campus needs more trash cans, especially near the food court.",Infrastructure,Low,Housekeeping,Non-Technical
+"The online payment system is not working.",Admin,High,Accounts Department,Technical
+"I need information about the upcoming job fair.",Academics,Medium,Placement Cell,Non-Technical
+"The elevator in the science building is out of service.",Infrastructure,High,Maintenance,Non-Technical
+"My name is misspelled on my official transcript.",Academics,High,Exam Cell,Non-Technical
+"The Ethernet port in my dorm room is not working.",Hostel,Medium,IT Department,Technical
+"I need to reserve a classroom for a study group.",Admin,Medium,Admin Office,Non-Technical
+"The security cameras in the parking garage are not working.",Infrastructure,High,Security Office,Technical
+"The professor did not complete the syllabus for the course.",Academics,High,Academics Department,Non-Technical
+"The campus shuttle is always late.",Admin,Medium,Transport Department,Non-Technical
+"The sound system in the main auditorium is not working correctly.",IT,Medium,IT Department,Technical
+"The library's subscription to a major academic journal has lapsed.",Library,High,Library,Technical
+"I need to report an incident of harassment.",Admin,High,Anti-Ragging Cell,Non-Technical
+"The college website has incorrect information about a department head.",IT,Low,IT Department,Technical
+"Request to start a new coding club.",Academics,Low,Academics Department,Non-Technical
+"The water from the tap is discolored.",Infrastructure,Medium,Maintenance,Non-Technical
+"My project grade has not been posted online.",Academics,Medium,Academics Department,Technical
+"The campus Wi-Fi is blocking access to a specific educational website.",IT,Medium,IT Department,Technical
+"There is a large pothole in the main campus road.",Infrastructure,High,Maintenance,Non-Technical
+"The computers in the library are infected with malware.",IT,High,IT Department,Technical
+"I applied for a re-grade of my paper, but have not received a response.",Academics,High,Exam Cell,Non-Technical
+"The campus needs more seating areas.",Infrastructure,Low,Housekeeping,Non-Technical
+"The online application for next semester's housing is not working.",Admin,High,Admin Office,Technical
+"I need information about internship opportunities in my field.",Academics,Medium,Placement Cell,Non-Technical
+"The air conditioning in the main lecture hall is not working.",Infrastructure,High,Maintenance,Non-Technical
+"My middle name is missing from my student record.",Academics,High,Exam Cell,Non-Technical
+"The Wi-Fi in my hostel is very slow.",Hostel,Medium,IT Department,Technical
+"I need to get a 'No Dues' form signed.",Admin,Medium,Admin Office,Non-Technical
+"The lights in the campus parking lot are out.",Infrastructure,High,Security Office,Technical
+"The course materials for my class are not available online.",Academics,High,Academics Department,Non-Technical
+"The campus bus is too crowded in the mornings.",Admin,Medium,Transport Department,Non-Technical
+"The projector in the small seminar room is broken.",IT,Medium,IT Department,Technical
+"The library's online search is not working properly.",Library,High,Library,Technical
+"I want to report a case of academic dishonesty.",Admin,High,Academics Department,Non-Technical
+"The college website is difficult to navigate.",IT,Low,IT Department,Technical
+"Request to organize a seminar on financial literacy.",Academics,Low,Academics Department,Non-Technical
+"The basketball court is in need of repair.",Infrastructure,Medium,Sports Committee,Non-Technical
+"My lab scores are not correctly entered in the system.",Academics,Medium,Academics Department,Technical
+"The campus Wi-Fi is blocking access to a cloud storage service.",IT,Medium,IT Department,Technical
+"There are stray cats all over campus.",Infrastructure,High,Security Office,Non-Technical
+"The computers in the student lounge are not working.",IT,High,IT Department,Technical
+"I have not received my diploma, and I graduated last year.",Academics,High,Exam Cell,Non-Technical
+"The campus needs better directional signs.",Infrastructure,Low,Housekeeping,Non-Technical
+"The online portal for course registration is down.",Admin,High,Admin Office,Technical
+"I need advice on my career path.",Academics,Medium,Placement Cell,Non-Technical
+"The heating in the library is not working.",Infrastructure,High,Maintenance,Non-Technical
+"My last name is misspelled on the alumni website.",Academics,High,Exam Cell,Non-Technical
+"The Wi-Fi in the new academic building is not working.",IT,Medium,IT Department,Technical
+"The vending machine in the student center is broken.",Infrastructure,Low,Maintenance,Non-Technical
+"The online course evaluation form is not working.",IT,Medium,IT Department,Technical
+"The professor for my online class has not been responsive.",Academics,Medium,Academics Department,Non-Technical
+"The campus bookstore is out of stock of a required textbook.",Admin,Medium,Admin Office,Non-Technical
+"The recycling bins on campus are always overflowing.",Infrastructure,Low,Housekeeping,Non-Technical
+"I am having trouble with my student loan application.",Admin,High,Accounts Department,Non-Technical
+"The link to the academic calendar on the website is broken.",IT,Low,IT Department,Technical
+"Request for a guest speaker from the tech industry.",Academics,Low,Academics Department,Non-Technical
+"The swimming pool is closed for maintenance without any prior notice.",Infrastructure,Medium,Sports Committee,Non-Technical
+"My grade for the midterm exam is incorrect.",Academics,High,Exam Cell,Non-Technical
+"The campus Wi-Fi is not secure.",IT,High,IT Department,Technical
+"There is a broken window in the study lounge.",Infrastructure,Medium,Maintenance,Non-Technical
+"The computers in the library are too slow.",IT,Medium,IT Department,Technical
+"I have not received my security deposit back from the hostel.",Hostel,High,Hostel Warden,Non-Technical
+"The campus needs more bike racks.",Infrastructure,Low,Maintenance,Non-Technical
+"The online system for booking appointments with advisors is not working.",Admin,High,Admin Office,Technical
+"I need help with my resume.",Academics,Medium,Placement Cell,Non-Technical
+"The air quality in the labs is poor.",Infrastructure,High,Maintenance,Non-Technical
+"My name is spelled incorrectly on my student ID.",Admin,High,Admin Office,Non-Technical
+"The Wi-Fi in the cafeteria is not working.",IT,Medium,IT Department,Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non-Technical
+The Wi-Fi in the library is extremely slow and disconnects frequently.,IT,High,IT Department,Technical
+The classroom projector in Room 205 is not working.,IT,Medium,IT Department,Technical
+The toilets in the B-block are not clean and lack soap.,Infrastructure,Medium,Housekeeping,Non-Technical
+I need a fee receipt for the last semester.,Admin,Low,Accounts Department,Non-Technical
+The new data science textbook is not available in the library.,Academics,Low,Library,Non-Technical
+My attendance for the Python course is marked incorrectly.,Academics,High,Exam Cell,Technical
+The hostel mess food is of poor quality and lacks variety.,Hostel,Medium,Hostel Warden,Non-Technical
+Request for a guest lecture on blockchain technology.,Academics,Low,Academics Department,Non-Technical
+The basketball court lights are not working.,Infrastructure,Medium,Maintenance,Non-Technical
+My student ID card has a printing error in my name.,Admin,Medium,Admin Office,Non-Technical
+The lab computers do not have the latest version of MATLAB.,IT,Medium,IT Department,Technical
+The fire extinguisher on the 2nd floor has expired.,Infrastructure,High,Maintenance,Non-Technical
+I am unable to log in to the student portal.,IT,High,IT Department,Technical
+Need a character certificate for an internship application.,Admin,Low,Admin Office,Non-Technical
+The hostel room door lock is broken.,Hostel,High,Hostel Maintenance,Non-Technical
+The exam schedule is clashing with a national holiday.,Academics,High,Exam Cell,Non-Technical
+The campus is not wheelchair accessible near the main auditorium.,Infrastructure,High,Maintenance,Non-Technical
+The online library database is not accessible from outside the campus.,Library,Medium,Library,Technical
+The security guard at the hostel gate was impolite.,Admin,Low,Security Office,Non-Technical
+The chemistry lab is running out of basic chemicals.,Academics,High,Academics Department,Non-Technical
+Request to start a new club for photography.,Academics,Low,Academics Department,Non-Technical
+The drinking water from the purifier tastes strange.,Infrastructure,Medium,Maintenance,Non-Technical
+My assignment submission is not being reflected on the portal.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to GitHub.,IT,Medium,IT Department,Technical
+There is a leakage in the ceiling of my hostel room.,Hostel,High,Hostel Maintenance,Non-Technical
+The software on the lab computers is outdated.,IT,Medium,IT Department,Technical
+"I have requested a re-evaluation of my exam paper, but there is no update.",Academics,High,Exam Cell,Non-Technical
+The campus needs more recycling bins.,Infrastructure,Low,Housekeeping,Non-Technical
+The online fee payment is failing with a gateway error.,Admin,High,Accounts Department,Technical
+I need information about the upcoming campus placements.,Academics,Medium,Placement Cell,Non-Technical
+The elevator in the library building is not working.,Infrastructure,High,Maintenance,Non-Technical
+My name is misspelled on my degree certificate.,Academics,High,Exam Cell,Non-Technical
+The LAN port in my hostel room is not working.,Hostel,Medium,IT Department,Technical
+I need to book the seminar hall for a student event.,Admin,Medium,Admin Office,Non-Technical
+The CCTV cameras in the parking area are not functional.,Infrastructure,High,Security Office,Technical
+The syllabus for the upcoming exam was not completed in class.,Academics,High,Academics Department,Non-Technical
+The college bus is consistently late in the mornings.,Admin,Medium,Transport Department,Non-Technical
+The microphone in the main auditorium is producing static noise.,IT,Medium,IT Department,Technical
+The library's subscription to a key journal has expired.,Library,High,Library,Technical
+I want to report an incident of ragging.,Admin,High,Anti-Ragging Cell,Non-Technical
+The college website has outdated contact information.,IT,Low,IT Department,Technical
+Request to form a new student chapter of a professional organization.,Academics,Low,Academics Department,Non-Technical
+The water from the taps is muddy.,Infrastructure,Medium,Maintenance,Non-Technical
+My submitted project is not showing as graded.,Academics,Medium,Academics Department,Technical
+The campus Wi-Fi is blocking access to educational websites.,IT,Medium,IT Department,Technical
+There is a persistent water logging issue near the main gate.,Infrastructure,High,Maintenance,Non-Technical
+The lab computers are infected with a virus.,IT,High,IT Department,Technical
+"I have applied for a re-evaluation of my answer sheet, but have not received any response.",Academics,High,Exam Cell,Non-Technical
+The water cooler on the 3rd floor is dispensing hot water.,Infrastructure,Medium,Maintenance,Non-Technical
+My scholarship application has been pending for over a month.,Admin,High,Admin Office,Non

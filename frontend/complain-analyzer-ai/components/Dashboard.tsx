@@ -30,38 +30,8 @@ interface ComplaintStats {
   critical: number;
 }
 
-export function Dashboard() {
+export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: DashboardProps) {
   const domain = getCurrentDomain();
-  const [complaints, setComplaints] = useState<Complaint[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  const fetchComplaints = async () => {
-    try {
-      const response = await fetch('http://localhost:5001/api/complaints');
-      if (!response.ok) {
-        throw new Error('Failed to fetch complaints');
-      }
-      const data = await response.json();
-      console.log('Fetched complaints:', data); // Debug log
-      setComplaints(data);
-    } catch (error) {
-      console.error('Error fetching complaints:', error);
-      toast.error('Failed to load complaints. Please try again.');
-    } finally {
-      setIsLoading(false);
-      setIsRefreshing(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchComplaints();
-  }, []);
-
-  const handleRefresh = () => {
-    setIsRefreshing(true);
-    fetchComplaints();
-  };
 
   // Calculate statistics from real data
   const stats = {
@@ -153,9 +123,9 @@ export function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {Math.round((stats.resolved / stats.total) * 100)}%
+              {stats.total > 0 ? Math.round((stats.resolved / stats.total) * 100) : 0}%
             </div>
-            <Progress value={(stats.resolved / stats.total) * 100} className="mt-2" />
+            <Progress value={stats.total > 0 ? (stats.resolved / stats.total) * 100 : 0} className="mt-2" />
           </CardContent>
         </Card>
       </div>
@@ -172,7 +142,7 @@ export function Dashboard() {
           <Button 
             variant="outline" 
             size="sm" 
-            onClick={handleRefresh}
+            onClick={onRefresh}
             disabled={isRefreshing}
             className="flex items-center gap-2"
           >

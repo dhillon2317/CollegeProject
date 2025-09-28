@@ -738,12 +738,12 @@ function AnalyticsDashboard({ onSelectComplaint }: AnalyticsDashboardProps) {
 }
 
 // --- Main Component ---
-export function ComplaintAnalytics() {
+export function ComplaintAnalytics({ complaints }: { complaints: any[] }) {
   const [selectedComplaintId, setSelectedComplaintId] = useState<string | null>(null);
 
   if (selectedComplaintId) {
     return <ComplaintAnalysisView complaintId={selectedComplaintId} onBack={() => setSelectedComplaintId(null)} />;
   }
 
-  return <AnalyticsDashboard onSelectComplaint={setSelectedComplaintId} />;
+  return <AnalyticsDashboard complaints={complaints} onSelectComplaint={setSelectedComplaintId} />;
 }
