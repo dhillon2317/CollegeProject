@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: complaint-analyzer-api
+    env: python
+    build:
+      dockerfile: backend/Dockerfile
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9
+      - key: PORT
+        value: 10000
+    plan: free
+
+  - type: web
+    name: complaint-analyzer-ml
+    env: python
+    build:
+      dockerfile: sbackend/Dockerfile
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9
+      - key: PORT
+        value: 10001
+    plan: free
+
+  - type: web
+    name: complaint-analyzer-frontend
+    env: node
+    build:
+      dockerfile: frontend/Dockerfile
+    envVars:
+      - key: VITE_API_URL
+        value: https://complaint-analyzer-api.onrender.com
+      - key: VITE_ML_API_URL
+        value: https://complaint-analyzer-ml.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    plan: free
