@@ -30,6 +30,13 @@ interface ComplaintStats {
   critical: number;
 }
 
+interface DashboardProps {
+  complaints: Complaint[];
+  isLoading: boolean;
+  isRefreshing: boolean;
+  onRefresh: () => void;
+}
+
 export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: DashboardProps) {
   const domain = getCurrentDomain();
 
@@ -139,9 +146,9 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
               Latest complaints with AI-powered categorization and priority assessment
             </CardDescription>
           </div>
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <Button
+            variant="outline"
+            size="sm"
             onClick={onRefresh}
             disabled={isRefreshing}
             className="flex items-center gap-2"
@@ -184,21 +191,21 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
                           </div>
                         </div>
                       </div>
-                      
+
                       {complaint.description && (
                         <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
                           {complaint.description}
                         </p>
                       )}
                     </div>
-                    
+
                     {complaint.aiAnalyzed && (
                       <Badge variant="secondary" className="ml-2 bg-green-100 text-green-800 hover:bg-green-100">
                         AI Analyzed
                       </Badge>
                     )}
                   </div>
-                  
+
                   <div className="pt-2 border-t border-border/50 mt-2">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
                       <div className="flex items-center gap-1.5">
@@ -223,7 +230,7 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
               ))
             ) : (
