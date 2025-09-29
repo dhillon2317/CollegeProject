@@ -20,23 +20,30 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Create a non-root user and switch to it
-RUN groupadd -r appuser && useradd -r -g appuser appuser \
-    && mkdir -p /app/logs /app/frontend/complain-analyzer-ai/dist \
-    && chown -R appuser:appuser /app
+# Create a non-root user and set up directories
+RUN groupadd -r appuser && \
+    useradd -r -g appuser -d /home/appuser -m appuser && \
+    mkdir -p /app/logs /app/frontend/complain-analyzer-ai/dist && \
+    chown -R appuser:appuser /app
 
 # Copy the application files
 COPY --chown=appuser:appuser . .
-
-# Switch to non-root user
-USER appuser
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
     PYTHONPATH=/app \
     PATH="/home/appuser/.local/bin:${PATH}" \
     PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    HOME=/home/appuser
+
+# Create .local directory and set permissions
+RUN mkdir -p /home/appuser/.local && \
+    chown -R appuser:appuser /home/appuser && \
+    chmod -R 755 /home/appuser
+
+# Switch to non-root user
+USER appuser
 
 # Install Python dependencies as non-root user
 RUN pip install --user --no-warn-script-location --upgrade pip wheel setuptools && \

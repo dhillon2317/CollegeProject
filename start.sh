@@ -24,29 +24,63 @@ log "Environment variables:"
 printenv | sort
 log "========================================"
 
+# Add user's local bin to PATH if it exists
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # Check Python environment
-log "Python version: $(python --version 2>&1 || echo 'Python not found')
-log "Pip version: $(pip --version 2>&1 || echo 'Pip not found')
-log "Current directory: $(pwd)"
+log "\n=== Environment Information ==="
+log "User: $(whoami)"
+log "Home: $HOME"
+log "Python: $(python --version 2>&1 || echo 'Not found')"
+log "Pip: $(pip --version 2>&1 || echo 'Not found')"
+log "Working directory: $(pwd)"
 log "Directory contents:"
 ls -la
 
 # Install requirements if needed (as user)
 if [ -f "requirements.txt" ] && [ "$SKIP_PIP_INSTALL" != "true" ]; then
-    log "Installing requirements..."
-    pip install --user --no-warn-script-location -r requirements.txt
+    log "\n=== Installing requirements ==="
+    pip install --user --no-warn-script-location -r requirements.txt || \
+        log "Warning: Failed to install requirements"
 fi
 
 # Install spaCy model if not already installed
 if ! python -c "import en_core_web_sm" &> /dev/null; then
-    log "Downloading spaCy model..."
-    python -m spacy download en_core_web_sm --user
+    log "\n=== Installing spaCy model ==="
+    python -m spacy download en_core_web_sm --user || \
+        log "Warning: Failed to download spaCy model"
 fi
 
 # Ensure the app directory is in Python path
 export PYTHONPATH="/app:${PYTHONPATH}"
 
-log "Starting Gunicorn server..."
+# Create a simple health check endpoint
+cat > /app/health.py << 'EOL'
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import os
+
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/health':
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(b'OK')
+        else:
+            self.send_response(404)
+            self.end_headers()
+
+if __name__ == '__main__':
+    server = HTTPServer(('0.0.0.0', 8080), HealthHandler)
+    server.serve_forever()
+EOL
+
+# Start health check in background
+python /app/health.py &
+
+log "\n=== Starting Gunicorn server ==="
 log "Command: gunicorn --bind :$APP_PORT --workers $WORKERS --timeout $TIMEOUT --worker-class uvicorn.workers.UvicornWorker --access-logfile - --error-logfile - --log-level info app:app"
 
 exec gunicorn \
