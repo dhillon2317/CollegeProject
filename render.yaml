@@ -11,20 +11,20 @@ services:
       python -m pip install --upgrade pip
       pip install --no-cache-dir -U setuptools wheel
       
-      # Install the package in development mode first
+      # Install package in development mode
       pip install -e .
       
-      # Then install other dependencies
+      # Install requirements
       pip install --no-cache-dir -r requirements.txt
       
       # Download spaCy model
       python -m spacy download en_core_web_sm --no-cache
       
-      # Verify installation
+      # Download NLTK data
       python -c "import nltk; nltk.download('punkt', quiet=True)"
     
     # Use the correct module path for Gunicorn
-    startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 sbackend.camplaint_analyzer.app:app"
+    startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 wsgi:application"
     
     envVars:
       - key: PYTHON_VERSION
@@ -36,7 +36,7 @@ services:
       - key: PYTHONPATH
         value: /opt/render/project/src
       - key: FLASK_APP
-        value: sbackend.camplaint_analyzer.app
+        value: wsgi:application
       - key: FLASK_ENV
         value: production
     
