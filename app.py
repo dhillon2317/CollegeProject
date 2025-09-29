@@ -1,25 +1,39 @@
 import os
-from flask import Flask, send_from_directory
-# Import using the correct module path with hyphen
-import importlib.util
 import sys
+from pathlib import Path
+from flask import Flask, send_from_directory, jsonify
 
-# Manually import the module with hyphen in the name
-module_spec = importlib.util.spec_from_file_location(
-    "camplaint_analyzer_app", 
-    "sbackend/camplaint-analyzer/app.py"
-)
-complaint_analyzer = importlib.util.module_from_spec(module_spec)
-sys.modules["complaint_analyzer"] = complaint_analyzer
-module_spec.loader.exec_module(complaint_analyzer)
+# Add the project root to Python path
+project_root = str(Path(__file__).resolve().parent)
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
-# Get the app from the imported module
-api_app = complaint_analyzer.app
+# Import the Flask app from the complaint-analyzer module
+from sbackend.camplaint_analyzer.app import app as api_app
 
+# Create the main Flask app
 app = Flask(__name__, static_folder='frontend/complain-analyzer-ai/dist')
 
-# Mount the API app
-app.register_blueprint(api_app, url_prefix='/api')
+# Copy all routes from api_app to the main app with /api prefix
+for rule in api_app.url_map.iter_rules():
+    # Skip static routes to avoid conflicts
+    if not rule.endpoint.startswith('static'):
+        # Get the view function from the api_app
+        view_func = api_app.view_functions[rule.endpoint]
+        # Create a new endpoint name to avoid conflicts
+        endpoint = f"api_{rule.endpoint}"
+        # Add the same route to the main app with /api prefix
+        app.add_url_rule(
+            f"/api{rule.rule}",  # Prefix with /api
+            endpoint=endpoint,
+            view_func=view_func,
+            methods=rule.methods
+        )
+
+# Add a simple health check endpoint
+@app.route('/health')
+def health_check():
+    return jsonify({"status": "healthy"}), 200
 
 # Serve React App
 @app.route('/', defaults={'path': ''})
