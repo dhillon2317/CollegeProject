@@ -69,7 +69,7 @@ services:
       pip install --no-cache-dir scipy==1.10.1
       
       # Now install other requirements with --no-deps to prevent overriding our versions
-      pip install --no-cache-dir --no-deps -r sbackend/camplaint-analyzer/requirements.txt
+      pip install --no-cache-dir --no-deps -r ./sbackend/camplaint-analyzer/requirements.txt
       
       # Finally install spacy with --no-deps and then its dependencies
       pip install --no-cache-dir --no-deps spacy==3.8.7
