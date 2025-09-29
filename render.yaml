@@ -36,9 +36,3 @@ services:
     
     plan: free
     healthCheckPath: /health
-    
-    build:
-      memory: 4096  # Increased memory for build
-    
-    resources:
-      memory: 512  # Runtime memory limit
