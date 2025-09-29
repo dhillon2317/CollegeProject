@@ -3,27 +3,11 @@ services:
     name: complaint-analyzer-backend
     env: python
     buildCommand: |
-      # Set build flags to optimize compilation
-      export BLIS_ARCH=generic
-      export BLIS_COMPILER=gcc
-      
-      # Update pip and install build tools
-      python -m pip install --upgrade pip
       pip install --no-cache-dir -U setuptools wheel
-      
-      # Install package in development mode
-      pip install -e .
-      
-      # Install requirements
       pip install --no-cache-dir -r requirements.txt
-      
-      # Download spaCy model
+      pip install -e .
       python -m spacy download en_core_web_sm --no-cache
-      
-      # Download NLTK data
-      python -c "import nltk; nltk.download('punkt', quiet=True)"
     
-    # Use the correct module path for Gunicorn
     startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 wsgi:application"
     
     envVars:
@@ -35,19 +19,6 @@ services:
         value: 10000
       - key: PYTHONPATH
         value: /opt/render/project/src
-      - key: FLASK_APP
-        value: wsgi:application
-      - key: FLASK_ENV
-        value: production
     
     plan: free
     healthCheckPath: /health
-    
-    # # Optimize build settings
-    # build:
-    #   memory: 4096  # Request more memory for the build
-    #   timeout: 1800  # 30 minutes build timeout
-    
-    # # Runtime resources
-    # resources:
-    #   memory: 1024  # Runtime memory limit
