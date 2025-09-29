@@ -6,8 +6,8 @@ import sys
 
 # Manually import the module with hyphen in the name
 module_spec = importlib.util.spec_from_file_location(
-    "complaint_analyzer_app", 
-    "sbackend/complaint-analyzer/app.py"
+    "camplaint_analyzer_app", 
+    "sbackend/camplaint-analyzer/app.py"
 )
 complaint_analyzer = importlib.util.module_from_spec(module_spec)
 sys.modules["complaint_analyzer"] = complaint_analyzer
