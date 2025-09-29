@@ -11,6 +11,31 @@ from pathlib import Path
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
+@app.route('/health')
+def health_check():
+    """Health check endpoint for Render service monitoring."""
+    # Check if all required models are loaded
+    models_loaded = all([
+        'category_model' in globals(),
+        'priority_model' in globals(),
+        'type_model' in globals(),
+        'department_model' in globals()
+    ])
+    
+    if not models_loaded:
+        return jsonify({
+            'status': 'unhealthy',
+            'service': 'complaint-analyzer-ml',
+            'error': 'One or more models failed to load'
+        }), 500
+    
+    return jsonify({
+        'status': 'healthy',
+        'service': 'complaint-analyzer-ml',
+        'models_loaded': models_loaded,
+        'timestamp': datetime.now().isoformat()
+    }), 200
+
 # Ensure data directory exists
 DATA_DIR = Path('data')
 DATA_DIR.mkdir(exist_ok=True)
