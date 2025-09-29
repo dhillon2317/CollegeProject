@@ -27,8 +27,10 @@ COPY requirements.txt .
 RUN pip install --upgrade pip wheel setuptools && \
     pip install --no-cache-dir -r requirements.txt
 
-# Create necessary directories
-RUN mkdir -p /app/logs
+# Create necessary directories with proper permissions
+RUN mkdir -p /app/logs /app/frontend/complain-analyzer-ai/dist && \
+    chmod -R 755 /app && \
+    chown -R 1000:1000 /app
 
 # Copy the rest of the application
 COPY . .
