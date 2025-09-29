@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: complaint-analyzer-backend
+    name: complaint-analyzer
     env: python
     buildCommand: |
       # Set Python path
@@ -37,6 +37,17 @@ services:
       echo "Downloading NLTK data..."
       python -c "import nltk; nltk.download('punkt', quiet=True)"
       
+      # Install Node.js and npm
+      curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+      apt-get install -y nodejs
+      
+      # Install frontend dependencies and build
+      echo "Building React frontend..."
+      cd frontend/complain-analyzer-ai
+      npm install
+      npm run build
+      cd ../..
+      
       # Retrain models to ensure compatibility
       echo "Retraining models to ensure compatibility..."
       cd sbackend/camplaint-analyzer
@@ -54,10 +65,7 @@ services:
         echo "ERROR: Category model not found!"
       fi
       
-      # Verify package installation
-      python -c "import sys; print('\n'.join(sys.path))"
-      
-    startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 wsgi:application"
+    startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 app:app"
     
     envVars:
       - key: PYTHON_VERSION
