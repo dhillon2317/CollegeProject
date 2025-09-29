@@ -93,12 +93,12 @@ services:
       
       cd ../..
       
-      # Verify the models are in the correct location
+      # Verify the models are in the correct location - simplified check
       echo "Verifying model files in the final build..."
       if [ -f "sbackend/camplaint-analyzer/models/category_model.pkl" ]; then
-        echo "Category model found!"
+        echo "✅ Category model found in final build!"
       else
-        echo "Warning: Category model not found!"
+        echo "⚠️  Warning: Category model not found in final build!"
       fi
     startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 wsgi:application"
     
