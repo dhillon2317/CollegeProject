@@ -81,30 +81,44 @@ def health_check():
     return jsonify({
         "status": "healthy",
         "service": "Complaint Analyzer API",
-        "version": "1.0.0"
     }), 200
 
 # Configure static files
-static_folder = 'frontend/complain-analyzer-ai/dist'
-if os.path.exists(static_folder):
-    app.static_folder = static_folder
-    logger.info(f"Serving static files from {os.path.abspath(static_folder)}")
+static_folder = os.path.join('frontend', 'complain-analyzer-ai', 'dist')
+static_abs_path = os.path.abspath(static_folder)
+
+if os.path.exists(static_abs_path):
+    app.static_folder = static_abs_path
+    logger.info(f"Serving static files from: {static_abs_path}")
     
-    @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
     def serve(path):
+        # Don't interfere with API routes
+        if path.startswith('api/'):
+            return jsonify({"error": "Not found"}), 404
+            
+        # Serve static files if they exist
         if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
             return send_from_directory(app.static_folder, path)
-        return send_from_directory(app.static_folder, 'index.html')
+        # Otherwise serve index.html for SPA routing
+        elif os.path.exists(os.path.join(app.static_folder, 'index.html')):
+            return send_from_directory(app.static_folder, 'index.html')
+        else:
+            return jsonify({
+                "error": "Frontend files not found",
+                "status": "backend_running",
+                "api_docs": "/api/docs"
+            }), 404
 else:
-    logger.warning(f"Static folder not found at {os.path.abspath(static_folder)}")
+    logger.warning(f"Frontend static folder not found at: {static_abs_path}")
     
     @app.route('/')
     def index():
         return jsonify({
-            "status": "running",
-            "message": "Complaint Analyzer API is running",
-            "frontend": "Static files not found"
+            "status": "backend_running",
+            "message": "Backend is running but frontend files are not found",
+            "api_docs": "/api/docs",
+            "frontend_expected_path": static_abs_path
         })
 
 if __name__ == "__main__":

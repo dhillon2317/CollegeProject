@@ -29,6 +29,10 @@ RUN groupadd -r appuser && \
 # Copy the application files
 COPY --chown=appuser:appuser . .
 
+# Ensure frontend build directory exists and has correct permissions
+RUN mkdir -p /app/frontend/complain-analyzer-ai/dist && \
+    chown -R appuser:appuser /app/frontend
+
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
     PYTHONPATH=/app \
