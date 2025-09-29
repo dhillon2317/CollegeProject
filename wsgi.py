@@ -13,7 +13,18 @@ print(f"Current working directory: {os.getcwd()}")
 
 # Try to import the Flask app
 try:
-    from sbackend.camplaint_analyzer.app import app as application
+    # Using the correct module path with hyphen
+    import sys
+    import importlib.util
+    
+    # Manually load the module using the hyphenated path
+    module_path = 'sbackend/camplaint-analyzer/app.py'
+    spec = importlib.util.spec_from_file_location('app', module_path)
+    app_module = importlib.util.module_from_spec(spec)
+    sys.modules['app'] = app_module
+    spec.loader.exec_module(app_module)
+    
+    application = app_module.app
     print("Successfully imported the Flask application")
 except ImportError as e:
     print(f"Error importing Flask application: {e}")
