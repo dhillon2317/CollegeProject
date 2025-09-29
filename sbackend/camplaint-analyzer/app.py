@@ -132,11 +132,12 @@ try:
     category_model = joblib.load(os.path.join(MODELS_DIR, 'category_model.pkl'))
     priority_model = joblib.load(os.path.join(MODELS_DIR, 'priority_model.pkl'))
     type_model = joblib.load(os.path.join(MODELS_DIR, 'type_model.pkl'))
-    department_model = joblib.load(os.path.join(MODELS_DIR, 'department_model.pkl')) # Naya model load karein
+    department_model = joblib.load(os.path.join(MODELS_DIR, 'department_model.pkl'))
     print("All 4 models loaded successfully.")
-except FileNotFoundError:
-    print("Error: Model files not found. Please run train.py first.")
-    exit()
+    return True
+except Exception as e:
+    print(f"Error loading models: {str(e)}")
+    return False
 
 # Rule-based department_map ki ab zaroorat nahi hai, humne use hata diya hai.
 
