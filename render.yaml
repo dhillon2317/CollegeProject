@@ -3,11 +3,27 @@ services:
     name: complaint-analyzer-backend
     env: python
     buildCommand: |
+      # Set Python path
+      export PYTHONPATH="${PYTHONPATH}:/opt/render/project/src"
+      
+      # Update pip and install build tools
       python -m pip install --upgrade pip
       pip install --no-cache-dir -U setuptools wheel
+      
+      # Install the package in development mode (this is crucial)
+      pip install -e .
+      
+      # Install requirements
       pip install --no-cache-dir -r requirements.txt
+      
+      # Download spaCy model
       python -m spacy download en_core_web_sm --no-cache
+      
+      # Verify package installation
+      python -c "import sys; print('\n'.join(sys.path))"
+      
     startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 wsgi:application"
+    
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
@@ -15,5 +31,14 @@ services:
         value: 1
       - key: PORT
         value: 10000
+      - key: PYTHONPATH
+        value: /opt/render/project/src
+    
     plan: free
     healthCheckPath: /health
+    
+    build:
+      memory: 4096  # Increased memory for build
+    
+    resources:
+      memory: 512  # Runtime memory limit
