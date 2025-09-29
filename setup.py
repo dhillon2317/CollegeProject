@@ -8,7 +8,7 @@ with open('requirements.txt') as f:
 packages = find_packages() + ['sbackend.camplaint-analyzer']
 
 setup(
-    name="camplaint-analyzer",
+    name="complaint_analyzer",
     version="0.1",
     packages=packages,
     install_requires=requirements,

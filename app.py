@@ -24,7 +24,26 @@ app = Flask(__name__)
 
 # Try to import the complaint analyzer module
 try:
-    from sbackend.camplaint_analyzer.app import app as api_app
+    # Use importlib to handle the hyphen in module name
+    import importlib.util
+    import sys
+    
+    # Add the sbackend directory to the path
+    sbackend_path = os.path.join(project_root, 'sbackend')
+    if sbackend_path not in sys.path:
+        sys.path.insert(0, sbackend_path)
+    
+    # Import the module using importlib
+    spec = importlib.util.spec_from_file_location(
+        "camplaint_analyzer",
+        os.path.join(project_root, 'sbackend', 'camplaint-analyzer', 'app.py')
+    )
+    complaint_analyzer = importlib.util.module_from_spec(spec)
+    sys.modules["camplaint_analyzer"] = complaint_analyzer
+    spec.loader.exec_module(complaint_analyzer)
+    
+    # Get the app from the imported module
+    api_app = complaint_analyzer.app
     logger.info("Successfully imported complaint analyzer module")
     
     # Copy all routes from api_app to the main app with /api prefix

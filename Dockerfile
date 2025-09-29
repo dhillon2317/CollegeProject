@@ -25,7 +25,8 @@ COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --upgrade pip wheel setuptools && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt && \
+    pip install -e .
 
 # Create necessary directories with proper permissions
 RUN mkdir -p /app/logs /app/frontend/complain-analyzer-ai/dist && \
