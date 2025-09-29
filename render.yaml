@@ -55,10 +55,19 @@ services:
       echo "=== Installing Python dependencies ==="
       python -m pip install --upgrade pip
       pip install --no-cache-dir -U setuptools wheel
-      # Install numpy first with a version compatible with scipy
-      pip install --no-cache-dir numpy==1.26.4
-      # Now install other requirements
-      pip install --no-cache-dir -r sbackend/camplaint-analyzer/requirements.txt
+      
+      # First install numpy and scipy with compatible versions
+      pip install --no-cache-dir numpy==1.23.5
+      pip install --no-cache-dir scipy==1.10.1
+      
+      # Now install other requirements with --no-deps to prevent overriding our versions
+      pip install --no-cache-dir --no-deps -r sbackend/camplaint-analyzer/requirements.txt
+      
+      # Finally install spacy with --no-deps and then its dependencies
+      pip install --no-cache-dir --no-deps spacy==3.8.7
+      pip install --no-cache-dir spacy-legacy==3.0.12 spacy-loggers==1.0.5 \
+        wasabi==1.1.3 srsly==2.5.1 cymem==2.0.11 preshed==3.0.10 \
+        thinc==8.3.6 pydantic==1.10.8 typer==0.9.0
       
       echo "=== Building Frontend ==="
       NODE_OPTIONS=--openssl-legacy-provider npm run build
