@@ -37,24 +37,27 @@ services:
       echo "Downloading NLTK data..."
       python -c "import nltk; nltk.download('punkt', quiet=True)"
       
-      # Install Node.js and npm
-      curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
-      apt-get install -y nodejs
+      # Install Node.js using nvm (no root required)
+      echo "Installing Node.js..."
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm
+      nvm install 16
+      node -v
+      npm -v
       
       # Install frontend dependencies and build
       echo "Building React frontend..."
       cd frontend/complain-analyzer-ai
-      npm install
+      npm install --legacy-peer-deps
       npm run build
       cd ../..
       
-      # Retrain models to ensure compatibility
-      echo "Retraining models to ensure compatibility..."
-      cd sbackend/camplaint-analyzer
-      python train.py
-      cd ../..
+      # Skip model retraining in production to avoid long build times
+      # Models should be pre-trained and committed to the repository
       
       # Download spaCy model
+      echo "Downloading spaCy model..."
       python -m spacy download en_core_web_sm --no-cache
       
       # Verify the models are in the correct location
@@ -62,7 +65,7 @@ services:
       if [ -f "sbackend/camplaint-analyzer/models/category_model.pkl" ]; then
         echo "Category model found!"
       else
-        echo "ERROR: Category model not found!"
+        echo "WARNING: Category model not found! Some features may not work."
       fi
       
     startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 wsgi:application"
