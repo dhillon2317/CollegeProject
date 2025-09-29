@@ -131,12 +131,15 @@ services:
           { echo "❌ Failed to install requirements"; exit 1; }
         echo "✅ Successfully installed requirements"
         
-        # Now install the dependencies with constraints
-        echo "Installing requirements dependencies..."
-        pip install --no-cache-dir -r <(pipdeptree --warn silence -p $(grep -v "^#" requirements.txt | cut -d= -f1 | grep -v "^$" | tr '\n' ' ') | \
-          grep -v "^ " | grep -v "^pip==" | grep -v "^setuptools==" | grep -v "^wheel==" | \
-          grep -v "pydantic==" | grep -v "^spacy==" | grep -v "^thinc==" | sort -u) || \
-          { echo "⚠️  Some dependencies might have issues, but continuing..."; }
+        # Install pipdeptree if not available
+        echo "Installing pipdeptree for dependency analysis..."
+        pip install --no-cache-dir pipdeptree || echo "⚠️  Failed to install pipdeptree, continuing..."
+        
+        # Install requirements with basic dependency resolution
+        echo "Installing requirements with basic dependency resolution..."
+        pip install --no-cache-dir -r requirements.txt || {
+          echo "⚠️  Some dependencies might have issues, but continuing..."
+        }
       else
         echo "❌ Error: requirements.txt not found in the root directory"
         exit 1
@@ -151,10 +154,23 @@ services:
         echo "Cleaning and installing frontend dependencies..."
         rm -rf node_modules package-lock.json .next
         npm cache clean --force
-        export NODE_OPTIONS=--openssl-legacy-provider
+        
+        # Check Node.js version and set appropriate options
+        NODE_MAJOR_VERSION=$(node -v | cut -d'v' -f2 | cut -d'.' -f1)
+        if [ "$NODE_MAJOR_VERSION" -ge 17 ]; then
+          echo "Using Node.js ${NODE_MAJOR_VERSION}, setting NODE_OPTIONS"
+          export NODE_OPTIONS=--openssl-legacy-provider
+        fi
         
         # Install frontend dependencies
-        npm install || { echo "Failed to install frontend dependencies"; exit 1; }
+        echo "Running npm install..."
+        npm install --legacy-peer-deps || { 
+          echo "⚠️  npm install failed, trying with --force..."; 
+          npm install --force || {
+            echo "❌ Failed to install frontend dependencies"; 
+            exit 1; 
+          }
+        }
         
         # Build frontend
         echo "Building frontend..."
