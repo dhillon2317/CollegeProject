@@ -30,7 +30,11 @@ COPY . .
 
 # Install Python dependencies
 RUN pip install --upgrade pip wheel setuptools && \
+    # Install direct URL requirements first
+    pip install --no-cache-dir https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0/en_core_web_sm-3.7.0.tar.gz && \
+    # Install other requirements
     pip install --no-cache-dir -r requirements.txt && \
+    # Install in development mode
     pip install -e .
 
 # Make start.sh executable
