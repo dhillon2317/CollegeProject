@@ -11,22 +11,51 @@ mkdir -p /app/logs
 
 # Function to log messages
 log() {
-    echo "[$(date +'%Y-%m-%d %H:%m:%S')] $1"
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
 }
 
 # Redirect all output to a log file
 exec > >(tee -a /app/logs/startup.log) 2>&1
 
 log "========================================"
-log "Starting application"
+log "Starting application on port $APP_PORT"
+log "Using $WORKERS workers with $TIMEOUT seconds timeout"
+log "Environment variables:"
+printenv | sort
 log "========================================"
-log "Environment:"
-log "  - PORT: $APP_PORT"
-log "  - WORKERS: $WORKERS"
-log "  - TIMEOUT: $TIMEOUT"
-log "  - PWD: $(pwd)"
-log "  - PYTHONPATH: $PYTHONPATH"
-log "  - PATH: $PATH"
+
+# Make sure the app is installed in development mode
+if [ "$RAILWAY_ENVIRONMENT" = "production" ]; then
+    log "Running in production mode"
+    pip install -e .
+fi
+
+log "Current directory: $(pwd)"
+log "Python version: $(python --version)"
+log "Pip version: $(pip --version)"
+
+# Install requirements if needed
+if [ -f "requirements.txt" ]; then
+    log "Installing requirements..."
+    pip install -r requirements.txt
+fi
+
+# Install spaCy model if not already installed
+if ! python -c "import en_core_web_sm" &> /dev/null; then
+    log "Downloading spaCy model..."
+    python -m spacy download en_core_web_sm
+fi
+
+log "Starting Gunicorn server..."
+exec gunicorn \
+    --bind :$APP_PORT \
+    --workers $WORKERS \
+    --timeout $TIMEOUT \
+    --worker-class uvicorn.workers.UvicornWorker \
+    --access-logfile - \
+    --error-logfile - \
+    --log-level info \
+    app:app
 
 # Check Python environment
 log "\n=== Python Environment ==="
