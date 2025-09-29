@@ -7,27 +7,63 @@ services:
       # Exit on error and print commands for debugging
       set -exo pipefail
       
+      # Function to log messages with timestamps
+      log() {
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+      }
+      
       # Debug info
-      echo "=== Build Script Started ==="
-      echo "Current directory: $(pwd)"
-      echo "Directory contents:"
-      ls -la
+      log "=== Build Script Started ==="
+      log "Current directory: $(pwd)"
+      log "System information:"
+      uname -a
+      log "Python version:"
+      python --version || echo "Python not found"
+      log "Pip version:"
+      pip --version || echo "Pip not found"
+      
+      log "=== Directory Structure ==="
+      log "Top level contents:"
+      ls -la || log "Failed to list directory contents"
+      
+      # Check for required directories
+      log "=== Checking for required directories ==="
+      REQUIRED_DIRS=(
+        "."
+        "sbackend"
+        "sbackend/camplaint-analyzer"
+        "frontend"
+      )
+      
+      for dir in "${REQUIRED_DIRS[@]}"; do
+        if [ -d "$dir" ]; then
+          log "✅ Found directory: $dir"
+          log "Contents of $dir:"
+          ls -la "$dir" || log "Failed to list contents of $dir"
+        else
+          log "⚠️  Warning: Missing directory: $dir"
+        fi
+      done
       
       # Set Python path
       export PYTHONPATH="${PYTHONPATH}:/opt/render/project/src"
+      log "PYTHONPATH set to: $PYTHONPATH"
       
       # Check models directory
-      echo "=== Checking for models directory ==="
+      log "=== Checking for models directory ==="
       MODELS_DIR="./sbackend/camplaint-analyzer/models"
       if [ -d "$MODELS_DIR" ]; then
-        echo "✅ Models directory found at $MODELS_DIR"
-        echo "📂 Contents:"
-        ls -la "$MODELS_DIR"
+        log "✅ Models directory found at $MODELS_DIR"
+        log "📂 Contents of models directory:"
+        ls -la "$MODELS_DIR" || log "Failed to list models directory contents"
       else
-        echo "⚠️  Warning: Models directory not found at $MODELS_DIR"
-        echo "📂 Current directory structure (top level):"
-        ls -la
-        # Don't fail the build if models directory is missing, just warn
+        log "⚠️  Warning: Models directory not found at $MODELS_DIR"
+        log "Attempting to create models directory..."
+        mkdir -p "$MODELS_DIR" && {
+          log "✅ Successfully created models directory at $MODELS_DIR"
+        } || {
+          log "❌ Failed to create models directory at $MODELS_DIR"
+        }
       fi
       
       # Set up Node.js
