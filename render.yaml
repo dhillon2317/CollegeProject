@@ -37,10 +37,8 @@ services:
     envVars:
       - key: VITE_API_URL
         value: https://complaint-analyzer-api.onrender.com
-        sync: false
       - key: VITE_ML_API_URL
         value: https://complaint-analyzer-ml.onrender.com
-        sync: false
     routes:
       - type: rewrite
         source: /*
