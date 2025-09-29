@@ -9,7 +9,10 @@ services:
         value: 3.9
       - key: PORT
         value: 10000
+      - key: FLASK_APP
+        value: run.py
     plan: free
+    healthCheckPath: /health
 
   - type: web
     name: complaint-analyzer-ml
@@ -21,7 +24,10 @@ services:
         value: 3.9
       - key: PORT
         value: 10001
+      - key: FLASK_APP
+        value: app.py
     plan: free
+    healthCheckPath: /health
 
   - type: web
     name: complaint-analyzer-frontend
@@ -30,12 +36,13 @@ services:
       dockerfile: frontend/Dockerfile
     envVars:
       - key: VITE_API_URL
+        value: https://complaint-analyzer-api.onrender.com
         sync: false
       - key: VITE_ML_API_URL
+        value: https://complaint-analyzer-ml.onrender.com
         sync: false
     routes:
       - type: rewrite
         source: /*
         destination: /index.html
     plan: free
-healthCheckPath: /health
