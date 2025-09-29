@@ -1,10 +1,10 @@
-services:
   - type: web
     name: complaint-analyzer
     env: python
     buildCommand: |
       #!/bin/bash
-      set -e  # Exit on error
+      # Exit on error and print commands for debugging
+      set -exo pipefail
       
       # Debug info
       echo "=== Build Script Started ==="
@@ -17,77 +17,97 @@ services:
       
       # Check models directory
       echo "=== Checking for models directory ==="
-      MODELS_DIR="sbackend/camplaint-analyzer/models"
-      
+      MODELS_DIR="./sbackend/camplaint-analyzer/models"
       if [ -d "$MODELS_DIR" ]; then
         echo "✅ Models directory found at $MODELS_DIR"
         echo "📂 Contents:"
         ls -la "$MODELS_DIR"
       else
-        echo "❌ Models directory not found at $MODELS_DIR"
+        echo "⚠️  Warning: Models directory not found at $MODELS_DIR"
         echo "📂 Current directory structure (top level):"
         ls -la
+        # Don't fail the build if models directory is missing, just warn
       fi
       
       # Set up Node.js
       echo "=== Setting up Node.js ==="
       export NVM_DIR="$HOME/.nvm"
       
-      # Install nvm if not present
-      if [ ! -d "$NVM_DIR" ]; then
-        echo "Installing nvm..."
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-      fi
-      
       # Load nvm
       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
       
       # Install and use Node.js 16
       echo "Installing Node.js 16.20.2..."
-      nvm install 16.20.2
+      nvm install 16.20.2 || { echo "Failed to install Node.js 16.20.2"; exit 1; }
       nvm use 16.20.2
       
       # Verify installation
       echo "Node.js version: $(node -v)"
       echo "npm version: $(npm -v)"
       
-      # Build frontend
-      echo "=== Building Frontend ==="
-      cd frontend/complain-analyzer-ai
-      # Clean and install dependencies
-      rm -rf node_modules package-lock.json .next
-      npm cache clean --force
-      export NODE_OPTIONS=--openssl-legacy-provider
-      
       # Install Python dependencies
       echo "=== Installing Python dependencies ==="
-      python -m pip install --upgrade pip
-      pip install --no-cache-dir -U setuptools wheel
+      python -m pip install --upgrade pip || { echo "Failed to upgrade pip"; exit 1; }
+      pip install --no-cache-dir -U setuptools wheel || { echo "Failed to install setuptools/wheel"; exit 1; }
       
-      # First install numpy and scipy with compatible versions
-      pip install --no-cache-dir numpy==1.23.5
-      pip install --no-cache-dir scipy==1.10.1
+      # Install core numerical packages first
+      echo "Installing core numerical packages..."
+      pip install --no-cache-dir numpy==1.23.5 || { echo "Failed to install numpy"; exit 1; }
+      pip install --no-cache-dir scipy==1.10.1 || { echo "Failed to install scipy"; exit 1; }
       
-      # Now install other requirements with --no-deps to prevent overriding our versions
-      pip install --no-cache-dir --no-deps -r ./sbackend/camplaint-analyzer/requirements.txt
+      # Install requirements with proper error handling
+      echo "Installing project requirements..."
+      if [ -f "requirements.txt" ]; then
+        # First install the main requirements
+        pip install --no-cache-dir --no-deps -r requirements.txt || \
+          { echo "Failed to install main requirements"; exit 1; }
+        
+        # Then install the complaint-analyzer requirements
+        if [ -f "sbackend/camplaint-analyzer/requirements.txt" ]; then
+          pip install --no-cache-dir --no-deps -r sbackend/camplaint-analyzer/requirements.txt || \
+            { echo "Failed to install complaint-analyzer requirements"; exit 1; }
+        else
+          echo "⚠️  Warning: complaint-analyzer requirements.txt not found, skipping..."
+        fi
+      else
+        echo "❌ Error: requirements.txt not found in the root directory"
+        exit 1
+      fi
       
-      # Finally install spacy with --no-deps and then its dependencies
-      pip install --no-cache-dir --no-deps spacy==3.8.7
+      # Install spaCy and its dependencies
+      echo "Installing spaCy and dependencies..."
+      pip install --no-cache-dir --no-deps spacy==3.8.7 || { echo "Failed to install spacy"; exit 1; }
       pip install --no-cache-dir spacy-legacy==3.0.12 spacy-loggers==1.0.5 \
         wasabi==1.1.3 srsly==2.5.1 cymem==2.0.11 preshed==3.0.10 \
-        thinc==8.3.6 pydantic==1.10.8 typer==0.9.0
+        thinc==8.3.6 pydantic==1.10.8 typer==0.9.0 || \
+        { echo "Failed to install spacy dependencies"; exit 1; }
       
+      # Build frontend
       echo "=== Building Frontend ==="
-      NODE_OPTIONS=--openssl-legacy-provider npm run build
-      
-      # Verify build
-      if [ -d ".next" ]; then
+      if [ -d "frontend/complain-analyzer-ai" ]; then
+        cd frontend/complain-analyzer-ai || { echo "Failed to enter frontend directory"; exit 1; }
+        
+        # Clean and install dependencies
+        echo "Cleaning and installing frontend dependencies..."
+        rm -rf node_modules package-lock.json .next
+        npm cache clean --force
+        export NODE_OPTIONS=--openssl-legacy-provider
+        
+        # Install frontend dependencies
+        npm install || { echo "Failed to install frontend dependencies"; exit 1; }
+        
+        # Build frontend
+        echo "Building frontend..."
+        NODE_OPTIONS=--openssl-legacy-provider npm run build || \
+          { echo "Frontend build failed"; exit 1; }
+        
+        # Verify build
+        if [ -d ".next" ]; then
         echo "✅ Frontend build successful"
       else
         echo "❌ Frontend build failed"
         exit 1
       fi
-      
       cd ../..
       
       # Final check
