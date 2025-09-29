@@ -8,6 +8,37 @@ from datetime import datetime, timedelta
 import random
 from pathlib import Path
 
+# Initialize models as None
+category_model = None
+priority_model = None
+type_model = None
+department_model = None
+
+def load_models():
+    """Load all the ML models"""
+    global category_model, priority_model, type_model, department_model
+    
+    try:
+        # Get the directory of the current script
+        script_dir = Path(__file__).parent
+        models_dir = script_dir / 'models'
+        
+        # Load all models
+        category_model = joblib.load(models_dir / 'category_model.pkl')
+        priority_model = joblib.load(models_dir / 'priority_model.pkl')
+        type_model = joblib.load(models_dir / 'type_model.pkl')
+        department_model = joblib.load(models_dir / 'department_model.pkl')
+        
+        print("All models loaded successfully!")
+        return True
+    except Exception as e:
+        print(f"Error loading models: {e}")
+        return False
+
+# Load models when the application starts
+if not load_models():
+    print("Failed to load one or more models. Please check the model files.")
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
