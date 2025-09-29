@@ -5,7 +5,10 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PORT=8000 \
+    WORKERS=4 \
+    TIMEOUT=120
 
 # Set working directory
 WORKDIR /app
@@ -13,16 +16,20 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    gcc \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first to leverage Docker cache
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --upgrade pip && \
+RUN pip install --upgrade pip wheel setuptools && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application
+# Create necessary directories
+RUN mkdir -p /app/logs
+
 # Copy the rest of the application
 COPY . .
 
@@ -30,7 +37,11 @@ COPY . .
 RUN chmod +x /app/start.sh
 
 # Expose the port the app runs on
-EXPOSE 8000
+EXPOSE $PORT
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:$PORT/health || exit 1
 
 # Command to run the application
 CMD ["./start.sh"]
