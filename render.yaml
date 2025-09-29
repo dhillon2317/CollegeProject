@@ -1,3 +1,4 @@
+services:
   - type: web
     name: complaint-analyzer
     env: python
@@ -95,12 +96,15 @@
         
         # Verify build
         if [ -d ".next" ]; then
-        echo "✅ Frontend build successful"
+          echo "✅ Frontend build successful"
+        else
+          echo "❌ Frontend build failed"
+          exit 1
+        fi
+        cd ../..
       else
-        echo "❌ Frontend build failed"
-        exit 1
+        echo "⚠️  Warning: Frontend directory not found, skipping frontend build"
       fi
-      cd ../..
       
       # Final check
       echo "=== Final Verification ==="
