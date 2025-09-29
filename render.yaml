@@ -16,13 +16,26 @@ services:
       
       # Check if models directory exists
       echo "Checking for models directory..."
+      echo "Current directory: $(pwd)"
+      echo "Looking for models in: sbackend/camplaint-analyzer/models/"
+      
+      # Check if the path exists
       if [ -d "sbackend/camplaint-analyzer/models" ]; then
-        echo "Models directory found at sbackend/camplaint-analyzer/models"
-        echo "Contents of models directory:"
+        echo "✅ Models directory found at sbackend/camplaint-analyzer/models/"
+        echo "📂 Contents of models directory:"
         ls -la sbackend/camplaint-analyzer/models/
+        
+        # Check for specific model files
+        if [ -f "sbackend/camplaint-analyzer/models/category_model.pkl" ]; then
+          echo "✅ Found category_model.pkl"
+        else
+          echo "❌ category_model.pkl not found in models directory"
+        fi
       else
-        echo "ERROR: Models directory not found!"
-        echo "Current directory structure:"
+        echo "❌ ERROR: Models directory not found at sbackend/camplaint-analyzer/models/"
+        echo "📂 Current directory structure (top level):"
+        ls -la
+        echo "🔍 Full directory structure:"
         find . -type d | sort
       fi
       
