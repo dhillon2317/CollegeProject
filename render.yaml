@@ -65,7 +65,7 @@ services:
         echo "ERROR: Category model not found!"
       fi
       
-    startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 app:app"
+    startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 wsgi:application"
     
     envVars:
       - key: PYTHON_VERSION
