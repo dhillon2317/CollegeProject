@@ -6,106 +6,100 @@ services:
       #!/bin/bash
       set -e  # Exit on error
       
+      # Debug info
+      echo "=== Build Script Started ==="
+      echo "Current directory: $(pwd)"
+      echo "Directory contents:"
+      ls -la
+      
       # Set Python path
       export PYTHONPATH="${PYTHONPATH}:/opt/render/project/src"
       
-      # Print working directory for debugging
-      echo "Current working directory: $(pwd)"
-      echo "Contents of current directory:"
-      ls -la
+      # Check models directory
+      echo "=== Checking for models directory ==="
+      MODELS_DIR="sbackend/camplaint-analyzer/models"
       
-      # Check if models directory exists
-      echo "Checking for models directory..."
-      echo "Current directory: $(pwd)"
-      echo "Looking for models in: sbackend/camplaint-analyzer/models/"
-      
-      # Check if the path exists
-      if [ -d "sbackend/camplaint-analyzer/models" ]; then
-        echo "✅ Models directory found at sbackend/camplaint-analyzer/models/"
-        echo "📂 Contents of models directory:"
-        ls -la sbackend/camplaint-analyzer/models/
-        
-        # Check for specific model files
-        if [ -f "sbackend/camplaint-analyzer/models/category_model.pkl" ]; then
-          echo "✅ Found category_model.pkl"
-        else
-          echo "❌ category_model.pkl not found in models directory"
-        fi
+      if [ -d "$MODELS_DIR" ]; then
+        echo "✅ Models directory found at $MODELS_DIR"
+        echo "📂 Contents:"
+        ls -la "$MODELS_DIR"
       else
-        echo "❌ ERROR: Models directory not found at sbackend/camplaint-analyzer/models/"
+        echo "❌ Models directory not found at $MODELS_DIR"
         echo "📂 Current directory structure (top level):"
         ls -la
         echo "🔍 Full directory structure:"
-        find . -type d | sort
+        find . -maxdepth 3 -type d | sort
       fi
       
-      # Update pip and install build tools
+      # Install Python dependencies
+      echo "=== Installing Python dependencies ==="
       python -m pip install --upgrade pip
       pip install --no-cache-dir -U setuptools wheel
-      
-      # Install Python dependencies first
       pip install --no-cache-dir -r sbackend/camplaint-analyzer/requirements.txt
       
-      # Install spacy and download model
+      # Install NLP dependencies
+      echo "=== Installing NLP dependencies ==="
       pip install --no-cache-dir spacy
       python -m spacy download en_core_web_sm --no-cache
-      
-      # Download NLTK data
-      echo "Downloading NLTK data..."
       python -c "import nltk; nltk.download('punkt', quiet=True)"
       
-      # Install Node.js using nvm (no root required)
-      echo "Installing Node.js..."
-      # Create necessary directories and files for nvm
-      mkdir -p ~/.nvm
+      # Set up Node.js
+      echo "=== Setting up Node.js ==="
       export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm if exists
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
       
-      # Install nvm if not already installed
       if ! command -v nvm &> /dev/null; then
+        echo "Installing nvm..."
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm after install
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
       fi
       
-      # Install Node.js 16 (more stable for this project)
+      # Use Node.js 16
       nvm install 16.20.2
-      node -v
-      npm -v
+      echo "Node.js version: $(node -v)"
+      echo "npm version: $(npm -v)"
       
-      # Install frontend dependencies and build
-      echo "Building React frontend..."
+      # Build frontend
+      echo "=== Building Frontend ==="
       cd frontend/complain-analyzer-ai
       
-      # Clean up any existing node_modules and lock files
+      # Clean and install dependencies
       rm -rf node_modules package-lock.json .next
-      
-      # Clear npm cache
       npm cache clean --force
-      
-      # Set NODE_OPTIONS before installing
       export NODE_OPTIONS=--openssl-legacy-provider
       
-      # Install dependencies
+      echo "Installing frontend dependencies..."
       npm install --legacy-peer-deps --force
       
-      # Build the frontend with production settings and legacy provider
+      echo "Building frontend..."
       NODE_OPTIONS=--openssl-legacy-provider npm run build
+      
+      # Verify build
+      if [ -d ".next" ]; then
+        echo "✅ Frontend build successful"
+      else
+        echo "❌ Frontend build failed"
+        exit 1
+      fi
       
       cd ../..
       
-      # Verify the models are in the correct location - simplified check
-      echo "Verifying model files in the final build..."
+      # Final check
+      echo "=== Final Verification ==="
       if [ -f "sbackend/camplaint-analyzer/models/category_model.pkl" ]; then
-        echo "✅ Category model found in final build!"
+        echo "✅ Model file found"
       else
-        echo "⚠️  Warning: Category model not found in final build!"
+        echo "⚠️  Warning: Model file not found"
       fi
+      
+      echo "=== Build Script Completed Successfully ==="
+    
     startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 wsgi:application"
     
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
-{{ ... }}
+      - key: PYTHONUNBUFFERED
         value: 1
       - key: PORT
         value: 10000
