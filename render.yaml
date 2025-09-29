@@ -56,19 +56,11 @@
       pip install --no-cache-dir scipy==1.10.1 || { echo "Failed to install scipy"; exit 1; }
       
       # Install requirements with proper error handling
-      echo "Installing project requirements..."
+      echo "Installing project requirements from root requirements.txt..."
       if [ -f "requirements.txt" ]; then
-        # First install the main requirements
-        pip install --no-cache-dir --no-deps -r requirements.txt || \
-          { echo "Failed to install main requirements"; exit 1; }
-        
-        # Then install the complaint-analyzer requirements
-        if [ -f "sbackend/camplaint-analyzer/requirements.txt" ]; then
-          pip install --no-cache-dir --no-deps -r sbackend/camplaint-analyzer/requirements.txt || \
-            { echo "Failed to install complaint-analyzer requirements"; exit 1; }
-        else
-          echo "⚠️  Warning: complaint-analyzer requirements.txt not found, skipping..."
-        fi
+        pip install --no-cache-dir -r requirements.txt || \
+          { echo "❌ Failed to install requirements"; exit 1; }
+        echo "✅ Successfully installed requirements"
       else
         echo "❌ Error: requirements.txt not found in the root directory"
         exit 1
