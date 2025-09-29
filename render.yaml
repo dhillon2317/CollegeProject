@@ -32,19 +32,34 @@ services:
       
       # Set up Node.js
       echo "=== Setting up Node.js ==="
+      
+      # Set NVM directory
       export NVM_DIR="$HOME/.nvm"
       
-      # Load nvm
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+      # Check if nvm is installed, if not install it
+      if ! command -v nvm &> /dev/null; then
+        echo "nvm not found, installing..."
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+        # Source nvm
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+      fi
+      
+      # Source nvm if not already loaded
+      if [ -s "$NVM_DIR/nvm.sh" ]; then
+        \. "$NVM_DIR/nvm.sh"
+      else
+        echo "❌ nvm not found after installation attempt"
+        exit 1
+      fi
       
       # Install and use Node.js 16
       echo "Installing Node.js 16.20.2..."
-      nvm install 16.20.2 || { echo "Failed to install Node.js 16.20.2"; exit 1; }
-      nvm use 16.20.2
+      nvm install 16.20.2 || { echo "❌ Failed to install Node.js 16.20.2"; exit 1; }
+      nvm use 16.20.2 || { echo "❌ Failed to use Node.js 16.20.2"; exit 1; }
       
       # Verify installation
-      echo "Node.js version: $(node -v)"
-      echo "npm version: $(npm -v)"
+      echo "Node.js version: $(node -v || echo 'node not found')"
+      echo "npm version: $(npm -v || echo 'npm not found')"
       
       # Install Python dependencies
       echo "=== Installing Python dependencies ==="
