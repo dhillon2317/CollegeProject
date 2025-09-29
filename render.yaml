@@ -30,8 +30,18 @@ services:
       # Install the package in development mode (this is crucial)
       pip install -e .
       
-      # Install requirements
-      pip install --no-cache-dir -r requirements.txt
+      # Install requirements from complaint-analyzer directory
+      pip install --no-cache-dir -r sbackend/camplaint-analyzer/requirements.txt
+      
+      # Download NLTK data
+      echo "Downloading NLTK data..."
+      python -c "import nltk; nltk.download('punkt', quiet=True)"
+      
+      # Retrain models to ensure compatibility
+      echo "Retraining models to ensure compatibility..."
+      cd sbackend/camplaint-analyzer
+      python train.py
+      cd ../..
       
       # Download spaCy model
       python -m spacy download en_core_web_sm --no-cache
