@@ -18,7 +18,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     gcc \
     python3-dev \
+    nodejs \
+    npm \
     && rm -rf /var/lib/apt/lists/*
+
+# Install pnpm
+RUN npm install -g pnpm
 
 # Create a non-root user and set up directories
 RUN groupadd -r appuser && \
@@ -29,9 +34,15 @@ RUN groupadd -r appuser && \
 # Copy the application files
 COPY --chown=appuser:appuser . .
 
+# Build the frontend
+RUN cd /app/frontend/complain-analyzer-ai && \
+    pnpm install && \
+    pnpm run build
+
 # Ensure frontend build directory exists and has correct permissions
-RUN mkdir -p /app/frontend/complain-analyzer-ai/dist && \
-    chown -R appuser:appuser /app/frontend
+RUN mkdir -p /app/static && \
+    cp -r /app/frontend/complain-analyzer-ai/dist/* /app/static/ && \
+    chown -R appuser:appuser /app/static
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \

@@ -84,12 +84,16 @@ def health_check():
     }), 200
 
 # Configure static files
-static_folder = os.path.join('frontend', 'complain-analyzer-ai', 'dist')
+static_folder = os.path.join('static')
 static_abs_path = os.path.abspath(static_folder)
 
 if os.path.exists(static_abs_path):
     app.static_folder = static_abs_path
     logger.info(f"Serving static files from: {static_abs_path}")
+    
+    @app.route('/')
+    def index():
+        return send_from_directory(app.static_folder, 'index.html')
     
     @app.route('/<path:path>')
     def serve(path):
@@ -98,17 +102,12 @@ if os.path.exists(static_abs_path):
             return jsonify({"error": "Not found"}), 404
             
         # Serve static files if they exist
-        if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        file_path = os.path.join(app.static_folder, path)
+        if os.path.exists(file_path) and not os.path.isdir(file_path):
             return send_from_directory(app.static_folder, path)
         # Otherwise serve index.html for SPA routing
-        elif os.path.exists(os.path.join(app.static_folder, 'index.html')):
-            return send_from_directory(app.static_folder, 'index.html')
         else:
-            return jsonify({
-                "error": "Frontend files not found",
-                "status": "backend_running",
-                "api_docs": "/api/docs"
-            }), 404
+            return send_from_directory(app.static_folder, 'index.html')
 else:
     logger.warning(f"Frontend static folder not found at: {static_abs_path}")
     
