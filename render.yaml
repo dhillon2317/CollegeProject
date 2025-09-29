@@ -21,6 +21,7 @@ services:
         echo "ERROR: Models directory not found!"
         echo "Current directory structure:"
         find . -type d | sort
+      fi
       
       # Update pip and install build tools
       python -m pip install --upgrade pip
@@ -75,20 +76,19 @@ services:
       NODE_OPTIONS=--openssl-legacy-provider npm run build
       
       cd ../..
-      
       # Verify the models are in the correct location
       echo "Verifying model files in the final build..."
       if [ -f "sbackend/camplaint-analyzer/models/category_model.pkl" ]; then
         echo "Category model found!"
       else
+        echo "Warning: Category model not found!"
       fi
-      
     startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 wsgi:application"
     
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
-      - key: PYTHONUNBUFFERED
+{{ ... }}
         value: 1
       - key: PORT
         value: 10000
