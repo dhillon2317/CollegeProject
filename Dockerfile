@@ -20,22 +20,32 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Create necessary directories with proper permissions
-RUN mkdir -p /app/logs /app/frontend/complain-analyzer-ai/dist && \
-    chmod -R 755 /app && \
-    chown -R 1000:1000 /app
+# Create a non-root user and switch to it
+RUN groupadd -r appuser && useradd -r -g appuser appuser \
+    && mkdir -p /app/logs /app/frontend/complain-analyzer-ai/dist \
+    && chown -R appuser:appuser /app
 
-# Copy the entire application first
-COPY . .
+# Copy the application files
+COPY --chown=appuser:appuser . .
 
-# Install Python dependencies
-RUN pip install --upgrade pip wheel setuptools && \
+# Switch to non-root user
+USER appuser
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app \
+    PATH="/home/appuser/.local/bin:${PATH}" \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Install Python dependencies as non-root user
+RUN pip install --user --no-warn-script-location --upgrade pip wheel setuptools && \
     # Install direct URL requirements first
-    pip install --no-cache-dir https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0/en_core_web_sm-3.7.0.tar.gz && \
+    pip install --user --no-warn-script-location --no-cache-dir https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0/en_core_web_sm-3.7.0.tar.gz && \
     # Install other requirements
-    pip install --no-cache-dir -r requirements.txt && \
+    pip install --user --no-warn-script-location --no-cache-dir -r requirements.txt && \
     # Install in development mode
-    pip install -e .
+    pip install --user --no-warn-script-location -e .
 
 # Make start.sh executable
 RUN chmod +x /app/start.sh
@@ -47,5 +57,5 @@ EXPOSE $PORT
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:$PORT/health || exit 1
 
-# Command to run the application
-CMD ["./start.sh"]
+# Run the application
+CMD ["/app/start.sh"]

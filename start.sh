@@ -18,35 +18,37 @@ log() {
 exec > >(tee -a /app/logs/startup.log) 2>&1
 
 log "========================================"
-log "Starting application on port $APP_PORT"
+log "Starting application on port $APP_PORT as user $(whoami)"
 log "Using $WORKERS workers with $TIMEOUT seconds timeout"
 log "Environment variables:"
 printenv | sort
 log "========================================"
 
-# Make sure the app is installed in development mode
-if [ "$RAILWAY_ENVIRONMENT" = "production" ]; then
-    log "Running in production mode"
-    pip install -e .
-fi
-
+# Check Python environment
+log "Python version: $(python --version 2>&1 || echo 'Python not found')
+log "Pip version: $(pip --version 2>&1 || echo 'Pip not found')
 log "Current directory: $(pwd)"
-log "Python version: $(python --version)"
-log "Pip version: $(pip --version)"
+log "Directory contents:"
+ls -la
 
-# Install requirements if needed
-if [ -f "requirements.txt" ]; then
+# Install requirements if needed (as user)
+if [ -f "requirements.txt" ] && [ "$SKIP_PIP_INSTALL" != "true" ]; then
     log "Installing requirements..."
-    pip install -r requirements.txt
+    pip install --user --no-warn-script-location -r requirements.txt
 fi
 
 # Install spaCy model if not already installed
 if ! python -c "import en_core_web_sm" &> /dev/null; then
     log "Downloading spaCy model..."
-    python -m spacy download en_core_web_sm
+    python -m spacy download en_core_web_sm --user
 fi
 
+# Ensure the app directory is in Python path
+export PYTHONPATH="/app:${PYTHONPATH}"
+
 log "Starting Gunicorn server..."
+log "Command: gunicorn --bind :$APP_PORT --workers $WORKERS --timeout $TIMEOUT --worker-class uvicorn.workers.UvicornWorker --access-logfile - --error-logfile - --log-level info app:app"
+
 exec gunicorn \
     --bind :$APP_PORT \
     --workers $WORKERS \
@@ -55,6 +57,7 @@ exec gunicorn \
     --access-logfile - \
     --error-logfile - \
     --log-level info \
+    --chdir /app \
     app:app
 
 # Check Python environment
