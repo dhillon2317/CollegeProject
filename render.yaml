@@ -3,6 +3,9 @@ services:
     name: complaint-analyzer
     env: python
     buildCommand: |
+      #!/bin/bash
+      set -e  # Exit on error
+      
       # Set Python path
       export PYTHONPATH="${PYTHONPATH}:/opt/render/project/src"
       
@@ -76,6 +79,7 @@ services:
       NODE_OPTIONS=--openssl-legacy-provider npm run build
       
       cd ../..
+      
       # Verify the models are in the correct location
       echo "Verifying model files in the final build..."
       if [ -f "sbackend/camplaint-analyzer/models/category_model.pkl" ]; then
