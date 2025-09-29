@@ -21,17 +21,17 @@ services:
         echo "ERROR: Models directory not found!"
         echo "Current directory structure:"
         find . -type d | sort
-      fi
       
       # Update pip and install build tools
       python -m pip install --upgrade pip
       pip install --no-cache-dir -U setuptools wheel
       
-      # Install the package in development mode (this is crucial)
-      pip install -e .
-      
-      # Install requirements from complaint-analyzer directory
+      # Install Python dependencies first
       pip install --no-cache-dir -r sbackend/camplaint-analyzer/requirements.txt
+      
+      # Install spacy and download model
+      pip install --no-cache-dir spacy
+      python -m spacy download en_core_web_sm --no-cache
       
       # Download NLTK data
       echo "Downloading NLTK data..."
@@ -39,33 +39,48 @@ services:
       
       # Install Node.js using nvm (no root required)
       echo "Installing Node.js..."
-      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+      # Create necessary directories and files for nvm
+      mkdir -p ~/.nvm
       export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm
-      nvm install 16
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm if exists
+      
+      # Install nvm if not already installed
+      if ! command -v nvm &> /dev/null; then
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm after install
+      fi
+      
+      # Install Node.js 16 (more stable for this project)
+      nvm install 16.20.2
       node -v
       npm -v
       
       # Install frontend dependencies and build
       echo "Building React frontend..."
       cd frontend/complain-analyzer-ai
-      npm install --legacy-peer-deps
-      npm run build
+      
+      # Clean up any existing node_modules and lock files
+      rm -rf node_modules package-lock.json .next
+      
+      # Clear npm cache
+      npm cache clean --force
+      
+      # Set NODE_OPTIONS before installing
+      export NODE_OPTIONS=--openssl-legacy-provider
+      
+      # Install dependencies
+      npm install --legacy-peer-deps --force
+      
+      # Build the frontend with production settings and legacy provider
+      NODE_OPTIONS=--openssl-legacy-provider npm run build
+      
       cd ../..
-      
-      # Skip model retraining in production to avoid long build times
-      # Models should be pre-trained and committed to the repository
-      
-      # Download spaCy model
-      echo "Downloading spaCy model..."
-      python -m spacy download en_core_web_sm --no-cache
       
       # Verify the models are in the correct location
       echo "Verifying model files in the final build..."
       if [ -f "sbackend/camplaint-analyzer/models/category_model.pkl" ]; then
         echo "Category model found!"
       else
-        echo "WARNING: Category model not found! Some features may not work."
       fi
       
     startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 wsgi:application"
