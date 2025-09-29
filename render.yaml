@@ -43,11 +43,11 @@ services:
     plan: free
     healthCheckPath: /health
     
-    # Optimize build settings
-    build:
-      memory: 4096  # Request more memory for the build
-      timeout: 1800  # 30 minutes build timeout
+    # # Optimize build settings
+    # build:
+    #   memory: 4096  # Request more memory for the build
+    #   timeout: 1800  # 30 minutes build timeout
     
-    # Runtime resources
-    resources:
-      memory: 1024  # Runtime memory limit
+    # # Runtime resources
+    # resources:
+    #   memory: 1024  # Runtime memory limit
