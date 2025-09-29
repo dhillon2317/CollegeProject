@@ -26,6 +26,8 @@ services:
       else
         echo "❌ Models directory not found at $MODELS_DIR"
         echo "📂 Current directory structure (top level):"
+        ls -la
+      fi
       
       # Set up Node.js
       echo "=== Setting up Node.js ==="
