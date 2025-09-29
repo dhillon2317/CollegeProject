@@ -69,8 +69,10 @@ def load_models():
         return False
 
 # Load models when the application starts
-if not load_models():
+models_loaded = load_models()
+if not models_loaded:
     print("Failed to load one or more models. Please check the model files.")
+    # Don't exit here, let the application start but it will fail the health check
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -78,19 +80,33 @@ CORS(app)  # Enable CORS for all routes
 @app.route('/health')
 def health_check():
     """Health check endpoint for Render service monitoring."""
-    # Check if all required models are loaded
-    models_loaded = all([
-        'category_model' in globals(),
-        'priority_model' in globals(),
-        'type_model' in globals(),
-        'department_model' in globals()
-    ])
-    
-    if not models_loaded:
+    try:
+        # Check if all required models are loaded and callable
+        models_loaded = all([
+            'category_model' in globals() and callable(globals()['category_model'].predict),
+            'priority_model' in globals() and callable(globals()['priority_model'].predict),
+            'type_model' in globals() and callable(globals()['type_model'].predict),
+            'department_model' in globals() and callable(globals()['department_model'].predict)
+        ])
+        
+        if not models_loaded:
+            return jsonify({
+                'status': 'unhealthy',
+                'service': 'complaint-analyzer-ml',
+                'error': 'One or more models failed to load properly'
+            }), 500
+            
         return jsonify({
-            'status': 'unhealthy',
+            'status': 'healthy',
             'service': 'complaint-analyzer-ml',
-            'error': 'One or more models failed to load'
+            'models_loaded': True
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'service': 'complaint-analyzer-ml',
+            'error': f'Health check failed: {str(e)}'
         }), 500
     
     return jsonify({
