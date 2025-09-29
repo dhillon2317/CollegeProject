@@ -20,8 +20,8 @@ except ImportError as e:
     print("Current directory contents:", os.listdir('.'))
     if os.path.exists('sbackend'):
         print("sbackend contents:", os.listdir('sbackend'))
-        if os.path.exists('sbackend/camplaint_analyzer'):
-            print("camplaint_analyzer contents:", os.listdir('sbackend/camplaint_analyzer'))
+        if os.path.exists('sbackend/complaint-analyzer'):
+            print("complaint-analyzer contents:", os.listdir('sbackend/complaint-analyzer'))
     raise
 
 if __name__ == "__main__":

@@ -1,6 +1,20 @@
 import os
 from flask import Flask, send_from_directory
-from sbackend.camplaint_analyzer.app import app as api_app
+# Import using the correct module path with hyphen
+import importlib.util
+import sys
+
+# Manually import the module with hyphen in the name
+module_spec = importlib.util.spec_from_file_location(
+    "complaint_analyzer_app", 
+    "sbackend/complaint-analyzer/app.py"
+)
+complaint_analyzer = importlib.util.module_from_spec(module_spec)
+sys.modules["complaint_analyzer"] = complaint_analyzer
+module_spec.loader.exec_module(complaint_analyzer)
+
+# Get the app from the imported module
+api_app = complaint_analyzer.app
 
 app = Flask(__name__, static_folder='frontend/complain-analyzer-ai/dist')
 
