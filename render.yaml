@@ -6,6 +6,7 @@ services:
       python -m pip install --upgrade pip
       pip install --no-cache-dir -U setuptools wheel
       pip install --no-cache-dir -r requirements.txt
+      pip install -e .  # Install package in development mode
       python -m spacy download en_core_web_sm --no-cache
     startCommand: "gunicorn --bind :$PORT --workers 1 --threads 2 --timeout 120 app:app"
     envVars:
