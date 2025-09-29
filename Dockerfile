@@ -23,10 +23,14 @@ RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application
+# Copy the rest of the application
 COPY . .
+
+# Make start.sh executable
+RUN chmod +x /app/start.sh
 
 # Expose the port the app runs on
 EXPOSE 8000
 
 # Command to run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "--worker-class", "uvicorn.workers.UvicornWorker", "wsgi:app"]
+CMD ["./start.sh"]
