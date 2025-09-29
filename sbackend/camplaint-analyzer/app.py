@@ -23,16 +23,49 @@ def load_models():
         script_dir = Path(__file__).parent
         models_dir = script_dir / 'models'
         
+        # Print debug information
+        print(f"Current working directory: {os.getcwd()}")
+        print(f"Script directory: {script_dir}")
+        print(f"Models directory: {models_dir}")
+        
+        # Check if models directory exists
+        if not models_dir.exists():
+            print(f"Models directory not found at: {models_dir}")
+            print(f"Current directory contents: {os.listdir(script_dir)}")
+            return False
+            
+        # Check if model files exist
+        model_files = {
+            'category': models_dir / 'category_model.pkl',
+            'priority': models_dir / 'priority_model.pkl',
+            'type': models_dir / 'type_model.pkl',
+            'department': models_dir / 'department_model.pkl'
+        }
+        
+        # Verify all model files exist
+        for name, path in model_files.items():
+            if not path.exists():
+                print(f"Model file not found: {path}")
+                print(f"Available files in models directory: {os.listdir(models_dir)}")
+                return False
+        
         # Load all models
-        category_model = joblib.load(models_dir / 'category_model.pkl')
-        priority_model = joblib.load(models_dir / 'priority_model.pkl')
-        type_model = joblib.load(models_dir / 'type_model.pkl')
-        department_model = joblib.load(models_dir / 'department_model.pkl')
+        print("Loading models...")
+        category_model = joblib.load(model_files['category'])
+        print("Loaded category model")
+        priority_model = joblib.load(model_files['priority'])
+        print("Loaded priority model")
+        type_model = joblib.load(model_files['type'])
+        print("Loaded type model")
+        department_model = joblib.load(model_files['department'])
+        print("Loaded department model")
         
         print("All models loaded successfully!")
         return True
     except Exception as e:
-        print(f"Error loading models: {e}")
+        print(f"Error loading models: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return False
 
 # Load models when the application starts

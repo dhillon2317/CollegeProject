@@ -6,6 +6,23 @@ services:
       # Set Python path
       export PYTHONPATH="${PYTHONPATH}:/opt/render/project/src"
       
+      # Print working directory for debugging
+      echo "Current working directory: $(pwd)"
+      echo "Contents of current directory:"
+      ls -la
+      
+      # Check if models directory exists
+      echo "Checking for models directory..."
+      if [ -d "sbackend/camplaint-analyzer/models" ]; then
+        echo "Models directory found at sbackend/camplaint-analyzer/models"
+        echo "Contents of models directory:"
+        ls -la sbackend/camplaint-analyzer/models/
+      else
+        echo "ERROR: Models directory not found!"
+        echo "Current directory structure:"
+        find . -type d | sort
+      fi
+      
       # Update pip and install build tools
       python -m pip install --upgrade pip
       pip install --no-cache-dir -U setuptools wheel
@@ -18,6 +35,14 @@ services:
       
       # Download spaCy model
       python -m spacy download en_core_web_sm --no-cache
+      
+      # Verify the models are in the correct location
+      echo "Verifying model files in the final build..."
+      if [ -f "sbackend/camplaint-analyzer/models/category_model.pkl" ]; then
+        echo "Category model found!"
+      else
+        echo "ERROR: Category model not found!"
+      fi
       
       # Verify package installation
       python -c "import sys; print('\n'.join(sys.path))"
