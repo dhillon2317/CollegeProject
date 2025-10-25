@@ -216,6 +216,10 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
                         <span className="font-medium text-muted-foreground">Department:</span>
                         <span className="font-medium">{complaint.department}</span>
                       </div>
+                        <div className="flex items-center gap-1.5">
+                        <span className="font-medium text-muted-foreground">By:</span>
+                        <span className="font-medium">{complaint.userType}</span>
+                      </div>
                       <div className="flex items-center gap-1.5">
                         <span className="font-medium text-muted-foreground">Submitted:</span>
                         <span className="font-medium">

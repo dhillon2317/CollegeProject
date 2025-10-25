@@ -36,10 +36,16 @@ export default function App() {
       if (!response.ok) {
         throw new Error('Failed to fetch complaints');
       }
-      const data = await response.json();
-      setComplaints(data);
+      const result = await response.json();
+      if (result.success && Array.isArray(result.data)) {
+        setComplaints(result.data);
+      } else {
+        console.error('Invalid response format:', result);
+        setComplaints([]);
+      }
     } catch (error) {
       console.error('Error fetching complaints:', error);
+      setComplaints([]);
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);

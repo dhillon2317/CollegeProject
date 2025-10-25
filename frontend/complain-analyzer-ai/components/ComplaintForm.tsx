@@ -156,8 +156,8 @@ export function ComplaintForm() {
         category: analysis.category || prev.category,
         priority: analysis.priority || prev.priority,
         department: analysis.assignedDepartment || prev.department,
-        // Assuming your 'type' model predicts the userType
-        userType: analysis.type || prev.userType,
+        // Keep the existing userType, don't let AI override it
+        userType: prev.userType,
       }));
     }
   };
@@ -188,8 +188,13 @@ export function ComplaintForm() {
         }
       }
 
+      // Save the user's selected userType before applying AI analysis
+      const userSelectedType = formData.userType;
+      
       const requestBody = {
         ...finalFormData,
+        // Always use the user's selected type, not the AI's prediction
+        userType: userSelectedType,
         status: "Pending",
         createdAt: new Date().toISOString(),
         aiAnalyzed: true,

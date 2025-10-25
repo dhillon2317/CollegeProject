@@ -384,41 +384,49 @@ interface AnalyticsDashboardProps {
   complaints: any[];
 }
 
-function AnalyticsDashboard({ onSelectComplaint, complaints }: AnalyticsDashboardProps) {
+const AnalyticsDashboard = ({ onSelectComplaint, complaints }: AnalyticsDashboardProps) => {
   const domain = getCurrentDomain();
+  // Initialize tracking variables
+  let totalResolutionTime = 0;
+  let resolvedCount = 0;
+  let totalSentiment = 0;
+  let totalResponseTime = 0;
+  let responseCount = 0;
 
-  // Enhanced AI analysis statistics with more detailed metrics
+  // Initialize AI Analysis Stats
   const aiAnalysisStats = {
     // Basic counts
-    totalAnalyzed: complaints.filter(c => c.aiAnalyzed).length,
+    totalAnalyzed: complaints.filter((c: any) => c.aiAnalyzed).length,
     totalComplaints: complaints.length,
-    averageConfidence: 0, // Will be calculated
 
+    // Average confidence
+    averageConfidence: 0, // Will be calculated
+    
     // Categorization metrics
     categories: {} as Record<string, {
-      count: number,
-      avgConfidence: number,
-      avgResolution: number,
-      sentiment: number
+      count: number;
+      avgConfidence: number;
+      avgResolution: number;
+      sentiment: number;
     }>,
-
+    
     // Department metrics
     departments: {} as Record<string, {
-      count: number,
-      totalResolutionTime: number,
-      avgResolution: number,
-      avgConfidence: number,
-      satisfaction: number
+      count: number;
+      totalResolutionTime: number;
+      avgResolution: number;
+      avgConfidence: number;
+      satisfaction: number;
     }>,
-
+    
     // Priority metrics
     priorities: {} as Record<string, number>,
-
+    
     // Sentiment analysis
     sentiment: {
       positive: 0,
-      neutral: 0,
       negative: 0,
+      neutral: 0,
       avgSentiment: 0,
       sentimentTrend: [
         { month: 'Jan', positive: 15, neutral: 20, negative: 5 },
@@ -430,7 +438,24 @@ function AnalyticsDashboard({ onSelectComplaint, complaints }: AnalyticsDashboar
         { month: 'Jul', positive: 45, neutral: 35, negative: 20 }
       ]
     },
-
+    
+    // Model performance metrics
+    modelMetrics: {
+      confidenceThreshold: 0.8,
+      modelDrift: 0.05,
+      lastEvaluation: new Date().toISOString(),
+      nextScheduledRetraining: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      dataDrift: 0.07,
+      conceptDrift: 0.03,
+      predictionAccuracy: 0.87,
+      // Anomaly detection
+      anomalies: [
+        { id: 1, type: 'Spike in complaints', date: '2024-09-15', severity: 'high', description: 'Unusual 45% increase in infrastructure complaints' },
+        { id: 2, type: 'Decreased resolution rate', date: '2024-09-10', severity: 'medium', description: '10% drop in resolution rate for IT department' },
+        { id: 3, type: 'Sentiment shift', date: '2024-09-05', severity: 'low', description: 'Slight negative shift in sentiment for academic complaints' }
+      ]
+    },
+    
     // Resolution metrics
     resolutionMetrics: {
       avgResolutionTime: 0,
@@ -445,33 +470,120 @@ function AnalyticsDashboard({ onSelectComplaint, complaints }: AnalyticsDashboar
         { month: 'Jun', resolved: 35, unresolved: 15 },
         { month: 'Jul', resolved: 40, unresolved: 18 }
       ]
-    },
-
-    // AI model performance
-    modelPerformance: {
-      predictionAccuracy: 0.87,
-      confidenceThreshold: 0.85,
-      modelDrift: 0.05,
-      lastEvaluation: '2024-09-20T14:30:00Z',
-      nextScheduledRetraining: '2024-12-20T00:00:00Z',
-      dataDrift: 0.07,
-      conceptDrift: 0.03
-    },
-
-    // Anomaly detection
-    anomalies: [
-      { id: 1, type: 'Spike in complaints', date: '2024-09-15', severity: 'high', description: 'Unusual 45% increase in infrastructure complaints' },
-      { id: 2, type: 'Decreased resolution rate', date: '2024-09-10', severity: 'medium', description: '10% drop in resolution rate for IT department' },
-      { id: 3, type: 'Sentiment shift', date: '2024-09-05', severity: 'low', description: 'Slight negative shift in sentiment for academic complaints' }
-    ]
+    }
   };
 
-  // Process complaints data for AI analysis with enhanced metrics
-  let totalSentiment = 0;
-  let totalResolutionTime = 0;
-  let resolvedCount = 0;
-  let totalResponseTime = 0;
-  let responseCount = 0;
+  // Monthly complaint trends with AI predictions
+  const monthlyTrends = [
+    {
+      month: "May",
+      complaints: 40,
+      resolved: 35,
+      predicted: 37,
+      aiConfidence: 88
+    },
+    {
+      month: "Jun",
+      complaints: 45,
+      resolved: 42,
+      predicted: 43,
+      aiConfidence: 90
+    },
+    {
+      month: "Jul",
+      complaints: 50,
+      resolved: 48,
+      predicted: 49,
+      aiConfidence: 93
+    },
+    {
+      month: "Aug",
+      complaints: 55,
+      resolved: 52,
+      predicted: 53,
+      aiConfidence: 91
+    },
+    {
+      month: "Sep",
+      complaints: 60,
+      resolved: 58,
+      predicted: 59,
+      aiConfidence: 92
+    },
+    {
+      month: "Oct",
+      complaints: 65,
+      resolved: 63,
+      predicted: 64,
+      aiConfidence: 90
+    },
+    {
+      month: "Nov",
+      complaints: 70,
+      resolved: 68,
+      predicted: 69,
+      aiConfidence: 91
+    },
+    {
+      month: "Dec",
+      complaints: 75,
+      resolved: 72,
+      predicted: 74,
+      aiConfidence: 92
+    }
+  ];
+
+  // Process each complaint to calculate statistics
+  complaints.forEach(complaint => {
+    // Process categories
+    if (complaint.category) {
+      const cat = complaint.category;
+      aiAnalysisStats.categories[cat] = aiAnalysisStats.categories[cat] || { 
+        count: 0,
+        avgConfidence: 0,
+        avgResolution: 0,
+        sentiment: 0
+      };
+      aiAnalysisStats.categories[cat]!.count++;
+    }
+
+    // Process departments
+    if (complaint.department) {
+      const dept = complaint.department;
+      aiAnalysisStats.departments[dept] = aiAnalysisStats.departments[dept] || {
+        count: 0,
+        totalResolutionTime: 0,
+        avgResolution: 0,
+        avgConfidence: 0,
+        satisfaction: 0
+      };
+      aiAnalysisStats.departments[dept]!.count++;
+    }
+
+    // Process priorities
+    if (complaint.priority) {
+      aiAnalysisStats.priorities[complaint.priority] = (aiAnalysisStats.priorities[complaint.priority] || 0) + 1;
+    }
+
+    aiAnalysisStats.totalAnalyzed++;
+  });
+
+  // Calculate statistics functions
+  const calculateStats = (field: string) => {
+    const counts = complaints.reduce<Record<string, number>>((acc, complaint) => {
+      const value = complaint[field as keyof typeof complaint] || 'Unknown';
+      acc[String(value)] = (acc[String(value)] || 0) + 1;
+      return acc;
+    }, {});
+
+    const total = complaints.length || 1;
+    
+    return Object.entries(counts).map(([name, count]) => ({
+      name,
+      complaints: count,
+      percentage: Math.round((count / total) * 100)
+    })).sort((a, b) => b.complaints - a.complaints);
+  };
 
   complaints.forEach(complaint => {
     if (complaint.aiAnalyzed) {
@@ -567,6 +679,7 @@ function AnalyticsDashboard({ onSelectComplaint, complaints }: AnalyticsDashboar
     ? (complaints.filter(c => c.status === 'Resolved').length / complaints.length) * 100
     : 0;
 
+
   // Convert category/department/priority counts to array for charts with enhanced data
   const categoryData = Object.entries(aiAnalysisStats.categories).length > 0
     ? Object.entries(aiAnalysisStats.categories)
@@ -582,31 +695,14 @@ function AnalyticsDashboard({ onSelectComplaint, complaints }: AnalyticsDashboar
       { name: "No categories yet", value: 1, color: "#8884d8", avgConfidence: 0 }
     ];
 
-  const departmentData = Object.entries(aiAnalysisStats.departments).length > 0
-    ? Object.entries(aiAnalysisStats.departments)
-      .map(([name, data]) => ({
-        name,
-        value: data.count,
-        avgResolution: data.count > 0 ? data.totalResolutionTime / data.count : 0,
-        color: `hsl(${Math.random() * 360}, 70%, 50%)`
-      }))
-      .sort((a, b) => b.value - a.value)
-      .slice(0, 5) // Top 5 departments
-    : [
-      { name: "No departments yet", value: 1, color: "#82ca9d", avgResolution: 0 }
-    ];
-
-  const priorityData = Object.entries(aiAnalysisStats.priorities).length > 0
-    ? Object.entries(aiAnalysisStats.priorities).map(([name, value]) => ({
-      name,
-      value,
-      color: name === 'High' ? '#ef4444' :
-        name === 'Medium' ? '#f59e0b' :
-          name === 'Low' ? '#10b981' : '#6b7280'
-    }))
-    : [
-      { name: "No priorities yet", value: 1, color: "#6b7280" }
-    ];
+  const priorityData = calculateStats('priority')
+    .sort((a, b) => b.complaints - a.complaints)
+    .map(item => ({
+      ...item,
+      color: item.name === 'High' ? '#ef4444' :
+             item.name === 'Medium' ? '#f59e0b' :
+             item.name === 'Low' ? '#10b981' : '#6b7280'
+    }));
 
   // Calculate average confidence if available
   const totalConfidence = complaints.reduce((sum, complaint) =>
@@ -663,7 +759,7 @@ function AnalyticsDashboard({ onSelectComplaint, complaints }: AnalyticsDashboar
     ]
   };
 
-  // Generate complaints over time data with AI predictions
+  // Monthly complaint trends with AI predictions
   const complaintsOverTime = [
     {
       month: "Feb",
@@ -778,20 +874,22 @@ function AnalyticsDashboard({ onSelectComplaint, complaints }: AnalyticsDashboar
     { severity: "Low", avgTime: 96.3, target: 96.0 },
   ];
 
-  // College-specific metrics
-  const semesterTrends = [
-    { period: "Sem Start", complaints: 15, type: "Academic Issues" },
-    { period: "Mid Sem", complaints: 42, type: "Infrastructure" },
-    { period: "Exam Time", complaints: 38, type: "Facilities" },
-    { period: "Sem End", complaints: 25, type: "Administrative" },
-  ];
 
-  const userTypeData = [
-    { type: "Students", percentage: 78, complaints: 156 },
-    { type: "Faculty/Staff", percentage: 18, complaints: 36 },
-    { type: "Parents", percentage: 3, complaints: 6 },
-    { type: "Visitors", percentage: 1, complaints: 2 },
-  ];
+  // College-specific metrics - using actual data
+  const semesterTrends = calculateStats('category').map((item, index) => ({
+    period: item.name,
+    complaints: item.complaints,
+    type: item.name
+  }));
+
+  // User type statistics
+  const userTypeData = calculateStats('userType');
+  
+  // Department statistics
+  const departmentData = calculateStats('department');
+  
+  // Status statistics
+  const statusData = calculateStats('status');
 
   const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff7300", "#0088fe", "#00C49F"];
 
@@ -1132,16 +1230,19 @@ function AnalyticsDashboard({ onSelectComplaint, complaints }: AnalyticsDashboar
       <Card>
         <CardHeader>
           <CardTitle>Complaints by User Type</CardTitle>
-          <CardDescription>Who is submitting complaints and their satisfaction levels</CardDescription>
+          <CardDescription>Distribution of complaints by user type</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {userTypeData.map((userType, index) => (
               <div key={index} className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-medium">{userType.type}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">{userType.name}</span>
+                    {userType.name === 'Student' && <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full">Most Common</span>}
+                  </div>
                   <div className="text-sm text-muted-foreground">
-                    {userType.complaints} complaints ({userType.percentage}%)
+                    {userType.complaints} {userType.complaints === 1 ? 'complaint' : 'complaints'} ({userType.percentage}%)
                   </div>
                 </div>
                 <Progress value={userType.percentage} />
