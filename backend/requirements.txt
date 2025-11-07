@@ -9,4 +9,7 @@ sentence-transformers
 flask
 pymongo
 flask-cors
-dotenv
+dotenv 
+python-dotenv 
+PyJWT 
+ 
