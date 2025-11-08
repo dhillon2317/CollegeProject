@@ -1,0 +1,172 @@
+complaint_text,category,priority,department,type
+"The waiting time in the emergency room is too long.",Wait Times,High,Emergency Room,Non-Technical
+"The nurse was very rude during my last visit.",Staff Behavior,Medium,Nursing,Non-Technical
+"I was overcharged for my recent blood test.",Billing,High,Billing,Non-Technical
+"The doctor didn't explain my condition properly.",Doctor Consultation,High,General Practice,Non-Technical
+"The hospital room was not clean during my stay.",Cleanliness,Medium,Housekeeping,Non-Technical
+"I couldn't get an appointment with a specialist for 3 months.",Appointment,High,Specialty Care,Non-Technical
+"The receptionist shared my medical information with someone else.",Privacy,High,Reception,Non-Technical
+"My insurance claim was wrongfully denied.",Insurance,High,Insurance,Non-Technical
+"No one followed up after my surgery to check on my recovery.",Follow-up Care,Medium,Patient Care,Non-Technical
+"The hospital entrance is not wheelchair accessible.",Accessibility,High,Facilities,Non-Technical
+"The pharmacy gave me the wrong medication.",Medication,High,Pharmacy,Technical
+"The MRI machine was not working during my appointment.",Equipment,High,Radiology,Technical
+"The hospital food was cold and unappetizing.",Food Service,Low,Food Service,Non-Technical
+"The doctor was 45 minutes late for my appointment.",Scheduling,Medium,General Practice,Non-Technical
+"I can't access my test results online.",IT Issues,High,IT,Technical
+"The hospital parking lot is always full.",Parking,Low,Facilities,Non-Technical
+"The air conditioning in my room was not working.",Facilities,Medium,Maintenance,Technical
+"The discharge instructions were not clear.",Patient Education,Medium,Nursing,Non-Technical
+"I was not informed about the side effects of my medication.",Medication,High,Pharmacy,Non-Technical
+"The hospital bills are not itemized.",Billing,Medium,Billing,Non-Technical
+complaint_text,category,priority,department,type
+I noticed a breach of my medical privacy regarding my arthritis.,Privacy,High,Reception,Non-Technical
+The hospital doesn't accept my {insurance} insurance.,Insurance,High,Insurance,Non-Technical
+The hospital needs better {facility} in the hallway.,Facilities,High,Maintenance,Technical
+The doctor didn't explain my hypertension properly.,Doctor Consultation,Medium,General Practice,Non-Technical
+No one followed up after my surgery to check on my recovery.,Follow-up Care,High,Patient Care,Non-Technical
+I wasn't given enough information about my hypertension.,Patient Education,Medium,Nursing,Non-Technical
+The parking fees at the hospital are too expensive.,Parking,Medium,Facilities,Non-Technical
+The post-operative care instructions were not clear after my MRI scan.,Follow-up Care,Medium,Patient Care,Non-Technical
+The pharmacy was out of my prescribed blood pressure medication.,Medication,Medium,Pharmacy,Technical
+There was an error in my medical bill for {service}.,Billing,Low,Billing,Non-Technical
+therapist at the Nursing were dismissive when I needed help.,Staff Behavior,Low,Nursing,Non-Technical
+I couldn't get an appointment with a dermatologist for 3 months.,Appointment,Medium,Specialty Care,Non-Technical
+I noticed cluttered in the emergency room.,Cleanliness,High,Housekeeping,Non-Technical
+The blood pressure monitor was not working during my appointment.,Equipment,Low,Radiology,Technical
+There was a problem with the insurance pre-authorization for my X-ray.,Insurance,Medium,Insurance,Non-Technical
+The post-operative care instructions were not clear after my ultrasound.,Follow-up Care,Low,Patient Care,Non-Technical
+The hospital doesn't accept my {insurance} insurance.,Insurance,Medium,Insurance,Non-Technical
+My dietary restrictions for gluten-free were not accommodated.,Food Service,Medium,Food Service,Non-Technical
+My medical records were not handled confidentially at the {department}.,Privacy,High,Reception,Non-Technical
+The hospital needs to upgrade their EKG machine in Radiology.,Equipment,High,Radiology,Technical
+The doctor didn't listen to my concerns about fever.,Doctor Consultation,Low,General Practice,Non-Technical
+The hospital needs to upgrade their EKG machine in Radiology.,Equipment,High,Radiology,Technical
+The hospital charged me twice for the same surgery.,Billing,Medium,Billing,Non-Technical
+Spent 6 hours in the waiting room at Emergency Room.,Wait Times,Medium,Emergency Room,Non-Technical
+The {entrance/area} is not wheelchair accessible.,Accessibility,Medium,Facilities,Non-Technical
+I felt rushed during my consultation about arthritis.,Doctor Consultation,Low,General Practice,Non-Technical
+My dietary restrictions for diabetic were not accommodated.,Food Service,Medium,Food Service,Non-Technical
+I can't access my {records} online.,IT Issues,Medium,IT,Technical
+The hospital cafeteria was in an unsanitary condition.,Cleanliness,Medium,Housekeeping,Non-Technical
+I'm having trouble logging into my patient account.,IT Issues,Medium,IT,Technical
+The X-ray machine in the Radiology needs maintenance.,Equipment,High,Radiology,Technical
+The doctor didn't listen to my concerns about pain.,Doctor Consultation,Medium,General Practice,Non-Technical
+My medical records were not handled confidentially at the {department}.,Privacy,High,Reception,Non-Technical
+The food service hours are not convenient for patients.,Food Service,Low,Food Service,Non-Technical
+The hospital is not accessible for people with {disability}.,Accessibility,Medium,Facilities,Non-Technical
+My insurance claim for colonoscopy was wrongfully denied.,Insurance,Medium,Insurance,Non-Technical
+I was overcharged for my recent X-ray.,Billing,Medium,Billing,Non-Technical
+My appointment was rescheduled {number} times without my consent.,Scheduling,Medium,General Practice,Non-Technical
+My dietary restrictions for diabetic were not accommodated.,Food Service,Medium,Food Service,Non-Technical
+The elevator in my room was not working.,Facilities,Medium,Maintenance,Technical
+I experienced severe side effects from insulin that weren't explained.,Medication,High,Pharmacy,Technical
+The ultrasound machine in the Radiology needs maintenance.,Equipment,High,Radiology,Technical
+I need more education about managing my hypertension.,Patient Education,Medium,Nursing,Non-Technical
+The hospital charged me twice for the same X-ray.,Billing,High,Billing,Non-Technical
+The hospital needs better {facility} in the hallway.,Facilities,Medium,Maintenance,Technical
+My appointment with orthopedist was canceled without notice.,Appointment,Medium,Specialty Care,Non-Technical
+I noticed dirty in the waiting room.,Cleanliness,Medium,Housekeeping,Non-Technical
+The {entrance/area} is not wheelchair accessible.,Accessibility,Medium,Facilities,Non-Technical
+I couldn't get an appointment with a neurologist for 3 months.,Appointment,Medium,Specialty Care,Non-Technical
+I noticed in disarray in the waiting room.,Cleanliness,Low,Housekeeping,Non-Technical
+I noticed dirty in the cafeteria.,Cleanliness,Medium,Housekeeping,Non-Technical
+I haven't received my test results from 1 month ago.,Follow-up Care,High,Patient Care,Non-Technical
+My medical records were not handled confidentially at the {department}.,Privacy,High,Reception,Non-Technical
+The doctor was 3 months late for my appointment.,Scheduling,High,General Practice,Non-Technical
+There are no {accommodations} for patients with {disability}.,Accessibility,Medium,Facilities,Non-Technical
+I was prescribed the wrong {medication} for my allergies.,Medication,High,Pharmacy,Technical
+The phone in my room was not working.,Facilities,Medium,Maintenance,Technical
+I noticed dirty in the emergency room.,Cleanliness,Low,Housekeeping,Non-Technical
+I experienced severe side effects from antibiotics that weren't explained.,Medication,High,Pharmacy,Technical
+The discharge instructions were not clear about {topic}.,Patient Education,Low,Nursing,Non-Technical
+The hospital's online portal is not working properly.,IT Issues,Medium,IT,Technical
+The {entrance/area} is not wheelchair accessible.,Accessibility,High,Facilities,Non-Technical
+I couldn't get an appointment with a cardiologist for 1 month.,Appointment,Medium,Specialty Care,Non-Technical
+My insurance claim for MRI scan was wrongfully denied.,Insurance,Low,Insurance,Non-Technical
+The nurse discussed my medical information where others could hear.,Privacy,High,Reception,Non-Technical
+My insurance claim for blood test was wrongfully denied.,Insurance,High,Insurance,Non-Technical
+I was prescribed the wrong {medication} for my diabetes.,Medication,Medium,Pharmacy,Technical
+The wait time for {department} is unreasonably long.,Wait Times,Medium,Emergency Room,Non-Technical
+The earliest available appointment is in 1 month which is too long to wait.,Appointment,High,Specialty Care,Non-Technical
+I received unprofessional treatment from the therapist.,Staff Behavior,High,Nursing,Non-Technical
+The hospital food was cold and tasteless.,Food Service,High,Food Service,Non-Technical
+The receptionist was very rude during my visit.,Staff Behavior,Medium,Nursing,Non-Technical
+The food service hours are not convenient for patients.,Food Service,Medium,Food Service,Non-Technical
+I couldn't get an appointment with a oncologist for 6 months.,Appointment,Medium,Specialty Care,Non-Technical
+I haven't received my test results from 2 weeks ago.,Follow-up Care,Medium,Patient Care,Non-Technical
+The technician was very impatient during my visit.,Staff Behavior,Low,Nursing,Non-Technical
+I'm having trouble logging into my patient account.,IT Issues,Low,IT,Technical
+The hospital parking lot is always full.,Parking,Medium,Facilities,Non-Technical
+The hospital's online portal is not working properly.,IT Issues,Medium,IT,Technical
+I couldn't get an appointment with a orthopedist for 1 month.,Appointment,Low,Specialty Care,Non-Technical
+My medical records were not handled confidentially at the {department}.,Privacy,High,Reception,Non-Technical
+I haven't received my test results from 1 month ago.,Follow-up Care,Medium,Patient Care,Non-Technical
+There was a problem with the insurance pre-authorization for my biopsy.,Insurance,Low,Insurance,Non-Technical
+The bathroom in the Maintenance is outdated.,Facilities,Low,Maintenance,Technical
+My appointment was rescheduled {number} times without my consent.,Scheduling,Medium,General Practice,Non-Technical
+I need more education about managing my hypertension.,Patient Education,High,Nursing,Non-Technical
+The TV in the Maintenance is outdated.,Facilities,Low,Maintenance,Technical
+The discharge instructions were not clear about {topic}.,Patient Education,Low,Nursing,Non-Technical
+The pharmacist was very rude during my visit.,Staff Behavior,Medium,Nursing,Non-Technical
+There are no {accommodations} for patients with {disability}.,Accessibility,Low,Facilities,Non-Technical
+I felt rushed during my consultation about migraine.,Doctor Consultation,Low,General Practice,Non-Technical
+The hospital food was overcooked and tasteless.,Food Service,Low,Food Service,Non-Technical
+The clinic doesn't have any available appointments for 1 month.,Scheduling,Low,General Practice,Non-Technical
+My appointment with oncologist was canceled without notice.,Appointment,High,Specialty Care,Non-Technical
+The post-operative care instructions were not clear after my MRI scan.,Follow-up Care,Medium,Patient Care,Non-Technical
+No one followed up after my ultrasound to check on my recovery.,Follow-up Care,Low,Patient Care,Non-Technical
+My medical records were not handled confidentially at the {department}.,Privacy,Medium,Reception,Non-Technical
+The patient room was not clean during my visit.,Cleanliness,Medium,Housekeeping,Non-Technical
+The doctor was 6 months late for my appointment.,Scheduling,High,General Practice,Non-Technical
+My medical records were not handled confidentially at the {department}.,Privacy,Medium,Reception,Non-Technical
+The {entrance/area} is not wheelchair accessible.,Accessibility,Medium,Facilities,Non-Technical
+The doctor didn't listen to my concerns about pain.,Doctor Consultation,High,General Practice,Non-Technical
+I haven't received my test results from 1 month ago.,Follow-up Care,Medium,Patient Care,Non-Technical
+The wait time for {department} is unreasonably long.,Wait Times,High,Emergency Room,Non-Technical
+There are no {accommodations} for patients with {disability}.,Accessibility,High,Facilities,Non-Technical
+My insurance claim for X-ray was wrongfully denied.,Insurance,Medium,Insurance,Non-Technical
+I can't access my {records} online.,IT Issues,Low,IT,Technical
+The EKG machine was not working during my appointment.,Equipment,Low,Radiology,Technical
+The hospital needs to upgrade their MRI machine in Radiology.,Equipment,High,Radiology,Technical
+The doctor didn't explain my back pain properly.,Doctor Consultation,Low,General Practice,Non-Technical
+The hospital parking lot is always full.,Parking,Medium,Facilities,Non-Technical
+The hospital doesn't accept my {insurance} insurance.,Insurance,Low,Insurance,Non-Technical
+The emergency room was not clean during my visit.,Cleanliness,Medium,Housekeeping,Non-Technical
+The hospital charged me twice for the same biopsy.,Billing,Low,Billing,Non-Technical
+The wait time for {department} is unreasonably long.,Wait Times,Medium,Emergency Room,Non-Technical
+I wasn't given enough information about my diabetes.,Patient Education,Low,Nursing,Non-Technical
+I noticed messy in the hallway.,Cleanliness,High,Housekeeping,Non-Technical
+The earliest available appointment is in 3 months which is too long to wait.,Appointment,Medium,Specialty Care,Non-Technical
+The pharmacist was very impatient during my visit.,Staff Behavior,Low,Nursing,Non-Technical
+The hospital's online portal is not working properly.,IT Issues,Medium,IT,Technical
+The hospital doesn't accept my {insurance} insurance.,Insurance,High,Insurance,Non-Technical
+The hospital doesn't accept my {insurance} insurance.,Insurance,Medium,Insurance,Non-Technical
+The wait time for {department} is unreasonably long.,Wait Times,Medium,Emergency Room,Non-Technical
+I'm having trouble logging into my patient account.,IT Issues,Medium,IT,Technical
+My appointment with orthopedist was canceled without notice.,Appointment,Medium,Specialty Care,Non-Technical
+No one followed up after my blood test to check on my recovery.,Follow-up Care,Low,Patient Care,Non-Technical
+There's no designated parking for {type} patients.,Parking,Low,Facilities,Non-Technical
+I can't access my {records} online.,IT Issues,High,IT,Technical
+I felt rushed during my consultation about migraine.,Doctor Consultation,Medium,General Practice,Non-Technical
+There are no {accommodations} for patients with {disability}.,Accessibility,Medium,Facilities,Non-Technical
+The doctor didn't listen to my concerns about fever.,Doctor Consultation,Medium,General Practice,Non-Technical
+My medical records were not handled confidentially at the {department}.,Privacy,High,Reception,Non-Technical
+The doctor didn't listen to my concerns about dizziness.,Doctor Consultation,Low,General Practice,Non-Technical
+I haven't received my test results from 1 month ago.,Follow-up Care,Low,Patient Care,Non-Technical
+The hospital cafeteria was in an unsanitary condition.,Cleanliness,High,Housekeeping,Non-Technical
+The hospital parking lot is always full.,Parking,Low,Facilities,Non-Technical
+The receptionist was very rude during my visit.,Staff Behavior,Medium,Nursing,Non-Technical
+The hospital is not accessible for people with {disability}.,Accessibility,Low,Facilities,Non-Technical
+The earliest available appointment is in 2 weeks which is too long to wait.,Appointment,Low,Specialty Care,Non-Technical
+The hospital parking lot is always full.,Parking,Medium,Facilities,Non-Technical
+There was an error in my medical bill for {service}.,Billing,Medium,Billing,Non-Technical
+The ultrasound machine in the Radiology needs maintenance.,Equipment,High,Radiology,Technical
+My dietary restrictions for vegetarian were not accommodated.,Food Service,Medium,Food Service,Non-Technical
+The hospital needs better {facility} in the patient room.,Facilities,High,Maintenance,Technical
+There was an error in my medical bill for {service}.,Billing,Medium,Billing,Non-Technical
+The hospital's online portal is not working properly.,IT Issues,Medium,IT,Technical
+The doctor didn't explain my diabetes properly.,Doctor Consultation,Medium,General Practice,Non-Technical
+My appointment was rescheduled {number} times without my consent.,Scheduling,Medium,General Practice,Non-Technical
+There are no {accommodations} for patients with {disability}.,Accessibility,Low,Facilities,Non-Technical
+There was an error in my medical bill for {service}.,Billing,Medium,Billing,Non-Technical

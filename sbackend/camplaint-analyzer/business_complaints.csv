@@ -1,0 +1,151 @@
+complaint_text,category,priority,department,type
+The packaging for smartphone was damaged upon arrival.,Shipping,High,Logistics,Non-Technical
+The support team was unable to resolve my issue with software license.,Customer Service,High,Customer Support,Non-Technical
+My order has been 'processing' for over 6 days.,Order Processing,Medium,Operations,Non-Technical
+I'm not receiving password reset emails for my account.,Account Access,High,IT,Technical
+The website is very slow when download reports.,Website Issues,Low,IT,Technical
+I was charged for shipping despite qualifying for free shipping.,Pricing,Medium,Sales,Non-Technical
+I was charged $25.40 more than the listed price for web hosting.,Pricing,Low,Sales,Non-Technical
+My account shows incorrect contact information.,Account Access,Medium,IT,Technical
+The product page doesn't show accurate stock levels for web hosting.,Product Availability,Low,Inventory,Non-Technical
+I was charged for shipping despite qualifying for free shipping.,Pricing,High,Sales,Non-Technical
+I received the wrong item in my order #158960.,Shipping,Low,Logistics,Non-Technical
+I need to modify my order #515844 but can't find an option to do so.,Order Processing,High,Operations,Non-Technical
+I was overcharged for cloud storage in my recent bill.,Billing,Medium,Billing,Non-Technical
+project management tool crashes when I upload files.,Software Bugs,Medium,Development,Technical
+The return process for cloud storage is too complicated.,Returns,Low,Customer Support,Non-Technical
+I'm unable to log in to my account.,Account Access,Low,IT,Technical
+"I received a defective premium account on September 26, 2025.",Product Quality,Medium,Quality Assurance,Technical
+The latest update to project management tool caused defective.,Software Bugs,High,Development,Technical
+CRM system crashes when I log in.,Software Bugs,Medium,Development,Technical
+The estimated restock date for cloud storage keeps getting pushed back.,Product Availability,High,Inventory,Non-Technical
+software license has been out of stock for two weeks.,Product Availability,High,Inventory,Non-Technical
+The order status hasn't been updated in 14 days.,Order Processing,Medium,Operations,Non-Technical
+The billing statement doesn't match our agreed pricing for web hosting.,Billing,Medium,Billing,Non-Technical
+The latest update to project management tool caused damaged.,Software Bugs,Medium,Development,Technical
+The latest update to accounting software caused missing parts.,Software Bugs,Low,Development,Technical
+The quality of smartphone does not meet the advertised specifications.,Product Quality,Medium,Quality Assurance,Technical
+I'm having trouble terminating my contract for consulting.,Contract Issues,High,Legal,Non-Technical
+My return request for smartphone hasn't been processed after 10 days.,Returns,Medium,Customer Support,Non-Technical
+The terms of service were changed without proper notice.,Contract Issues,Medium,Legal,Non-Technical
+My order was marked as delivered but I never received it.,Shipping,Medium,Logistics,Non-Technical
+The reporting tool in project management tool is not working as expected.,Software Bugs,High,Development,Technical
+Your website is not using HTTPS on the {page} page.,Security Concerns,High,IT Security,Technical
+I was charged a restocking fee that wasn't mentioned in the return policy.,Returns,High,Customer Support,Non-Technical
+The reporting tool on your website is not working properly.,Website Issues,Medium,IT,Technical
+I'm not receiving password reset emails for my account.,Account Access,High,IT,Technical
+The discount code SAVE47 didn't apply to my order.,Pricing,High,Sales,Non-Technical
+"I received a defective cloud storage on August 30, 2025.",Product Quality,Low,Quality Assurance,Technical
+cloud storage has been down for 11 hours.,Service Outage,High,IT,Technical
+The terms of service were changed without proper notice.,Contract Issues,Medium,Legal,Non-Technical
+There's a discrepancy in my billing for monitor.,Billing,High,Billing,Non-Technical
+I received a suspicious email that appears to be from your company.,Security Concerns,High,IT Security,Technical
+maintenance plan has been down for 3 hours.,Service Outage,High,IT,Technical
+I received the wrong item in my order #289711.,Shipping,Low,Logistics,Non-Technical
+The order status hasn't been updated in 8 days.,Order Processing,High,Operations,Non-Technical
+My order #476412 is 10 days late.,Shipping,Medium,Logistics,Non-Technical
+The website showed software license as in stock but my order was canceled.,Product Availability,Medium,Inventory,Non-Technical
+The price charged for smartphone doesn't match the advertised price.,Pricing,Medium,Sales,Non-Technical
+There's a discrepancy in our service contract regarding renewal terms.,Contract Issues,Low,Legal,Non-Technical
+My order was marked as delivered but I never received it.,Shipping,Low,Logistics,Non-Technical
+inventory management crashes when I download reports.,Software Bugs,Medium,Development,Technical
+The reporting tool of web hosting is not responding.,Service Outage,Medium,IT,Technical
+CRM system crashes when I place an order.,Software Bugs,Medium,Development,Technical
+subscription service stopped working after several months of use.,Product Quality,Medium,Quality Assurance,Technical
+I received the wrong item in my order #872221.,Shipping,Low,Logistics,Non-Technical
+I was charged $92.48 more than the listed price for web hosting.,Pricing,Medium,Sales,Non-Technical
+How is my contact information being used by your company?,Data Privacy,Medium,Compliance,Technical
+I'm not receiving password reset emails for my account.,Account Access,High,IT,Technical
+The website showed monitor as in stock but my order was canceled.,Product Availability,Medium,Inventory,Non-Technical
+The website is very slow when download reports.,Website Issues,Medium,IT,Technical
+My account was locked after 2 failed login attempts.,Account Access,High,IT,Technical
+I was transferred 4 times when trying to resolve my issue.,Customer Service,Low,Customer Support,Non-Technical
+The discount code SAVE43 didn't apply to my order.,Pricing,High,Sales,Non-Technical
+training has been down for 23 hours.,Service Outage,High,IT,Technical
+I was charged $67.45 more than the listed price for cloud storage.,Pricing,Medium,Sales,Non-Technical
+The estimated restock date for cloud storage keeps getting pushed back.,Product Availability,Low,Inventory,Non-Technical
+I need to modify my order #898496 but can't find an option to do so.,Order Processing,Medium,Operations,Non-Technical
+I'm unable to upload files on your website.,Website Issues,Medium,IT,Technical
+I want to request a copy of all data you have about me under GDPR.,Data Privacy,High,Compliance,Technical
+I pre-ordered cloud storage but haven't received any updates.,Product Availability,Medium,Inventory,Non-Technical
+project management tool crashes when I update my profile.,Software Bugs,High,Development,Technical
+The contract doesn't specify renewal terms clearly.,Contract Issues,Medium,Legal,Non-Technical
+I can't find payment methods on your website.,Website Issues,Medium,IT,Technical
+I received a suspicious email that appears to be from your company.,Security Concerns,High,IT Security,Technical
+The return process for subscription service is too complicated.,Returns,Medium,Customer Support,Non-Technical
+My order was marked as delivered but I never received it.,Shipping,High,Logistics,Non-Technical
+I'm unable to log in to my account.,Account Access,Medium,IT,Technical
+The checkout process of web hosting is not responding.,Service Outage,Medium,IT,Technical
+I need to update my account information but can't access the settings.,Account Access,Medium,IT,Technical
+premium account stopped working after a month of use.,Product Quality,High,Quality Assurance,Technical
+The packaging for software license was damaged upon arrival.,Shipping,Low,Logistics,Non-Technical
+I was issued an incorrect refund amount for my return of laptop.,Returns,Medium,Customer Support,Non-Technical
+The packaging for monitor was damaged upon arrival.,Shipping,High,Logistics,Non-Technical
+I received a data breach notification from your company.,Security Concerns,Medium,IT Security,Technical
+There's a discrepancy in our service contract regarding refund terms.,Contract Issues,Medium,Legal,Non-Technical
+I received a data breach notification from your company.,Security Concerns,Medium,IT Security,Technical
+I received a confirmation email but my order doesn't appear in my account.,Order Processing,Medium,Operations,Non-Technical
+The latest update to inventory management caused missing parts.,Software Bugs,Medium,Development,Technical
+I was transferred 5 times when trying to resolve my issue.,Customer Service,Low,Customer Support,Non-Technical
+The contract doesn't specify service level agreement clearly.,Contract Issues,Low,Legal,Non-Technical
+I need to modify my order #367579 but can't find an option to do so.,Order Processing,Medium,Operations,Non-Technical
+The shipping status for my order hasn't been updated in 8 days.,Shipping,High,Logistics,Non-Technical
+I was transferred 4 times when trying to resolve my issue.,Customer Service,Low,Customer Support,Non-Technical
+The customer service representative was impatient when I called about damaged.,Customer Service,Medium,Customer Support,Non-Technical
+The final price at checkout was higher than shown in my cart.,Pricing,High,Sales,Non-Technical
+maintenance plan has been down for 24 hours.,Service Outage,Medium,IT,Technical
+I was overcharged for API access in my recent bill.,Billing,Medium,Billing,Non-Technical
+I keep getting an error when trying to download reports.,Website Issues,Low,IT,Technical
+web hosting has been down for 4 hours.,Service Outage,Medium,IT,Technical
+The quality of laptop does not meet the advertised specifications.,Product Quality,Medium,Quality Assurance,Technical
+I was charged a restocking fee that wasn't mentioned in the return policy.,Returns,Medium,Customer Support,Non-Technical
+The microphone in premium account is not functioning as expected.,Product Quality,High,Quality Assurance,Technical
+"I noticed unusual activity in my account on November 07, 2025.",Security Concerns,High,IT Security,Technical
+The order status hasn't been updated in 14 days.,Order Processing,Medium,Operations,Non-Technical
+I keep getting an error when trying to log in.,Website Issues,Medium,IT,Technical
+keyboard stopped working after several months of use.,Product Quality,Medium,Quality Assurance,Technical
+I keep getting an error when trying to place an order.,Website Issues,Medium,IT,Technical
+The camera in software license is not functioning as expected.,Product Quality,Medium,Quality Assurance,Technical
+The latest update to analytics dashboard caused missing parts.,Software Bugs,Medium,Development,Technical
+My account was locked after 4 failed login attempts.,Account Access,High,IT,Technical
+I was charged a restocking fee that wasn't mentioned in the return policy.,Returns,Medium,Customer Support,Non-Technical
+My order was marked as delivered but I never received it.,Shipping,Medium,Logistics,Non-Technical
+There seems to be a widespread outage affecting cloud storage.,Service Outage,High,IT,Technical
+My order #942496 is 10 days late.,Shipping,Medium,Logistics,Non-Technical
+My account shows incorrect account details.,Account Access,Medium,IT,Technical
+The price charged for software license doesn't match the advertised price.,Pricing,High,Sales,Non-Technical
+There seems to be a widespread outage affecting maintenance plan.,Service Outage,High,IT,Technical
+The order status hasn't been updated in 2 days.,Order Processing,Medium,Operations,Non-Technical
+I was charged for my order but haven't received a confirmation.,Order Processing,Medium,Operations,Non-Technical
+I need to modify my order #747097 but can't find an option to do so.,Order Processing,Medium,Operations,Non-Technical
+I received a data breach notification from your company.,Security Concerns,High,IT Security,Technical
+My order #935336 is 4 days late.,Shipping,Medium,Logistics,Non-Technical
+The terms of service were changed without proper notice.,Contract Issues,Medium,Legal,Non-Technical
+The reporting tool of premium support is not responding.,Service Outage,High,IT,Technical
+inventory management crashes when I update my profile.,Software Bugs,Medium,Development,Technical
+I need to update my account information but can't access the settings.,Account Access,High,IT,Technical
+The latest update to analytics dashboard caused missing parts.,Software Bugs,Low,Development,Technical
+The reporting tool of consulting is not responding.,Service Outage,High,IT,Technical
+I need to update my account information but can't access the settings.,Account Access,Medium,IT,Technical
+The order status hasn't been updated in 5 days.,Order Processing,High,Operations,Non-Technical
+There's a display issue with product gallery in analytics dashboard.,Software Bugs,Medium,Development,Technical
+I pre-ordered premium account but haven't received any updates.,Product Availability,High,Inventory,Non-Technical
+The quality of software license does not meet the advertised specifications.,Product Quality,High,Quality Assurance,Technical
+There's a discrepancy in my billing for web hosting.,Billing,Medium,Billing,Non-Technical
+The discount code SAVE22 didn't apply to my order.,Pricing,Low,Sales,Non-Technical
+I was charged incorrectly for web hosting on my last invoice.,Billing,Medium,Billing,Non-Technical
+The order status hasn't been updated in 10 days.,Order Processing,Medium,Operations,Non-Technical
+My account shows incorrect payment methods.,Account Access,Low,IT,Technical
+maintenance plan has been down for 12 hours.,Service Outage,High,IT,Technical
+I found a bug in accounting software when trying to download reports.,Software Bugs,High,Development,Technical
+I received a data breach notification from your company.,Security Concerns,Medium,IT Security,Technical
+The search function on your website is not working properly.,Website Issues,Medium,IT,Technical
+The shipping status for my order hasn't been updated in 10 days.,Shipping,Medium,Logistics,Non-Technical
+The order status hasn't been updated in 2 days.,Order Processing,Medium,Operations,Non-Technical
+monitor stopped working after several months of use.,Product Quality,Medium,Quality Assurance,Technical
+The return process for monitor is too complicated.,Returns,High,Customer Support,Non-Technical
+I received a suspicious email that appears to be from your company.,Security Concerns,High,IT Security,Technical
+My return request for software license hasn't been processed after 12 days.,Returns,Medium,Customer Support,Non-Technical
+There seems to be a widespread outage affecting cloud storage.,Service Outage,Medium,IT,Technical
+The return shipping label provided was invalid.,Returns,Medium,Customer Support,Non-Technical
+The order status hasn't been updated in 3 days.,Order Processing,High,Operations,Non-Technical

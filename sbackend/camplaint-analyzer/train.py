@@ -10,10 +10,41 @@ import os
 print("Training script started...")
 
 # --- Step 1: Load Data ---
-DATA_PATH = os.path.join(os.path.dirname(__file__), 'complaints.csv')
-df = pd.read_csv(DATA_PATH)
-df.dropna(subset=['complaint_text', 'category', 'priority', 'type', 'department'], inplace=True)
-print(f"Data loaded successfully. Total complaints: {len(df)}")
+print("Loading complaint datasets...")
+
+# List all CSV files in the directory
+complaint_files = [
+    'complaints.csv',
+    'healthcare_complaints.csv',
+    'business_complaints.csv'
+]
+
+# Initialize an empty list to store dataframes
+dfs = []
+
+# Load each CSV file if it exists
+for file in complaint_files:
+    file_path = os.path.join(os.path.dirname(__file__), file)
+    if os.path.exists(file_path):
+        try:
+            temp_df = pd.read_csv(file_path)
+            # Ensure required columns exist
+            required_columns = ['complaint_text', 'category', 'priority', 'type', 'department']
+            if all(col in temp_df.columns for col in required_columns):
+                temp_df.dropna(subset=required_columns, inplace=True)
+                dfs.append(temp_df)
+                print(f"Loaded {len(temp_df)} complaints from {file}")
+            else:
+                print(f"Skipping {file}: Missing required columns")
+        except Exception as e:
+            print(f"Error loading {file}: {str(e)}")
+
+if not dfs:
+    raise ValueError("No valid complaint data found. Please ensure at least one valid CSV file exists.")
+
+# Combine all dataframes
+df = pd.concat(dfs, ignore_index=True)
+print(f"Successfully loaded {len(df)} total complaints from {len(dfs)} dataset(s).")
 
 X = df['complaint_text']
 
