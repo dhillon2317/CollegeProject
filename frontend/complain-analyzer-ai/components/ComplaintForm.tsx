@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -20,41 +20,119 @@ import {
 import { Label } from "./ui/label";
 import React from "react";
 import { toast } from "sonner";
+import { getCurrentDomain } from "../src/config/domains";
+
 type FormData = {
   title: string;
   description: string;
-  category: string;
   department: string;
   priority: string;
   contactInfo: string;
   userType: string;
+  domain: string;
+  category?: string;
 };
+
+// Domain-specific configurations
+const domainConfigs = {
+  healthcare: {
+    categories: [
+      'Patient Care',
+      'Billing',
+      'Appointment Scheduling',
+      'Medical Staff',
+      'Facilities',
+      'Medical Records'
+    ],
+    departments: [
+      'Emergency Room',
+      'General Practice',
+      'Cardiology',
+      'Pediatrics',
+      'Radiology',
+      'Pharmacy'
+    ]
+  },
+  business: {
+    categories: [
+      'Billing',
+      'Customer Service',
+      'Product Quality',
+      'Shipping',
+      'Account Issues',
+      'Website Problems'
+    ],
+    departments: [
+      'Billing',
+      'Customer Support',
+      'Sales',
+      'Technical Support',
+      'Management',
+      'Operations'
+    ]
+  },
+  education: {
+    categories: [
+      'Academic',
+      'Facilities',
+      'Staff Related',
+      'Hygiene & Sanitation',
+      'Security',
+      'Other'
+    ],
+    departments: [
+      'Academic Office',
+      'Facilities Management',
+      'IT Department',
+      'Student Affairs',
+      'Security',
+      'Administration'
+    ]
+  },
+  default: {
+    categories: ['General', 'Technical', 'Billing', 'Other'],
+    departments: ['General Support', 'Technical Support', 'Billing', 'Other']
+  }
+};
+
+const priorities = ["Low", "Medium", "High"];
+const userTypes = [
+  "Student",
+  "Faculty/Staff",
+  "Parent/Guardian",
+  "Patient",
+  "Customer",
+  "Visitor",
+  "Other"
+];
 
 export function ComplaintForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentDomain, setCurrentDomain] = useState<string>('default');
+  const [domainConfig, setDomainConfig] = useState(domainConfigs.default);
+
+  useEffect(() => {
+    const domain = getCurrentDomain();
+    if (domain) {
+      setCurrentDomain(domain.id);
+      setDomainConfig(domainConfigs[domain.id as keyof typeof domainConfigs] || domainConfigs.default);
+    }
+  }, []);
 
   const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",
-    category: "",
     department: "",
-    priority: "", // Default priority is now empty
+    priority: "Medium",
     contactInfo: "",
     userType: "Student",
+    domain: currentDomain
   });
 
-  // The 'categories', 'departments', and 'priorities' arrays are no longer needed.
-  // const categories = [
-  //   "Academic",
-  //   "Facilities",
-  //   "Staff Related",
-  //   "Hygiene & Sanitation",
-  //   "Security",
-  //   "Other",
-  // ];
+  // The 'departments' and 'priorities' arrays are no longer needed.
   // const departments = [
   //   "Academic Office",
   //   "Facilities Management",
@@ -104,10 +182,10 @@ export function ComplaintForm() {
     }));
   };
 
-  const handleSelectChange = (value: string, name: string) => {
+  const handleSelectChange = (value: string, field: string) => {
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [field]: value,
     }));
   };
 
@@ -119,7 +197,8 @@ export function ComplaintForm() {
 
     setIsAnalyzing(true);
     try {
-      const response = await fetch("http://localhost:5000/analyze", {
+      const mlApiUrl = import.meta.env.VITE_ML_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${mlApiUrl}/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -164,93 +243,49 @@ export function ComplaintForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
+
+    // Update form data with current domain
+    const submissionData = {
+      ...formData,
+      domain: currentDomain
+    };
 
     try {
-      let finalFormData = { ...formData };
-
-      // If category is missing, it means AI analysis hasn't been run.
-      // Run it now before submitting.
-      if (!finalFormData.category) {
-        toast.info("AI is analyzing your complaint before submission...");
-        const analysis = await analyzeComplaint(formData.description);
-        if (analysis) {
-          finalFormData = {
-            ...finalFormData,
-            category: analysis.category,
-            priority: analysis.priority,
-            department: analysis.assignedDepartment,
-            userType: analysis.type,
-          };
-        } else {
-          // If analysis fails, stop the submission
-          throw new Error("AI analysis failed. Please try again.");
-        }
-      }
-
-      // Save the user's selected userType before applying AI analysis
-      const userSelectedType = formData.userType;
-      
-      const requestBody = {
-        ...finalFormData,
-        // Always use the user's selected type, not the AI's prediction
-        userType: userSelectedType,
-        status: "Pending",
-        createdAt: new Date().toISOString(),
-        aiAnalyzed: true,
-      };
-
-      console.log(
-        "Sending request to backend:",
-        JSON.stringify(requestBody, null, 2)
-      );
-
-      const response = await fetch("http://localhost:5001/api/complaints", {
-        method: "POST",
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/complaints`, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify(submissionData),
       });
 
-      const responseData = await response.json().catch(() => ({}));
-
       if (!response.ok) {
-        console.error(
-          "Backend error response:",
-          response.status,
-          response.statusText,
-          responseData
-        );
-        throw new Error(
-          responseData.error ||
-            `Failed to submit complaint. Status: ${response.status}`
-        );
+        throw new Error('Failed to submit complaint');
       }
 
-      console.log("Complaint submitted successfully:", responseData);
+      const result = await response.json();
+      console.log('Complaint submitted successfully:', result);
       setIsSubmitted(true);
-      toast.success("Complaint submitted successfully!");
 
-      setTimeout(() => {
-        setFormData({
-          title: "",
-          description: "",
-          category: "",
-          department: "",
-          priority: "", // Reset priority
-          contactInfo: "",
-          userType: "Student",
-        });
-        setIsSubmitted(false);
-      }, 3000);
+      // Reset form but keep user type and domain
+      setFormData({
+        title: "",
+        description: "",
+        department: "",
+        priority: "Medium",
+        contactInfo: "",
+        userType: formData.userType,
+        domain: currentDomain
+      });
+
+      toast.success('Complaint submitted successfully!');
     } catch (error) {
-      console.error("Error submitting complaint:", error);
-      const errorMessage =
-        error instanceof Error ? error.message : "An unknown error occurred";
-      toast.error(`Failed to submit complaint: ${errorMessage}`);
+      console.error('Error submitting complaint:', error);
+      toast.error('Failed to submit complaint. Please try again.');
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -324,6 +359,7 @@ export function ComplaintForm() {
                 required
               />
             </div>
+
 
             <div className="space-y-2">
               <Label htmlFor="userType">You are *</Label>

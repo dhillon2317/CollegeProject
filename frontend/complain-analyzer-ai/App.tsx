@@ -20,11 +20,11 @@ import { Dashboard } from "./components/Dashboard";
 import { ComplaintForm } from "./components/ComplaintForm";
 import { ComplaintAnalytics } from "./components/ComplaintAnalytics";
 import { DomainSelector } from "./components/DomainSelector";
-import { getCurrentDomain, type DomainConfig } from "./components/DomainConfig";
+import { getCurrentDomain, type DomainConfig, DOMAINS } from "./src/config/domains";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [selectedDomain, setSelectedDomain] = useState<DomainConfig | null>(null);
+  const [selectedDomain, setSelectedDomain] = useState<DomainConfig | null>(() => getCurrentDomain());
   const [showDomainSelector, setShowDomainSelector] = useState(false);
   const [complaints, setComplaints] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,16 +53,11 @@ export default function App() {
   };
 
   useEffect(() => {
-    const domain = getCurrentDomain();
-    const savedDomain = localStorage.getItem('selectedDomain');
-
-    if (!savedDomain) {
+    if (!selectedDomain) {
       setShowDomainSelector(true);
-    } else {
-      setSelectedDomain(domain);
     }
     fetchComplaints();
-  }, []);
+  }, [selectedDomain]);
 
   const handleDomainSelected = (domain: DomainConfig) => {
     setSelectedDomain(domain);
