@@ -3,8 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cd frontend/complain-analyzer-ai
-        - npm ci
+        - npm install
     build:
       commands:
         - npm run build
@@ -15,3 +14,4 @@ frontend:
   cache:
     paths:
       - frontend/complain-analyzer-ai/node_modules/**/*
+      - node_modules/**/*
