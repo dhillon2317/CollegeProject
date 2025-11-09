@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -20,32 +20,132 @@ import {
 import { Label } from "./ui/label";
 import React from "react";
 import { toast } from "sonner";
+import { getCurrentDomain } from "../src/config/domains";
+
 type FormData = {
   title: string;
   description: string;
-  category: string;
   department: string;
   priority: string;
   contactInfo: string;
   userType: string;
+  domain: string;
+  category?: string;
 };
+
+// Domain-specific configurations
+const domainConfigs = {
+  healthcare: {
+    categories: [
+      'Patient Care',
+      'Billing',
+      'Appointment Scheduling',
+      'Medical Staff',
+      'Facilities',
+      'Medical Records'
+    ],
+    departments: [
+      'Emergency Room',
+      'General Practice',
+      'Cardiology',
+      'Pediatrics',
+      'Radiology',
+      'Pharmacy'
+    ]
+  },
+  business: {
+    categories: [
+      'Billing',
+      'Customer Service',
+      'Product Quality',
+      'Shipping',
+      'Account Issues',
+      'Website Problems'
+    ],
+    departments: [
+      'Billing',
+      'Customer Support',
+      'Sales',
+      'Technical Support',
+      'Management',
+      'Operations'
+    ]
+  },
+  education: {
+    categories: [
+      'Academic',
+      'Facilities',
+      'Staff Related',
+      'Hygiene & Sanitation',
+      'Security',
+      'Other'
+    ],
+    departments: [
+      'Academic Office',
+      'Facilities Management',
+      'IT Department',
+      'Student Affairs',
+      'Security',
+      'Administration'
+    ]
+  },
+  default: {
+    categories: ['General', 'Technical', 'Billing', 'Other'],
+    departments: ['General Support', 'Technical Support', 'Billing', 'Other']
+  }
+};
+
+const priorities = ["Low", "Medium", "High"];
+const userTypes = [
+  "Student",
+  "Faculty/Staff",
+  "Parent/Guardian",
+  "Patient",
+  "Customer",
+  "Visitor",
+  "Other"
+];
 
 export function ComplaintForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentDomain, setCurrentDomain] = useState<string>('default');
+  const [domainConfig, setDomainConfig] = useState(domainConfigs.default);
+
+  useEffect(() => {
+    const domain = getCurrentDomain();
+    if (domain) {
+      setCurrentDomain(domain.id);
+      setDomainConfig(domainConfigs[domain.id as keyof typeof domainConfigs] || domainConfigs.default);
+    }
+  }, []);
 
   const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",
-    category: "",
     department: "",
-    priority: "", // Default priority is now empty
+    priority: "Medium",
     contactInfo: "",
     userType: "Student",
+    domain: currentDomain
   });
 
+<<<<<<< HEAD
+=======
+  // The 'departments' and 'priorities' arrays are no longer needed.
+  // const departments = [
+  //   "Academic Office",
+  //   "Facilities Management",
+  //   "IT Department",
+  //   "Human Resources",
+  //   "Student Affairs",
+  //   "Security",
+  // ];
+  // const priorities = ["Low", "Medium", "High", "Critical"];
+
+>>>>>>> d97d824c1163984761fcba9811b616b2b56f557e
   const userTypes = [
     "Student",
     "Faculty/Staff",
@@ -61,10 +161,10 @@ export function ComplaintForm() {
     }));
   };
 
-  const handleSelectChange = (value: string, name: string) => {
+  const handleSelectChange = (value: string, field: string) => {
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [field]: value,
     }));
   };
 
@@ -76,8 +176,13 @@ export function ComplaintForm() {
 
     setIsAnalyzing(true);
     try {
+<<<<<<< HEAD
       console.log("Sending analysis request for:", text.substring(0, 100));
       const response = await fetch("http://localhost:5001/analyze", {
+=======
+      const mlApiUrl = import.meta.env.VITE_ML_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${mlApiUrl}/analyze`, {
+>>>>>>> d97d824c1163984761fcba9811b616b2b56f557e
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,9 +240,16 @@ export function ComplaintForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
+
+    // Update form data with current domain
+    const submissionData = {
+      ...formData,
+      domain: currentDomain
+    };
 
     try {
+<<<<<<< HEAD
       if (!formData.description) {
         throw new Error("Please enter a description");
       }
@@ -161,9 +273,15 @@ export function ComplaintForm() {
 
       const response = await fetch("http://localhost:5001/api/complaints", {
         method: "POST",
+=======
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/complaints`, {
+        method: 'POST',
+>>>>>>> d97d824c1163984761fcba9811b616b2b56f557e
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
+<<<<<<< HEAD
         body: JSON.stringify(completeData),
       });
 
@@ -189,8 +307,36 @@ export function ComplaintForm() {
     } catch (error) {
       console.error("Submit error:", error);
       toast.error(error instanceof Error ? error.message : "Submission failed");
+=======
+        body: JSON.stringify(submissionData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit complaint');
+      }
+
+      const result = await response.json();
+      console.log('Complaint submitted successfully:', result);
+      setIsSubmitted(true);
+
+      // Reset form but keep user type and domain
+      setFormData({
+        title: "",
+        description: "",
+        department: "",
+        priority: "Medium",
+        contactInfo: "",
+        userType: formData.userType,
+        domain: currentDomain
+      });
+
+      toast.success('Complaint submitted successfully!');
+    } catch (error) {
+      console.error('Error submitting complaint:', error);
+      toast.error('Failed to submit complaint. Please try again.');
+>>>>>>> d97d824c1163984761fcba9811b616b2b56f557e
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -264,6 +410,7 @@ export function ComplaintForm() {
                 required
               />
             </div>
+
 
             <div className="space-y-2">
               <Label htmlFor="userType">You are *</Label>

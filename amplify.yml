@@ -1,0 +1,17 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: frontend/complain-analyzer-ai/dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - frontend/complain-analyzer-ai/node_modules/**/*
+      - node_modules/**/*

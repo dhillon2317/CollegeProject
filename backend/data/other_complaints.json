@@ -1,0 +1,17 @@
+[
+  {
+    "id": "DEF-0001",
+    "domain": "default",
+    "timestamp": "2025-11-08T20:30:18.511046",
+    "title": "Appointment issue",
+    "description": "The clinic doesn't have any available appointments for 1 month.",
+    "category": "Admin",
+    "department": "Admin Office",
+    "priority": "High",
+    "contactInfo": "sdsdsdsaaaa2244trtrgdfaasd@gmail.com",
+    "userType": "Student",
+    "status": "Pending",
+    "createdAt": "2025-11-08T15:00:17.943Z",
+    "aiAnalyzed": true
+  }
+]

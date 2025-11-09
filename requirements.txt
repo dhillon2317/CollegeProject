@@ -5,6 +5,10 @@ gunicorn==21.2.0
 flask-cors==4.0.0
 python-dotenv==1.0.0
 
+# Database
+flask-sqlalchemy==3.1.1
+alembic==1.13.1
+
 # Data processing
 numpy>=1.26.0,<2.0.0
 pandas>=2.0.0,<3.0.0
@@ -18,7 +22,14 @@ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0
 # ASGI server
 uvicorn==0.25.0
 
-# Make sure to set these environment variables in your Render dashboard:
-# PYTHONUNBUFFERED=1
+# Development tools
+pytest==8.0.0
+pytest-cov==4.1.0
+
+# Environment variables
+# Required for local development:
+#   FLASK_APP=app.py
+#   FLASK_ENV=development
+#   DATABASE_URL=sqlite:///instance/complaints.db
 # FLASK_APP=wsgi:application
 # FLASK_ENV=production

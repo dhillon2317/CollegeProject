@@ -1,40 +1,39 @@
-import json
-import os
-from datetime import datetime
-from pathlib import Path
+from complaint_manager import complaint_manager
 
-# Get the absolute path to the data directory
-DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data'))
-os.makedirs(DATA_DIR, exist_ok=True)
-COMPLAINTS_FILE = os.path.join(DATA_DIR, 'complaints.json')
+def get_complaints(domain=None):
+    """
+    Retrieve all complaints, optionally filtered by domain.
+    
+    Args:
+        domain (str, optional): The domain to filter complaints by. 
+                              If None, returns all complaints.
+    
+    Returns:
+        list: List of complaint dictionaries
+    """
+    return complaint_manager.get_complaints(domain)
 
-# Initialize the complaints file if it doesn't exist
-if not os.path.exists(COMPLAINTS_FILE):
-    with open(COMPLAINTS_FILE, 'w') as f:
-        json.dump([], f)
+def save_complaint(complaint_data, domain='default'):
+    """
+    Save a new complaint to the appropriate domain file.
+    
+    Args:
+        complaint_data (dict): The complaint data to save
+        domain (str): The domain this complaint belongs to
+        
+    Returns:
+        dict: The saved complaint with generated fields (id, timestamp, etc.)
+    """
+    return complaint_manager.save_complaint(complaint_data, domain)
 
-def get_complaints():
-    """Retrieve all complaints from the JSON file."""
-    try:
-        with open(COMPLAINTS_FILE, 'r') as f:
-            return json.load(f)
-    except (json.JSONDecodeError, FileNotFoundError):
-        return []
-
-def save_complaint(complaint_data):
-    """Save a new complaint to the JSON file."""
-    complaints = get_complaints()
+def get_complaint_by_id(complaint_id):
+    """
+    Get a specific complaint by its ID.
     
-    # Add metadata
-    complaint = {
-        "id": len(complaints) + 1,
-        "timestamp": datetime.now().isoformat(),
-        **complaint_data
-    }
-    
-    complaints.append(complaint)
-    
-    with open(COMPLAINTS_FILE, 'w') as f:
-        json.dump(complaints, f, indent=2)
-    
-    return complaint
+    Args:
+        complaint_id (str): The ID of the complaint to retrieve
+        
+    Returns:
+        dict: The complaint data if found, None otherwise
+    """
+    return complaint_manager.get_complaint_by_id(complaint_id)

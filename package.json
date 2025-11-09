@@ -1,0 +1,10 @@
+{
+  "name": "complaint-analyzer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd frontend/complain-analyzer-ai && npm install && npm run build",
+    "start": "cd frontend/complain-analyzer-ai && npm start",
+    "test": "cd frontend/complain-analyzer-ai && npm test"
+  }
+}
