@@ -154,7 +154,7 @@ export default function App() {
                 Overview of all complaints and their AI-powered analysis status for your institution
               </p>
             </div>
-            <Dashboard 
+            <Dashboard
               complaints={complaints}
               isLoading={isLoading}
               isRefreshing={isRefreshing}

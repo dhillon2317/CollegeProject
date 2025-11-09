@@ -119,24 +119,34 @@ export function ComplaintForm() {
 
     setIsAnalyzing(true);
     try {
-      const response = await fetch("http://localhost:5000/analyze", {
+      // NOTE: ensure this port matches your backend (5001 if your API runs on :5001)
+      const response = await fetch(`http://localhost:5001/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ complaint: text }),
+        credentials: "include",
+        body: JSON.stringify({ text: text }),
       });
 
+      // read body once
+      const data = await response.json().catch(() => null);
+
       if (!response.ok) {
-        const errorData = await response
-          .json()
-          .catch(() => ({ error: "Failed to analyze complaint" }));
-        throw new Error(errorData.error || "Analysis failed");
+        const errMsg =
+          (data && (data.error || data.message)) ||
+          "Failed to analyze complaint";
+        throw new Error(errMsg);
       }
 
-      const data = await response.json();
-      toast.success("Complaint analyzed successfully!");
-      return data;
+      if (data && data.success) {
+        toast.success("Complaint analyzed successfully!");
+        return data.data || null; // Return the data property which contains the analysis
+      } else {
+        const errMsg =
+          (data && (data.error || data.message)) || "Analysis failed";
+        throw new Error(errMsg);
+      }
     } catch (error) {
       console.error("Error analyzing complaint:", error);
       const errorMessage =
@@ -167,88 +177,88 @@ export function ComplaintForm() {
     setIsLoading(true);
 
     try {
-      let finalFormData = { ...formData };
-
-      // If category is missing, it means AI analysis hasn't been run.
-      // Run it now before submitting.
-      if (!finalFormData.category) {
-        toast.info("AI is analyzing your complaint before submission...");
-        const analysis = await analyzeComplaint(formData.description);
-        if (analysis) {
-          finalFormData = {
-            ...finalFormData,
-            category: analysis.category,
-            priority: analysis.priority,
-            department: analysis.assignedDepartment,
-            userType: analysis.type,
-          };
-        } else {
-          // If analysis fails, stop the submission
-          throw new Error("AI analysis failed. Please try again.");
-        }
+      // Ensure description present
+      if (!formData.description || !formData.description.trim()) {
+        toast.error("Please enter a complaint description");
+        return;
       }
 
-      // Save the user's selected userType before applying AI analysis
-      const userSelectedType = formData.userType;
-      
-      const requestBody = {
-        ...finalFormData,
-        // Always use the user's selected type, not the AI's prediction
-        userType: userSelectedType,
-        status: "Pending",
-        createdAt: new Date().toISOString(),
+      // If AI fields missing, run analysis first
+      if (
+        !formData.category ||
+        !formData.priority ||
+        !formData.department ||
+        !formData.type
+      ) {
+        const analysis = await analyzeComplaint(formData.description);
+        if (!analysis) {
+          throw new Error("AI analysis failed");
+        }
+        setFormData((prev) => ({
+          ...prev,
+          category: analysis.category || prev.category || "",
+          priority: analysis.priority || prev.priority || "",
+          department:
+            analysis.assignedDepartment ||
+            analysis.department ||
+            prev.department ||
+            "",
+          type: analysis.type || analysis.userType || prev.type || "",
+        }));
+        // merge for immediate submit
+        formData.category = formData.category || analysis.category || "";
+        formData.priority = formData.priority || analysis.priority || "";
+        formData.department =
+          formData.department ||
+          analysis.assignedDepartment ||
+          analysis.department ||
+          "";
+        formData.type =
+          formData.type || analysis.type || analysis.userType || "";
+      }
+
+      const body = {
+        title: formData.title || "",
+        description: formData.description,
+        userType: formData.userType || "Student",
+        contactInfo: formData.contactInfo || "",
+        category: formData.category || "",
+        priority: formData.priority || "",
+        department: formData.department || "",
+        type: formData.type || "",
         aiAnalyzed: true,
+        createdAt: new Date().toISOString(),
       };
 
-      console.log(
-        "Sending request to backend:",
-        JSON.stringify(requestBody, null, 2)
-      );
-
-      const response = await fetch("http://localhost:5001/api/complaints", {
+      const resp = await fetch("http://localhost:5001/api/complaints", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(body),
       });
 
-      const responseData = await response.json().catch(() => ({}));
+      const respJson = await resp.json().catch(() => ({}));
+      if (!resp.ok) throw new Error(respJson.error || `Status ${resp.status}`);
 
-      if (!response.ok) {
-        console.error(
-          "Backend error response:",
-          response.status,
-          response.statusText,
-          responseData
-        );
-        throw new Error(
-          responseData.error ||
-            `Failed to submit complaint. Status: ${response.status}`
-        );
-      }
-
-      console.log("Complaint submitted successfully:", responseData);
-      setIsSubmitted(true);
-      toast.success("Complaint submitted successfully!");
-
-      setTimeout(() => {
-        setFormData({
-          title: "",
-          description: "",
-          category: "",
-          department: "",
-          priority: "", // Reset priority
-          contactInfo: "",
-          userType: "Student",
-        });
-        setIsSubmitted(false);
-      }, 3000);
-    } catch (error) {
-      console.error("Error submitting complaint:", error);
-      const errorMessage =
-        error instanceof Error ? error.message : "An unknown error occurred";
-      toast.error(`Failed to submit complaint: ${errorMessage}`);
+      toast.success("Complaint submitted successfully");
+      // reset form
+      setFormData({
+        title: "",
+        description: "",
+        category: "",
+        department: "",
+        priority: "",
+        contactInfo: "",
+        userType: "Student",
+        type: "",
+      });
+    } catch (err) {
+      console.error("Submit failed:", err);
+      toast.error(
+        `Failed to submit complaint: ${
+          err instanceof Error ? err.message : String(err)
+        }`
+      );
     } finally {
       setIsLoading(false);
     }

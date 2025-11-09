@@ -24,17 +24,25 @@ export const getComplaints = async (): Promise<Complaint[]> => {
 
 export const createComplaint = async (complaintData: Omit<Complaint, 'id' | 'timestamp'>): Promise<Complaint> => {
   try {
+    console.log('Submitting complaint:', complaintData); // Debug log
+    
     const response = await fetch(`${API_BASE_URL}/complaints`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', // Important for cookies/session
       body: JSON.stringify(complaintData),
     });
     
     const data = await response.json();
+    console.log('Response from server:', data); // Debug log
     
     if (!response.ok) {
+      throw new Error(data.error || 'Failed to create complaint');
+    }
+    
+    if (!data.success) {
       throw new Error(data.error || 'Failed to create complaint');
     }
     

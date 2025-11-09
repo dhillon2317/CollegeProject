@@ -26,5 +26,30 @@
     "status": "Pending",
     "createdAt": "2025-10-25T03:15:23.682Z",
     "aiAnalyzed": true
+  },
+  {
+    "id": 3,
+    "timestamp": "2025-11-09T14:00:38.523120",
+    "title": "Test Complaint",
+    "description": "This is a test complaint from script",
+    "category": "Test",
+    "department": "Test",
+    "priority": "Low",
+    "contactInfo": "test@example.com",
+    "userType": "Student",
+    "status": "Pending"
+  },
+  {
+    "id": 4,
+    "timestamp": "2025-11-09T14:09:37.710376",
+    "title": "Test Complaint",
+    "description": "This is a test complaint to check the API",
+    "category": "Test",
+    "department": "Test",
+    "priority": "Low",
+    "contactInfo": "test@example.com",
+    "userType": "Student",
+    "status": "Pending",
+    "aiAnalyzed": false
   }
 ]
