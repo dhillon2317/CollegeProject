@@ -37,62 +37,62 @@ type FormData = {
 const domainConfigs = {
   healthcare: {
     categories: [
-      'Patient Care',
-      'Billing',
-      'Appointment Scheduling',
-      'Medical Staff',
-      'Facilities',
-      'Medical Records'
+      "Patient Care",
+      "Billing",
+      "Appointment Scheduling",
+      "Medical Staff",
+      "Facilities",
+      "Medical Records",
     ],
     departments: [
-      'Emergency Room',
-      'General Practice',
-      'Cardiology',
-      'Pediatrics',
-      'Radiology',
-      'Pharmacy'
-    ]
+      "Emergency Room",
+      "General Practice",
+      "Cardiology",
+      "Pediatrics",
+      "Radiology",
+      "Pharmacy",
+    ],
   },
   business: {
     categories: [
-      'Billing',
-      'Customer Service',
-      'Product Quality',
-      'Shipping',
-      'Account Issues',
-      'Website Problems'
+      "Billing",
+      "Customer Service",
+      "Product Quality",
+      "Shipping",
+      "Account Issues",
+      "Website Problems",
     ],
     departments: [
-      'Billing',
-      'Customer Support',
-      'Sales',
-      'Technical Support',
-      'Management',
-      'Operations'
-    ]
+      "Billing",
+      "Customer Support",
+      "Sales",
+      "Technical Support",
+      "Management",
+      "Operations",
+    ],
   },
   education: {
     categories: [
-      'Academic',
-      'Facilities',
-      'Staff Related',
-      'Hygiene & Sanitation',
-      'Security',
-      'Other'
+      "Academic",
+      "Facilities",
+      "Staff Related",
+      "Hygiene & Sanitation",
+      "Security",
+      "Other",
     ],
     departments: [
-      'Academic Office',
-      'Facilities Management',
-      'IT Department',
-      'Student Affairs',
-      'Security',
-      'Administration'
-    ]
+      "Academic Office",
+      "Facilities Management",
+      "IT Department",
+      "Student Affairs",
+      "Security",
+      "Administration",
+    ],
   },
   default: {
-    categories: ['General', 'Technical', 'Billing', 'Other'],
-    departments: ['General Support', 'Technical Support', 'Billing', 'Other']
-  }
+    categories: ["General", "Technical", "Billing", "Other"],
+    departments: ["General Support", "Technical Support", "Billing", "Other"],
+  },
 };
 
 const priorities = ["Low", "Medium", "High"];
@@ -103,7 +103,7 @@ const userTypes = [
   "Patient",
   "Customer",
   "Visitor",
-  "Other"
+  "Other",
 ];
 
 export function ComplaintForm() {
@@ -111,14 +111,17 @@ export function ComplaintForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [currentDomain, setCurrentDomain] = useState<string>('default');
+  const [currentDomain, setCurrentDomain] = useState<string>("default");
   const [domainConfig, setDomainConfig] = useState(domainConfigs.default);
 
   useEffect(() => {
     const domain = getCurrentDomain();
     if (domain) {
       setCurrentDomain(domain.id);
-      setDomainConfig(domainConfigs[domain.id as keyof typeof domainConfigs] || domainConfigs.default);
+      setDomainConfig(
+        domainConfigs[domain.id as keyof typeof domainConfigs] ||
+          domainConfigs.default
+      );
     }
   }, []);
 
@@ -129,30 +132,8 @@ export function ComplaintForm() {
     priority: "Medium",
     contactInfo: "",
     userType: "Student",
-    domain: currentDomain
+    domain: currentDomain,
   });
-
-<<<<<<< HEAD
-=======
-  // The 'departments' and 'priorities' arrays are no longer needed.
-  // const departments = [
-  //   "Academic Office",
-  //   "Facilities Management",
-  //   "IT Department",
-  //   "Human Resources",
-  //   "Student Affairs",
-  //   "Security",
-  // ];
-  // const priorities = ["Low", "Medium", "High", "Critical"];
-
->>>>>>> d97d824c1163984761fcba9811b616b2b56f557e
-  const userTypes = [
-    "Student",
-    "Faculty/Staff",
-    "Parent/Guardian",
-    "Visitor",
-    "Other",
-  ];
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
@@ -160,6 +141,14 @@ export function ComplaintForm() {
       [field]: value,
     }));
   };
+
+  const userTypes = [
+    "Student",
+    "Faculty/Staff",
+    "Parent/Guardian",
+    "Visitor",
+    "Other",
+  ];
 
   const handleSelectChange = (value: string, field: string) => {
     setFormData((prev) => ({
@@ -176,13 +165,9 @@ export function ComplaintForm() {
 
     setIsAnalyzing(true);
     try {
-<<<<<<< HEAD
-      console.log("Sending analysis request for:", text.substring(0, 100));
-      const response = await fetch("http://localhost:5001/analyze", {
-=======
-      const mlApiUrl = import.meta.env.VITE_ML_API_URL || 'http://localhost:5000';
+      const mlApiUrl =
+        import.meta.env.VITE_ML_API_URL || "http://localhost:5000";
       const response = await fetch(`${mlApiUrl}/analyze`, {
->>>>>>> d97d824c1163984761fcba9811b616b2b56f557e
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -245,78 +230,25 @@ export function ComplaintForm() {
     // Update form data with current domain
     const submissionData = {
       ...formData,
-      domain: currentDomain
+      domain: currentDomain,
     };
 
     try {
-<<<<<<< HEAD
-      if (!formData.description) {
-        throw new Error("Please enter a description");
-      }
-
-      console.log("Starting complaint submission...");
-
-      // Run analysis first
-      const analysis = await analyzeComplaint(formData.description);
-      if (!analysis) {
-        throw new Error("Failed to analyze complaint");
-      }
-
-      const completeData = {
-        ...formData,
-        ...analysis,
-        aiAnalyzed: true,
-        createdAt: new Date().toISOString(),
-      };
-
-      console.log("Sending complete data:", completeData);
-
-      const response = await fetch("http://localhost:5001/api/complaints", {
-        method: "POST",
-=======
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
       const response = await fetch(`${apiUrl}/api/complaints`, {
-        method: 'POST',
->>>>>>> d97d824c1163984761fcba9811b616b2b56f557e
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-<<<<<<< HEAD
-        body: JSON.stringify(completeData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(
-          errorData.error || `Submission failed: ${response.status}`
-        );
-      }
-
-      toast.success("Complaint submitted successfully");
-      // Reset form
-      setFormData({
-        title: "",
-        description: "",
-        category: "",
-        department: "",
-        priority: "",
-        contactInfo: "",
-        userType: "Student",
-        type: "",
-      });
-    } catch (error) {
-      console.error("Submit error:", error);
-      toast.error(error instanceof Error ? error.message : "Submission failed");
-=======
         body: JSON.stringify(submissionData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit complaint');
+        throw new Error("Failed to submit complaint");
       }
 
       const result = await response.json();
-      console.log('Complaint submitted successfully:', result);
+      console.log("Complaint submitted successfully:", result);
       setIsSubmitted(true);
 
       // Reset form but keep user type and domain
@@ -327,14 +259,13 @@ export function ComplaintForm() {
         priority: "Medium",
         contactInfo: "",
         userType: formData.userType,
-        domain: currentDomain
+        domain: currentDomain,
       });
 
-      toast.success('Complaint submitted successfully!');
+      toast.success("Complaint submitted successfully!");
     } catch (error) {
-      console.error('Error submitting complaint:', error);
-      toast.error('Failed to submit complaint. Please try again.');
->>>>>>> d97d824c1163984761fcba9811b616b2b56f557e
+      console.error("Error submitting complaint:", error);
+      toast.error("Failed to submit complaint. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -410,7 +341,6 @@ export function ComplaintForm() {
                 required
               />
             </div>
-
 
             <div className="space-y-2">
               <Label htmlFor="userType">You are *</Label>
