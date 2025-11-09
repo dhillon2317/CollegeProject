@@ -76,12 +76,77 @@ vectorizer.fit(df['complaint_text'])
 app = Flask(__name__)
 
 # MongoDB setup
+from urllib.parse import quote_plus
+
+def get_database():
+    try:
+        # Use these hardcoded values temporarily for testing
+        username = "dhillon2317"
+        password = "dhilllon@1000"
+        cluster = "cluster0.6ebj5lk.mongodb.net"
+        
+        # Properly encode the username and password
+        encoded_username = quote_plus(username)
+        encoded_password = quote_plus(password)
+        
+        # Construct the MongoDB URI with proper encoding
+        mongo_uri = f"mongodb+srv://{encoded_username}:{encoded_password}@{cluster}/?retryWrites=true&w=majority"
+        
+        print(f"Connecting to MongoDB at: {cluster}")
+        
+        # Configure MongoDB client with proper timeouts and settings
+        mongo_client = MongoClient(
+            mongo_uri,
+            serverSelectionTimeoutMS=5000,
+            connectTimeoutMS=10000,
+            socketTimeoutMS=30000
+        )
+        
+        # Test the connection
+        mongo_client.server_info()
+        
+        mongo_db = mongo_client['complaints_db']
+        complaints_collection = mongo_db['complaints']
+        print("Connected to MongoDB successfully")
+        return complaints_collection
+        
+    except Exception as e:
+        print(f"MongoDB connection error: {str(e)}")
+        raise
+    
+    # Safe logging without credentials
+    try:
+        masked_uri = mongo_uri.split('@')[-1]
+        print(f"Connecting to MongoDB at: {masked_uri}")
+    except Exception:
+        print("Connecting to MongoDB...")
+    
+    try:
+        # Configure MongoDB client with proper timeouts and settings
+        mongo_client = MongoClient(
+            mongo_uri,
+            serverSelectionTimeoutMS=5000,  # 5 second timeout for server selection
+            connectTimeoutMS=10000,         # 10 second timeout for initial connection
+            socketTimeoutMS=30000           # 30 second timeout for operations
+        )
+        
+        # Test the connection
+        mongo_client.server_info()  # Will throw an exception if cannot connect
+        
+        mongo_db = mongo_client['complaints_db']
+        complaints_collection = mongo_db['complaints']
+        print("Connected to MongoDB successfully")
+        return complaints_collection
+    except Exception as e:
+        print(f"MongoDB connection error: {str(e)}")
+        raise
+
+# Initialize MongoDB connection
 try:
-    mongo_uri = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/')
-    mongo_client = MongoClient(mongo_uri)
-    mongo_db = mongo_client['complaints_db']
-    complaints_collection = mongo_db['complaints']
-    print("Connected to MongoDB successfully")
+    complaints_collection = get_database()
+except Exception as e:
+    print(f"Failed to initialize MongoDB: {str(e)}")
+    raise
 except Exception as e:
     print(f"MongoDB connection error: {str(e)}")
     raise
