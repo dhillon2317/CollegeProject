@@ -77,7 +77,8 @@ app = Flask(__name__)
 
 # MongoDB setup
 try:
-    mongo_client = MongoClient('mongodb://localhost:27017/')
+    mongo_uri = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/')
+    mongo_client = MongoClient(mongo_uri)
     mongo_db = mongo_client['complaints_db']
     complaints_collection = mongo_db['complaints']
     print("Connected to MongoDB successfully")
@@ -87,7 +88,7 @@ except Exception as e:
 
 CORS(app, resources={
     r"/*": {
-        "origins": ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173"],
+        "origins": ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "https://main.d1nokap2upnclw.amplifyapp.com"],
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type"]
     }
