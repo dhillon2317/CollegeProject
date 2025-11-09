@@ -30,6 +30,7 @@ type FormData = {
   contactInfo: string;
   userType: string;
   domain: string;
+  type?: string;
   category?: string;
 };
 
@@ -165,15 +166,15 @@ export function ComplaintForm() {
 
     setIsAnalyzing(true);
     try {
-      const mlApiUrl =
-        import.meta.env.VITE_ML_API_URL || "http://localhost:5000";
+      // Changed port to 5001
+      const mlApiUrl = "http://localhost:5001";
       const response = await fetch(`${mlApiUrl}/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          text: text.trim(), // Ensure text is trimmed
+          text: text.trim(),
         }),
       });
 
@@ -216,25 +217,34 @@ export function ComplaintForm() {
         ...prev,
         category: analysis.category || prev.category,
         priority: analysis.priority || prev.priority,
-        department: analysis.assignedDepartment || prev.department,
+        department: analysis.department || prev.department,
         // Keep the existing userType, don't let AI override it
         userType: prev.userType,
       }));
     }
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Update form data with current domain
-    const submissionData = {
-      ...formData,
-      domain: currentDomain,
-    };
-
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      // First, run analysis if not already done
+      let submissionData = formData;
+      if (
+        !formData.category ||
+        !formData.priority ||
+        !formData.department ||
+        !formData.type
+      ) {
+        const analysis = await analyzeComplaint(formData.description);
+        if (!analysis) {
+          throw new Error("Failed to analyze complaint");
+        }
+        submissionData = { ...formData, ...analysis };
+      }
+
+      // Changed port to 5001
+      const apiUrl = "http://localhost:5001";
       const response = await fetch(`${apiUrl}/api/complaints`, {
         method: "POST",
         headers: {
@@ -244,7 +254,8 @@ export function ComplaintForm() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit complaint");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to submit complaint");
       }
 
       const result = await response.json();
@@ -258,14 +269,18 @@ export function ComplaintForm() {
         department: "",
         priority: "Medium",
         contactInfo: "",
-        userType: formData.userType,
+        userType: submissionData.userType,
         domain: currentDomain,
       });
 
       toast.success("Complaint submitted successfully!");
     } catch (error) {
       console.error("Error submitting complaint:", error);
-      toast.error("Failed to submit complaint. Please try again.");
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to submit complaint. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
