@@ -46,25 +46,6 @@ export function ComplaintForm() {
     userType: "Student",
   });
 
-  // The 'categories', 'departments', and 'priorities' arrays are no longer needed.
-  // const categories = [
-  //   "Academic",
-  //   "Facilities",
-  //   "Staff Related",
-  //   "Hygiene & Sanitation",
-  //   "Security",
-  //   "Other",
-  // ];
-  // const departments = [
-  //   "Academic Office",
-  //   "Facilities Management",
-  //   "IT Department",
-  //   "Human Resources",
-  //   "Student Affairs",
-  //   "Security",
-  // ];
-  // const priorities = ["Low", "Medium", "High", "Critical"];
-
   const userTypes = [
     "Student",
     "Faculty/Staff",
@@ -72,30 +53,6 @@ export function ComplaintForm() {
     "Visitor",
     "Other",
   ];
-
-  // The 'categories' array is no longer needed as it's determined by AI.
-  // const categories = [
-  //   "Academic",
-  //   "Facilities",
-  //   "Staff Related",
-  //   "Hygiene & Sanitation",
-  //   "Security",
-  //   "Other",
-  // ];
-
-  //   "Other",
-  // ];
-
-  // const departments = [
-  //   "Academic Office",
-  //   "Facilities Management",
-  //   "IT Department",
-  //   "Human Resources",
-  //   "Student Affairs",
-  //   "Security",
-  // ];
-
-  // const priorities = ["Low", "Medium", "High", "Critical"];
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
@@ -112,46 +69,50 @@ export function ComplaintForm() {
   };
 
   const analyzeComplaint = async (text: string) => {
-    if (!text) {
-      toast.warning("Please enter a complaint description first.");
+    if (!text?.trim()) {
+      toast.error("Please enter a description first");
       return null;
     }
 
     setIsAnalyzing(true);
     try {
-      // NOTE: ensure this port matches your backend (5001 if your API runs on :5001)
-      const response = await fetch(`http://localhost:5001/analyze`, {
+      console.log("Sending analysis request for:", text.substring(0, 100));
+      const response = await fetch("http://localhost:5001/analyze", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
-        body: JSON.stringify({ text: text }),
+        body: JSON.stringify({
+          text: text.trim(), // Ensure text is trimmed
+        }),
       });
 
-      // read body once
-      const data = await response.json().catch(() => null);
-
       if (!response.ok) {
-        const errMsg =
-          (data && (data.error || data.message)) ||
-          "Failed to analyze complaint";
-        throw new Error(errMsg);
+        throw new Error(`Server error: ${response.status}`);
       }
 
-      if (data && data.success) {
-        toast.success("Complaint analyzed successfully!");
-        return data.data || null; // Return the data property which contains the analysis
-      } else {
-        const errMsg =
-          (data && (data.error || data.message)) || "Analysis failed";
-        throw new Error(errMsg);
+      const result = await response.json();
+      console.log("Analysis response:", result);
+
+      if (!result.success) {
+        throw new Error(result.error || "Analysis failed");
       }
+
+      // Ensure we're getting the correct structure back
+      const analysis = result.data;
+      if (!analysis || typeof analysis !== "object") {
+        throw new Error("Invalid analysis response format");
+      }
+
+      return {
+        category: analysis.category || "",
+        priority: analysis.priority || "",
+        department: analysis.department || "",
+        type: analysis.type || "",
+      };
     } catch (error) {
-      console.error("Error analyzing complaint:", error);
-      const errorMessage =
-        error instanceof Error ? error.message : "An unknown error occurred.";
-      toast.error(`Analysis Error: ${errorMessage}`);
+      console.error("Analysis error:", error);
+      toast.error(error instanceof Error ? error.message : "Analysis failed");
       return null;
     } finally {
       setIsAnalyzing(false);
@@ -177,71 +138,44 @@ export function ComplaintForm() {
     setIsLoading(true);
 
     try {
-      // Ensure description present
-      if (!formData.description || !formData.description.trim()) {
-        toast.error("Please enter a complaint description");
-        return;
+      if (!formData.description) {
+        throw new Error("Please enter a description");
       }
 
-      // If AI fields missing, run analysis first
-      if (
-        !formData.category ||
-        !formData.priority ||
-        !formData.department ||
-        !formData.type
-      ) {
-        const analysis = await analyzeComplaint(formData.description);
-        if (!analysis) {
-          throw new Error("AI analysis failed");
-        }
-        setFormData((prev) => ({
-          ...prev,
-          category: analysis.category || prev.category || "",
-          priority: analysis.priority || prev.priority || "",
-          department:
-            analysis.assignedDepartment ||
-            analysis.department ||
-            prev.department ||
-            "",
-          type: analysis.type || analysis.userType || prev.type || "",
-        }));
-        // merge for immediate submit
-        formData.category = formData.category || analysis.category || "";
-        formData.priority = formData.priority || analysis.priority || "";
-        formData.department =
-          formData.department ||
-          analysis.assignedDepartment ||
-          analysis.department ||
-          "";
-        formData.type =
-          formData.type || analysis.type || analysis.userType || "";
+      console.log("Starting complaint submission...");
+
+      // Run analysis first
+      const analysis = await analyzeComplaint(formData.description);
+      if (!analysis) {
+        throw new Error("Failed to analyze complaint");
       }
 
-      const body = {
-        title: formData.title || "",
-        description: formData.description,
-        userType: formData.userType || "Student",
-        contactInfo: formData.contactInfo || "",
-        category: formData.category || "",
-        priority: formData.priority || "",
-        department: formData.department || "",
-        type: formData.type || "",
+      const completeData = {
+        ...formData,
+        ...analysis,
         aiAnalyzed: true,
         createdAt: new Date().toISOString(),
       };
 
-      const resp = await fetch("http://localhost:5001/api/complaints", {
+      console.log("Sending complete data:", completeData);
+
+      const response = await fetch("http://localhost:5001/api/complaints", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(completeData),
       });
 
-      const respJson = await resp.json().catch(() => ({}));
-      if (!resp.ok) throw new Error(respJson.error || `Status ${resp.status}`);
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.error || `Submission failed: ${response.status}`
+        );
+      }
 
       toast.success("Complaint submitted successfully");
-      // reset form
+      // Reset form
       setFormData({
         title: "",
         description: "",
@@ -252,13 +186,9 @@ export function ComplaintForm() {
         userType: "Student",
         type: "",
       });
-    } catch (err) {
-      console.error("Submit failed:", err);
-      toast.error(
-        `Failed to submit complaint: ${
-          err instanceof Error ? err.message : String(err)
-        }`
-      );
+    } catch (error) {
+      console.error("Submit error:", error);
+      toast.error(error instanceof Error ? error.message : "Submission failed");
     } finally {
       setIsLoading(false);
     }
