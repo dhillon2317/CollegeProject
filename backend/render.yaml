@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: complaint-analyzer-backend
+    env: python
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+    envVars:
+      - key: MONGODB_USERNAME
+        value: dhillon2317
+      - key: MONGODB_PASSWORD
+        value: dhillon1000
+      - key: MONGODB_CLUSTER
+        value: cluster0.6ebj5lk.mongodb.net
+      - key: FLASK_ENV
+        value: production

@@ -32,7 +32,8 @@ export default function App() {
 
   const fetchComplaints = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/complaints');
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+      const response = await fetch(`${API_URL}/complaints`);
       if (!response.ok) {
         throw new Error('Failed to fetch complaints');
       }
