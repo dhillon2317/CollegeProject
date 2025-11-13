@@ -1,10 +1,12 @@
 /**
  * PostCSS configuration for Tailwind CSS + Autoprefixer
- * Tailwind’s JIT engine will pick up all class names found in content paths
+ * Uses postcss-nesting for CSS nesting support
  */
 module.exports = {
   plugins: {
-    "@tailwindcss/postcss": {},
+    'postcss-import': {},
+    'tailwindcss/nesting': 'postcss-nesting',
+    tailwindcss: {},
     autoprefixer: {},
   },
 }

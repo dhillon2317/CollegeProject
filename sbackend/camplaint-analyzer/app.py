@@ -117,8 +117,53 @@ def health_check():
     }), 200
 
 
-# --- Models Directory ---
+# --- Directory Setup ---
 MODELS_DIR = 'models'
+DATA_DIR = Path('data')
+COMPLAINTS_FILE = DATA_DIR / 'complaints.json'
+
+# Create data directory if it doesn't exist
+os.makedirs(DATA_DIR, exist_ok=True)
+
+# Initialize empty complaints file if it doesn't exist
+if not COMPLAINTS_FILE.exists():
+    with open(COMPLAINTS_FILE, 'w') as f:
+        json.dump([], f)
+
+def save_complaint(complaint_data):
+    """Save a new complaint to the JSON file with AI analysis"""
+    try:
+        # Get AI analysis
+        analysis = {
+            'category': category_model.predict([complaint_data['description']])[0],
+            'priority': priority_model.predict([complaint_data['description']])[0],
+            'type': type_model.predict([complaint_data['description']])[0],
+            'assignedDepartment': department_model.predict([complaint_data['description']])[0],
+            'aiConfidence': round(category_model.predict_proba([complaint_data['description']]).max() * 100, 2)
+        }
+        
+        # Create complaint object
+        complaint = {
+            'id': str(uuid.uuid4()),
+            'status': 'pending',
+            'createdAt': datetime.now().isoformat(),
+            **complaint_data,
+            'analysis': analysis
+        }
+        
+        # Save to file
+        with open(COMPLAINTS_FILE, 'r+') as f:
+            complaints = json.load(f)
+            complaints.append(complaint)
+            f.seek(0)
+            json.dump(complaints, f, indent=2)
+            f.truncate()
+            
+        return complaint
+        
+    except Exception as e:
+        print(f"Error saving complaint: {e}")
+        raise
 
 # Rule-based department_map ki ab zaroorat nahi hai, humne use hata diya hai.
 
@@ -160,5 +205,52 @@ def analyze_complaint():
         return jsonify({'error': 'An error occurred during analysis.'}), 500
 
 
+@app.route('/api/complaints', methods=['GET', 'POST'])
+def handle_complaints():
+    if request.method == 'POST':
+        try:
+            data = request.get_json()
+            complaint = save_complaint(data)
+            return jsonify(complaint), 201
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+    else:
+        # GET all complaints
+        try:
+            with open(COMPLAINTS_FILE, 'r') as f:
+                complaints = json.load(f)
+            return jsonify(complaints)
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
+@app.route('/api/complaints/<complaint_id>', methods=['GET', 'PATCH', 'DELETE'])
+def handle_complaint(complaint_id):
+    try:
+        with open(COMPLAINTS_FILE, 'r') as f:
+            complaints = json.load(f)
+        
+        complaint = next((c for c in complaints if c['id'] == complaint_id), None)
+        if not complaint:
+            return jsonify({'error': 'Complaint not found'}), 404
+            
+        if request.method == 'GET':
+            return jsonify(complaint)
+            
+        elif request.method == 'PATCH':
+            data = request.get_json()
+            complaint.update(data)
+            with open(COMPLAINTS_FILE, 'w') as f:
+                json.dump(complaints, f, indent=2)
+            return jsonify(complaint)
+            
+        elif request.method == 'DELETE':
+            complaints = [c for c in complaints if c['id'] != complaint_id]
+            with open(COMPLAINTS_FILE, 'w') as f:
+                json.dump(complaints, f, indent=2)
+            return '', 204
+            
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)

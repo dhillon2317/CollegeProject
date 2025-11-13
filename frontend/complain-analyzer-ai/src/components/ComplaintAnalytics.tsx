@@ -1,5 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getAnalytics, getComplaintAnalysis } from '@/services/analyticsService';
+import { useToast } from '@/components/ui/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Progress } from "./ui/progress";
@@ -382,65 +384,64 @@ function ComplaintAnalysisView({ complaintId, onBack }: ComplaintAnalysisViewPro
 interface AnalyticsDashboardProps {
   onSelectComplaint: (complaintId: string) => void;
   complaints: any[];
+  analyticsData: any; // Add analyticsData prop
 }
 
-const AnalyticsDashboard = ({ onSelectComplaint, complaints }: AnalyticsDashboardProps) => {
+const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: AnalyticsDashboardProps) => {
   const domain = getCurrentDomain();
-  // Initialize tracking variables
-  let totalResolutionTime = 0;
-  let resolvedCount = 0;
-  let totalSentiment = 0;
-  let totalResponseTime = 0;
-  let responseCount = 0;
-
-  // Initialize AI Analysis Stats
-  const aiAnalysisStats = {
-    // Basic counts
-    totalAnalyzed: complaints.filter((c: any) => c.aiAnalyzed).length,
+  // Use analyticsData if available, otherwise fall back to calculating from complaints
+  const stats = analyticsData ? {
+    totalComplaints: analyticsData.statusDistribution ? 
+      Object.values(analyticsData.statusDistribution).reduce((sum: number, count: any) => sum + Number(count), 0) : 0,
+    resolvedCount: analyticsData.statusDistribution?.Resolved || 0,
+    pendingCount: analyticsData.statusDistribution?.Pending || 0,
+    inProgressCount: analyticsData.statusDistribution?.['In Progress'] || 0,
+    // Add more stats from analyticsData as needed
+  } : {
+    // Fallback to calculating from complaints if analyticsData is not available
     totalComplaints: complaints.length,
+    resolvedCount: complaints.filter(c => c.status === 'Resolved').length,
+    pendingCount: complaints.filter(c => c.status === 'Pending').length,
+    inProgressCount: complaints.filter(c => c.status === 'In Progress').length,
+  };
 
-    // Average confidence
-    averageConfidence: 0, // Will be calculated
-    
-    // Categorization metrics
-    categories: {} as Record<string, {
-      count: number;
-      avgConfidence: number;
-      avgResolution: number;
-      sentiment: number;
-    }>,
-    
-    // Department metrics
-    departments: {} as Record<string, {
-      count: number;
-      totalResolutionTime: number;
-      avgResolution: number;
-      avgConfidence: number;
-      satisfaction: number;
-    }>,
+  // Initialize tracking variables with data from analytics if available
+  const totalResolutionTime = analyticsData?.metrics?.totalResolutionTime || 0;
+  const resolvedCount = stats.resolvedCount;
+  const totalSentiment = analyticsData?.metrics?.totalSentiment || 0;
+  const totalResponseTime = analyticsData?.metrics?.totalResponseTime || 0;
+  const responseCount = analyticsData?.metrics?.responseCount || 0;
+
+  // Initialize AI Analysis Stats with data from analyticsData if available
+  const aiAnalysisStats = analyticsData?.aiInsights ? {
+    // Use AI insights from the backend
+    sentimentAnalysis: analyticsData.aiInsights.sentimentAnalysis || {
+      positive: 0,
+      neutral: 0,
+      negative: 0,
+    },
+    commonKeywords: analyticsData.aiInsights.commonKeywords || [],
+    totalAnalyzed: analyticsData.aiInsights.totalAnalyzed || 0,
+    totalComplaints: analyticsData.statusDistribution ? 
+      Object.values(analyticsData.statusDistribution).reduce((sum: number, count: any) => sum + Number(count), 0) : 0,
+    averageConfidence: analyticsData.aiInsights.averageConfidence || 0,
+    categories: analyticsData.aiInsights.categories || {},
+    departments: analyticsData.aiInsights.departments || {},
     
     // Priority metrics
-    priorities: {} as Record<string, number>,
+    priorities: analyticsData.aiInsights.priorities || {},
     
     // Sentiment analysis
-    sentiment: {
+    sentiment: analyticsData.aiInsights.sentiment || {
       positive: 0,
       negative: 0,
       neutral: 0,
       avgSentiment: 0,
-      sentimentTrend: [
-        { month: 'Jan', positive: 15, neutral: 20, negative: 5 },
-        { month: 'Feb', positive: 18, neutral: 22, negative: 8 },
-        { month: 'Mar', positive: 25, neutral: 25, negative: 10 },
-        { month: 'Apr', positive: 30, neutral: 28, negative: 12 },
-        { month: 'May', positive: 35, neutral: 30, negative: 15 },
-        { month: 'Jun', positive: 40, neutral: 32, negative: 18 },
-        { month: 'Jul', positive: 45, neutral: 35, negative: 20 }
-      ]
+      sentimentTrend: []
     },
     
     // Model performance metrics
-    modelMetrics: {
+    modelMetrics: analyticsData.aiInsights.modelMetrics || {
       confidenceThreshold: 0.8,
       modelDrift: 0.05,
       lastEvaluation: new Date().toISOString(),
@@ -448,28 +449,52 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints }: AnalyticsDashboar
       dataDrift: 0.07,
       conceptDrift: 0.03,
       predictionAccuracy: 0.87,
-      // Anomaly detection
-      anomalies: [
-        { id: 1, type: 'Spike in complaints', date: '2024-09-15', severity: 'high', description: 'Unusual 45% increase in infrastructure complaints' },
-        { id: 2, type: 'Decreased resolution rate', date: '2024-09-10', severity: 'medium', description: '10% drop in resolution rate for IT department' },
-        { id: 3, type: 'Sentiment shift', date: '2024-09-05', severity: 'low', description: 'Slight negative shift in sentiment for academic complaints' }
-      ]
+      anomalies: []
     },
     
     // Resolution metrics
+    resolutionMetrics: analyticsData.aiInsights.resolutionMetrics || {
+      avgResolutionTime: 0,
+      resolutionRate: 0,
+      firstResponseTime: 0,
+      resolutionTrend: []
+    }
+  } : {
+    // Fallback to default values if no AI insights are available
+    sentimentAnalysis: {
+      positive: 0,
+      neutral: 0,
+      negative: 0,
+    },
+    commonKeywords: [],
+    totalAnalyzed: 0,
+    totalComplaints: 0,
+    averageConfidence: 0,
+    categories: {},
+    departments: {},
+    priorities: {},
+    sentiment: {
+      positive: 0,
+      negative: 0,
+      neutral: 0,
+      avgSentiment: 0,
+      sentimentTrend: []
+    },
+    modelMetrics: {
+      confidenceThreshold: 0.8,
+      modelDrift: 0,
+      lastEvaluation: new Date().toISOString(),
+      nextScheduledRetraining: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      dataDrift: 0,
+      conceptDrift: 0,
+      predictionAccuracy: 0,
+      anomalies: []
+    },
     resolutionMetrics: {
       avgResolutionTime: 0,
       resolutionRate: 0,
       firstResponseTime: 0,
-      resolutionTrend: [
-        { month: 'Jan', resolved: 15, unresolved: 5 },
-        { month: 'Feb', resolved: 18, unresolved: 7 },
-        { month: 'Mar', resolved: 22, unresolved: 8 },
-        { month: 'Apr', resolved: 25, unresolved: 10 },
-        { month: 'May', resolved: 30, unresolved: 12 },
-        { month: 'Jun', resolved: 35, unresolved: 15 },
-        { month: 'Jul', resolved: 40, unresolved: 18 }
-      ]
+      resolutionTrend: []
     }
   };
 
@@ -1385,14 +1410,35 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints }: AnalyticsDashboar
 // --- Main Component ---
 export function ComplaintAnalytics({ complaints = [] }: { complaints: any[] }) {
   const [selectedComplaintId, setSelectedComplaintId] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [analyticsData, setAnalyticsData] = useState<any>(null);
+
+  // Fetch analytics data on component mount
+  useEffect(() => {
+    const fetchAnalytics = async () => {
+      try {
+        setIsLoading(true);
+        const data = await getAnalytics();
+        setAnalyticsData(data);
+      } catch (err) {
+        console.error('Error fetching analytics:', err);
+        setError('Failed to load analytics data. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAnalytics();
+  }, []);
 
   // Handle complaint selection
-  const handleSelectComplaint = (complaintId: string) => {
+  const handleSelectComplaint = async (complaintId: string) => {
     try {
       setIsLoading(true);
       setError(null);
+      // Optional: Fetch detailed analysis for the selected complaint
+      // const analysis = await getComplaintAnalysis(complaintId);
       setSelectedComplaintId(complaintId);
     } catch (err) {
       console.error('Error selecting complaint:', err);
@@ -1441,14 +1487,14 @@ export function ComplaintAnalytics({ complaints = [] }: { complaints: any[] }) {
     );
   }
 
-  // Show empty state if no complaints
-  if (!complaints || complaints.length === 0) {
+  // Show empty state if no analytics data
+  if (!analyticsData && !isLoading) {
     return (
       <div className="flex flex-col items-center justify-center h-64 p-4 text-center">
         <div className="mb-4 p-3 rounded-full bg-muted">
           <BarChart3 className="h-8 w-8 text-muted-foreground" />
         </div>
-        <h3 className="text-lg font-medium mb-1">No complaints yet</h3>
+        <h3 className="text-lg font-medium mb-1">No analytics data available</h3>
         <p className="text-sm text-muted-foreground mb-4">
           Submit a complaint to see analytics and insights
         </p>
@@ -1460,6 +1506,7 @@ export function ComplaintAnalytics({ complaints = [] }: { complaints: any[] }) {
   return (
     <AnalyticsDashboard
       complaints={complaints}
+      analyticsData={analyticsData}
       onSelectComplaint={handleSelectComplaint}
     />
   );

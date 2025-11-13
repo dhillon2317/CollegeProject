@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "./components/ui/button";
 import { Badge } from "./components/ui/badge";
 import { TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
+import { config } from "./config";
 import { Tabs } from "@radix-ui/react-tabs";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import { Toaster } from "sonner";
@@ -16,13 +17,17 @@ import {
   ArrowLeft
 } from "lucide-react";
 
-import { Dashboard } from "./components/Dashboard";
-import { ComplaintForm } from "./components/ComplaintForm";
-import { ComplaintAnalytics } from "./components/ComplaintAnalytics";
-import { DomainSelector } from "./components/DomainSelector";
+import { Dashboard } from "./src/components/Dashboard";
+import { ComplaintForm } from "./src/components/ComplaintForm";
+import { ComplaintAnalytics } from "./src/components/ComplaintAnalytics";
+import { DomainSelector } from "./src/components/DomainSelector";
 import { getCurrentDomain, type DomainConfig, DOMAINS } from "./src/config/domains";
 
-export default function App() {
+interface AppProps {
+  children?: React.ReactNode;
+}
+
+export default function App({ children }: AppProps) {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [selectedDomain, setSelectedDomain] = useState<DomainConfig | null>(() => getCurrentDomain());
   const [showDomainSelector, setShowDomainSelector] = useState(false);
@@ -86,44 +91,49 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background">
-      <VercelAnalytics />
-      <Toaster position="top-right" richColors />
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
-              <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-primary text-primary-foreground rounded-lg flex-shrink-0">
-                <Brain className="h-4 w-4 md:h-6 md:w-6" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <h1 className="text-lg md:text-xl font-semibold truncate">Complaint Analyzer AI</h1>
-                <div className="flex items-center gap-1 md:gap-2">
-                  <span className="text-base md:text-lg flex-shrink-0">{selectedDomain.icon}</span>
-                  <p className="text-xs md:text-sm text-muted-foreground truncate">
-                    {selectedDomain.name}
-                  </p>
+      {children || (
+        <>
+          <VercelAnalytics />
+          <Toaster position="top-right" richColors />
+        </>
+      )}
+      <div>
+        {/* Header */}
+        <header className="border-b bg-card">
+          <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
+                <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-primary text-primary-foreground rounded-lg flex-shrink-0">
+                  <Brain className="h-4 w-4 md:h-6 md:w-6" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-lg md:text-xl font-semibold truncate">Complaint Analyzer AI</h1>
+                  <div className="flex items-center gap-1 md:gap-2">
+                    <span className="text-base md:text-lg flex-shrink-0">{selectedDomain.icon}</span>
+                    <p className="text-xs md:text-sm text-muted-foreground truncate">
+                      {selectedDomain.name}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-              <Badge variant="secondary" className="hidden lg:inline-flex text-xs">
-                AI Powered
-              </Badge>
-              <Button size="sm" variant="outline" onClick={handleChangeDomain} className="px-2 md:px-3 transition-shadow hover:shadow-md">
-                <ArrowLeft className="h-3 w-3 md:h-4 md:w-4 md:mr-2" />
-                <span className="hidden md:inline" style={{ cursor: "pointer" }}>Change Domain</span>
-              </Button>
-              <Button size="sm" variant="outline" className="px-2 md:px-3 transition-shadow hover:shadow-md">
-                <Settings className="h-3 w-3 md:h-4 md:w-4 md:mr-2" />
-                <span className="hidden md:inline">Settings</span>
-              </Button>
+              <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+                <Badge variant="secondary" className="hidden lg:inline-flex text-xs">
+                  AI Powered
+                </Badge>
+                <Button size="sm" variant="outline" onClick={handleChangeDomain} className="px-2 md:px-3 transition-shadow hover:shadow-md">
+                  <ArrowLeft className="h-3 w-3 md:h-4 md:w-4 md:mr-2" />
+                  <span className="hidden md:inline" style={{ cursor: "pointer" }}>Change Domain</span>
+                </Button>
+                <Button size="sm" variant="outline" className="px-2 md:px-3 transition-shadow hover:shadow-md">
+                  <Settings className="h-3 w-3 md:h-4 md:w-4 md:mr-2" />
+                  <span className="hidden md:inline">Settings</span>
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main Content */}
+        {/* Main Content */}
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList id="selector-elector" className="bg-muted text-muted-foreground items-center justify-center rounded-[25px] py-[2px] px-[-1px] grid w-full max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl grid-cols-3 mb-4 md:mb-6 h-11 mx-auto">
@@ -155,6 +165,7 @@ export default function App() {
               isLoading={isLoading}
               isRefreshing={isRefreshing}
               onRefresh={fetchComplaints}
+              API_URL={config.api.baseURL}
             />
           </TabsContent>
 
@@ -204,5 +215,6 @@ export default function App() {
         </div>
       </div>
     </div>
+  </div>
   );
 }

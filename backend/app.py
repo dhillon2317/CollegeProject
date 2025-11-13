@@ -1,5 +1,27 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS, cross_origin
+
+from datetime import timedelta
+
+# Initialize Flask app
+app = Flask(__name__)
+
+# Configure CORS
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+# Enable CORS for all routes during development
+CORS(app, resources={r"/*": {"origins": "*"}})
+
+# Add CORS headers to all responses
+@app.after_request
+def after_request(response):
+    # Allow requests from any origin with credentials
+    response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin', '*'))
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    response.headers.add('Access-Control-Max-Age', '600')
+    return response
 from dotenv import load_dotenv
 import os
 from datetime import datetime
@@ -75,6 +97,16 @@ vectorizer.fit(df['complaint_text'])
 
 app = Flask(__name__)
 
+# Configure CORS to allow requests from your frontend
+cors = CORS(app, resources={
+    r"/api/*": {
+        "origins": ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5001", "http://localhost:3001", "http://127.0.0.1:3001"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
+    }
+})
+
 # MongoDB setup
 from urllib.parse import quote_plus
 
@@ -127,19 +159,9 @@ except Exception as e:
     print("Application will start but database features will be limited")
     complaints_collection = None
 
-CORS(app, resources={
-    r"/*": {
-        "origins": ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "https://main.d1nokap2upnclw.amplifyapp.com"],
-        "methods": ["GET", "POST", "OPTIONS"],
-        "allow_headers": ["Content-Type"]
-    }
-})
-
 @app.after_request
 def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+    # The CORS headers are now handled by flask-cors
     return response
 
 @app.route('/analyze', methods=['POST'])
@@ -183,8 +205,14 @@ def save_complaint(complaint_data):
     except Exception as e:
         raise Exception(f"Database error: {str(e)}")
 
-@app.route('/api/complaints', methods=['POST'])
+@app.route('/api/complaints', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def create_complaint():
+    if request.method == 'OPTIONS':
+        return _build_cors_preflight_response()
+        
+    if not request.is_json:
+        return jsonify({"success": False, "error": "Request must be JSON"}), 400
     try:
         data = request.get_json()
         print("Received complaint data:", data)  # Debug print
@@ -192,7 +220,15 @@ def create_complaint():
         if not data or not data.get('description'):
             return jsonify({"success": False, "error": "Missing description"}), 400
 
-        # Perform AI analysis directly
+        # Set default values in case AI analysis fails
+        default_values = {
+            "category": "General",
+            "priority": "Medium",
+            "department": "General",
+            "type": "General"
+        }
+        
+        # Try AI analysis, but don't fail if it doesn't work
         try:
             text_vectorized = vectorizer.transform([data['description']])
             
@@ -209,8 +245,9 @@ def create_complaint():
             print("AI Analysis results:", analysis)  # Debug print
             
         except Exception as e:
-            print(f"Analysis error: {str(e)}")  # Debug print
-            return jsonify({"success": False, "error": "Failed to analyze complaint"}), 500
+            print(f"Analysis warning: {str(e)} - Using default values")  # Debug print
+            # Use default values if analysis fails
+            data.update(default_values)
 
         # Add metadata
         data['createdAt'] = datetime.utcnow().isoformat()
@@ -296,5 +333,16 @@ def get_complaints():
             "error": f"Failed to fetch complaints: {str(e)}"
         }), 500
 
+def _build_cors_preflight_response():
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add('Access-Control-Allow-Headers', "*")
+    response.headers.add('Access-Control-Allow-Methods', "*")
+    return response
+
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    return jsonify({"status": "healthy", "message": "Backend service is running"}), 200
+
 if __name__ == '__main__':
-    app.run(port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)

@@ -11,6 +11,12 @@ complaint_text,category,priority,department,type
 "The food in the main cafeteria is often cold.",Hostel,Medium,Hostel Warden,Non-Technical
 "Request for a workshop on public speaking.",Academics,Low,Academics Department,Non-Technical
 "The gym equipment is outdated and needs replacement.",Infrastructure,Medium,Sports Committee,Non-Technical
+"The library's subscription to a major academic journal has lapsed. ",Library,Medium,Library,Non-Technical
+"benches in the library are not in good condition.",Library,Medium,Library,Non-Technical
+"benches in the hostel are not in good condition.",Hostel,Medium,Hostel Warden,Non-Technical
+"benches on the classroom are not in good condition.",Academics,Medium,Academics Department,Non-Technical
+"benches on the hostel are not in good condition.",Hostel,Medium,Hostel Warden,Non-Technical
+"benches on the classroom are not in good condition.",Academics,Medium,Academics Department,Non-Technical
 "My student ID card has a spelling error.",Admin,Medium,Admin Office,Non-Technical
 "The chemistry lab is missing essential safety equipment.",Academics,High,Academics Department,Non-Technical
 "The fire alarm on the 3rd floor went off for no reason.",Infrastructure,High,Maintenance,Non-Technical

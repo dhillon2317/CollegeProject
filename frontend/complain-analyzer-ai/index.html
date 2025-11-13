@@ -2,11 +2,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AI Powered Complaint Analyzer" />
     <title>AI Powered Analyzer</title>
-    <link href="/styles/globals.css" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles/globals.css" />
+    <style>
+      /* Fallback styles */
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+      
+      /* Loading spinner */
+      .loading-spinner {
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        border: 0.25rem solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        border-top-color: #3b82f6;
+        animation: spin 1s ease-in-out infinite;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </head>
-  <body>
+  <body class="bg-gray-50 text-gray-900">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

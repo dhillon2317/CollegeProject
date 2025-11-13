@@ -1,52 +1,92 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+import { complaintService as api } from './api';
 
 export interface Complaint {
-  id: number;
+  _id?: string;
   title: string;
   description: string;
-  timestamp: string;
-  // Add other fields as needed
+  category?: string;
+  priority?: string;
+  department?: string;
+  status?: 'pending' | 'in_progress' | 'resolved' | 'rejected';
+  createdAt?: string;
+  updatedAt?: string;
+  aiAnalysis?: {
+    categoryConfidence?: number;
+    priorityConfidence?: number;
+    departmentConfidence?: number;
+    sentiment?: 'positive' | 'neutral' | 'negative';
+    sentimentScore?: number;
+    keywords?: string[];
+  };
 }
 
 export const getComplaints = async (): Promise<Complaint[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/complaints`);
-    const data = await response.json();
-    if (data.success) {
-      return data.data;
-    }
-    throw new Error(data.error || 'Failed to fetch complaints');
+    const response = await api.getComplaints();
+    return response.data || [];
   } catch (error) {
     console.error('Error fetching complaints:', error);
     throw error;
   }
 };
 
-export const createComplaint = async (complaintData: Omit<Complaint, 'id' | 'timestamp'>): Promise<Complaint> => {
+export const analyzeComplaint = async (description: string): Promise<Partial<Complaint>> => {
   try {
-    console.log('Submitting complaint:', complaintData); // Debug log
+    const response = await api.analyzeComplaint(description);
+    const data = response.data || {};
     
-    const response = await fetch(`${API_BASE_URL}/complaints`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    return {
+      category: data.category,
+      priority: data.priority,
+      department: data.department,
+      aiAnalysis: {
+        categoryConfidence: data.confidence?.category,
+        priorityConfidence: data.confidence?.priority,
+        departmentConfidence: data.confidence?.department,
+        sentiment: data.sentiment,
+        sentimentScore: data.sentiment_score,
+        keywords: data.keywords || [],
       },
-      credentials: 'include', // Important for cookies/session
-      body: JSON.stringify(complaintData),
+    };
+  } catch (error) {
+    console.error('Error analyzing complaint:', error);
+    throw error;
+  }
+};
+
+export const createComplaint = async (complaintData: Omit<Complaint, '_id' | 'createdAt' | 'updatedAt' | 'aiAnalysis' | 'status'>): Promise<Complaint> => {
+  try {
+    // First analyze the complaint
+    let aiAnalysis: any = {};
+    
+    try {
+      const analysis = await analyzeComplaint(complaintData.description);
+      aiAnalysis = analysis.aiAnalysis || {};
+      
+      // Update complaint data with AI analysis
+      if (analysis.category) complaintData.category = analysis.category;
+      if (analysis.priority) complaintData.priority = analysis.priority;
+      if (analysis.department) complaintData.department = analysis.department;
+      if ((analysis as any).type) (complaintData as any).type = (analysis as any).type;
+    } catch (error) {
+      console.warn('AI analysis failed, proceeding without it', error);
+    }
+
+    // Create the complaint with AI analysis
+    const response = await api.createComplaint({
+      ...complaintData,
+      status: 'pending',
+      aiAnalysis,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     });
-    
-    const data = await response.json();
-    console.log('Response from server:', data); // Debug log
-    
-    if (!response.ok) {
-      throw new Error(data.error || 'Failed to create complaint');
+
+    // Check for error in response
+    if (response && response.error) {
+      throw new Error(response.error);
     }
-    
-    if (!data.success) {
-      throw new Error(data.error || 'Failed to create complaint');
-    }
-    
-    return data.data;
+
+    return response;
   } catch (error) {
     console.error('Error creating complaint:', error);
     throw error;
