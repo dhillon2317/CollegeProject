@@ -25,6 +25,21 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       host: true,
       open: true,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:5001',
+          changeOrigin: true,
+          secure: false,
+          ws: true,
+          // Don't rewrite the path - forward /api as-is
+          rewrite: (path) => path,
+        },
+        '/analyze': {
+          target: 'http://localhost:5001',
+          changeOrigin: true,
+          secure: false,
+        }
+      }
     },
     preview: {
       port: 3000,

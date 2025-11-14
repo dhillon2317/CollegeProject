@@ -67,8 +67,10 @@ const AppLayout = () => {
   const fetchComplaints = React.useCallback(async () => {
     try {
       setIsRefreshing(true);
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
-      const response = await fetch(`${API_URL}/api/complaints`);
+      // Use relative URL via Vite proxy
+      const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '' : 'http://localhost:5001');
+      const url = API_URL ? `${API_URL}/api/complaints` : '/api/complaints';
+      const response = await fetch(url);
       
       if (!response.ok) {
         const error = await response.json().catch(() => ({}));
@@ -76,25 +78,37 @@ const AppLayout = () => {
       }
       
       const result = await response.json();
-      console.log('Fetched complaints:', result); // Debug log
+      console.log('Fetched complaints response:', result); // Debug log
       
+      // Handle both formats: { success: true, data: [...] } or direct array
+      let complaintsArray: any[] = [];
       if (result.success && Array.isArray(result.data)) {
+        complaintsArray = result.data;
+      } else if (Array.isArray(result)) {
+        complaintsArray = result;
+      } else if (Array.isArray(result.data)) {
+        complaintsArray = result.data;
+      }
+      
+      if (complaintsArray.length > 0 || result.success !== false) {
         // Transform the data to match the expected format
-        const formattedComplaints = result.data.map((complaint: any) => ({
+        const formattedComplaints = complaintsArray.map((complaint: any) => ({
           ...complaint,
           // Ensure all required fields have default values if missing
+          id: complaint.id || complaint._id,
           status: complaint.status || 'pending',
           priority: complaint.priority || 'medium',
           department: complaint.department || 'General',
           category: complaint.category || 'Other',
           type: complaint.type || 'General',
-          createdAt: complaint.createdAt || new Date().toISOString(),
+          createdAt: complaint.createdAt || complaint.timestamp || new Date().toISOString(),
           contactInfo: complaint.contactInfo || 'N/A',
           userType: complaint.userType || 'Student'
         }));
+        console.log(`Loaded ${formattedComplaints.length} complaints`);
         setComplaints(formattedComplaints);
       } else {
-        console.error('Invalid response format:', result);
+        console.warn('No complaints found or invalid response format:', result);
         setComplaints([]);
       }
     } catch (error) {

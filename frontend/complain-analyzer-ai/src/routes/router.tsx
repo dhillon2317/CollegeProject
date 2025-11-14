@@ -7,42 +7,11 @@ import App from '../App';
 
 // Components
 import LoginPage from '../components/LoginPage';
-import { Dashboard } from '../components/Dashboard';
+import SignUpPage from '../components/SignUpPage';
 import { ComplaintForm } from '../components/ComplaintForm';
 import LandingPage from '../components/LandingPage';
 import NotFoundPage from '../components/NotFoundPage';
 import Profile from '../components/Profile';
-
-// Create a simple AuthForm component since it's missing
-const AuthForm = ({ type, onSubmit }: { type: 'login' | 'register', onSubmit: (data: any) => Promise<void> }) => (
-  <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-    <h2 className="text-2xl font-bold mb-6">{type === 'login' ? 'Sign In' : 'Create Account'}</h2>
-    <form onSubmit={(e) => {
-      e.preventDefault();
-      const formData = new FormData(e.currentTarget);
-      const data = Object.fromEntries(formData);
-      onSubmit(data);
-    }}>
-      {type === 'register' && (
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Name</label>
-          <input name="name" type="text" required className="w-full p-2 border rounded" />
-        </div>
-      )}
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Email</label>
-        <input name="email" type="email" required className="w-full p-2 border rounded" />
-      </div>
-      <div className="mb-6">
-        <label className="block text-sm font-medium mb-1">Password</label>
-        <input name="password" type="password" required className="w-full p-2 border rounded" />
-      </div>
-      <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
-        {type === 'login' ? 'Sign In' : 'Sign Up'}
-      </button>
-    </form>
-  </div>
-);
 
 
 // Protected Route Component
@@ -97,7 +66,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'register',
-        element: <PublicRoute><AuthForm type="register" onSubmit={async (data) => console.log('Register:', data)} /></PublicRoute>,
+        element: <PublicRoute><SignUpPage /></PublicRoute>,
+      },
+      {
+        path: 'signup',
+        element: <Navigate to="/register" replace />,
       },
       // Redirect old routes to new /app routes
       {
@@ -113,23 +86,11 @@ const router = createBrowserRouter([
         element: <Navigate to="/app/complaints" replace />,
       },
       // App routes (protected)
-      {
-        path: 'app',
-        element: <ProtectedRoute><Outlet /></ProtectedRoute>,
+          {
+            path: 'app',
+            element: <ProtectedRoute><Outlet /></ProtectedRoute>,
         children: [
           {
-            index: true,
-            element: <Navigate to="/app/dashboard" replace />,
-          },
-          {
-            path: 'dashboard',
-            element: <Dashboard 
-              complaints={[]} 
-              isLoading={false} 
-              isRefreshing={false} 
-              onRefresh={() => Promise.resolve()} 
-              API_URL=""
-            />,
           },
           {
             path: 'profile',

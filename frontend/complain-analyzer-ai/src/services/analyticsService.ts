@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+// Use relative URLs via Vite proxy in development
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '' : 'http://localhost:5001');
 
 export interface AnalyticsData {
   categoryDistribution: {
@@ -33,12 +34,13 @@ export interface AnalyticsData {
 
 export const getAnalytics = async (): Promise<AnalyticsData> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/analytics`);
+    const url = API_BASE_URL ? `${API_BASE_URL}/api/analytics` : '/api/analytics';
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to fetch analytics data');
     }
     const data = await response.json();
-    return data.data;
+    return data;
   } catch (error) {
     console.error('Error fetching analytics:', error);
     throw error;
@@ -47,7 +49,8 @@ export const getAnalytics = async (): Promise<AnalyticsData> => {
 
 export const getComplaintAnalysis = async (complaintId: string) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/analytics/complaint/${complaintId}`);
+    const url = API_BASE_URL ? `${API_BASE_URL}/api/analytics/complaint/${complaintId}` : `/api/analytics/complaint/${complaintId}`;
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to fetch complaint analysis');
     }

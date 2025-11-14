@@ -13,10 +13,12 @@ interface AuthResponse {
 }
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_URL || undefined, // undefined means relative URLs (via Vite proxy)
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: false,
+  timeout: 30000,
 });
 
 // Add a request interceptor to include the token in requests
@@ -39,7 +41,7 @@ export const login = async (email: string, password: string): Promise<AuthRespon
 };
 
 export const register = async (name: string, email: string, password: string): Promise<AuthResponse> => {
-  const response = await api.post('/api/register', { name, email, password });
+  const response = await api.post('/api/auth/register', { name, email, password });
   return response.data;
 };
 

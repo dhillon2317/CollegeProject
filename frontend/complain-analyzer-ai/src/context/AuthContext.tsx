@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { authService } from '../services/api';
 
 export type UserRole = 'admin' | 'student';
 
@@ -38,65 +39,108 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Mock login - replace with actual API call
+  // Real login using API
   const login = async (email: string, password: string) => {
-    // This is a mock implementation
-    // In a real app, you would make an API call to your backend
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        // Mock user data - in a real app, this would come from your API
-        const mockUser: User = {
-          id: '1',
-          email: email,
-          name: email.split('@')[0],
-          role: email.includes('admin') ? 'admin' : 'student',
-          department: 'IT' // Example department
-        };
-        setCurrentUser(mockUser);
-        localStorage.setItem('user', JSON.stringify(mockUser));
-        resolve();
-      }, 500);
-    });
+    try {
+      const response = await authService.login({ username: email, password });
+      
+      if (response.token) {
+        localStorage.setItem('token', response.token);
+      }
+      
+      const user: User = {
+        id: response.user?.id || '',
+        email: response.user?.email || email,
+        name: response.user?.name || email.split('@')[0],
+        role: (response.user?.role === 'admin' ? 'admin' : 'student') as UserRole,
+        department: response.user?.department
+      };
+      
+      setCurrentUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
+    } catch (error: any) {
+      console.error('Login error:', error);
+      throw new Error(error.response?.data?.error || error.message || 'Login failed');
+    }
   };
 
   const signup = async (email: string, password: string, role: UserRole, name: string) => {
-    // Mock signup - replace with actual API call
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        const newUser: User = {
-          id: Math.random().toString(36).substr(2, 9),
-          email,
-          name,
-          role,
-          department: 'General' // Default department
-        };
-        setCurrentUser(newUser);
-        localStorage.setItem('user', JSON.stringify(newUser));
-        resolve();
-      }, 500);
-    });
+    try {
+      const response = await authService.register({
+        username: email,
+        email,
+        password,
+        name,
+        role
+      });
+      
+      if (response.token) {
+        localStorage.setItem('token', response.token);
+      }
+      
+      const user: User = {
+        id: response.user?.id || '',
+        email: response.user?.email || email,
+        name: response.user?.name || name,
+        role: (response.user?.role === 'admin' ? 'admin' : 'student') as UserRole,
+        department: response.user?.department
+      };
+      
+      setCurrentUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
+    } catch (error: any) {
+      console.error('Signup error:', error);
+      throw new Error(error.response?.data?.error || error.message || 'Registration failed');
+    }
   };
 
   const logout = async () => {
-    // Clear user data
+    // Clear user data and token
     setCurrentUser(null);
     localStorage.removeItem('user');
-    // In a real app, you would also make an API call to invalidate the session
+    localStorage.removeItem('token');
+    authService.logout();
   };
 
-  // Check for existing session
+  // Check for existing session and validate token
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      try {
-        const user = JSON.parse(storedUser);
-        setCurrentUser(user);
-      } catch (error) {
-        console.error('Failed to parse user data', error);
-        localStorage.removeItem('user');
+    const checkAuth = async () => {
+      const storedUser = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      
+      if (storedUser && token) {
+        try {
+          const user = JSON.parse(storedUser);
+          // Optionally validate token with backend
+          try {
+            const currentUserData = await authService.getCurrentUser();
+            if (currentUserData) {
+              const updatedUser: User = {
+                id: currentUserData.id || user.id,
+                email: currentUserData.email || user.email,
+                name: currentUserData.name || user.name,
+                role: (currentUserData.role === 'admin' ? 'admin' : 'student') as UserRole,
+                department: currentUserData.department
+              };
+              setCurrentUser(updatedUser);
+              localStorage.setItem('user', JSON.stringify(updatedUser));
+            }
+          } catch (error) {
+            // Token invalid, clear storage
+            console.error('Token validation failed:', error);
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+          }
+        } catch (error) {
+          console.error('Failed to parse user data', error);
+          localStorage.removeItem('user');
+          localStorage.removeItem('token');
+        }
       }
-    }
-    setLoading(false);
+      setLoading(false);
+    };
+    
+    checkAuth();
   }, []);
 
   const isAdmin = currentUser?.role === 'admin';

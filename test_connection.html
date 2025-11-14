@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backend Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px 5px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <h1>Backend Connection Test</h1>
+    <p>This page tests the connection to your backend server.</p>
+    
+    <button onclick="testConnection()">Test Backend Connection</button>
+    <button onclick="testWithFetch()">Test with Fetch API</button>
+    <button onclick="clearResult()">Clear</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function log(message, type = 'info') {
+            const result = document.getElementById('result');
+            result.className = type;
+            result.textContent = message;
+            console.log(message);
+        }
+
+        function clearResult() {
+            document.getElementById('result').textContent = '';
+        }
+
+        async function testConnection() {
+            log('Testing connection to http://localhost:5001/api/health...\n', 'info');
+            
+            try {
+                const response = await fetch('http://localhost:5001/api/health', {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'omit',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    }
+                });
+
+                log(`Response Status: ${response.status} ${response.statusText}\n`, 
+                    response.ok ? 'success' : 'error');
+                
+                log(`Response Headers:\n${JSON.stringify(Object.fromEntries(response.headers.entries()), null, 2)}\n`, 'info');
+
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ SUCCESS!\n\nResponse Data:\n${JSON.stringify(data, null, 2)}`, 'success');
+                } else {
+                    const text = await response.text();
+                    log(`❌ FAILED!\n\nResponse Body:\n${text}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ ERROR!\n\nError Name: ${error.name}\nError Message: ${error.message}\n\nPossible causes:\n1. Backend is not running\n2. CORS is blocking the request\n3. Firewall is blocking the connection\n4. Mixed content (HTTPS page accessing HTTP)`, 'error');
+            }
+        }
+
+        async function testWithFetch() {
+            log('Testing with detailed fetch information...\n', 'info');
+            
+            const url = 'http://localhost:5001/api/health';
+            log(`URL: ${url}\n`, 'info');
+            log(`Origin: ${window.location.origin}\n`, 'info');
+            
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'omit',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    signal: controller.signal,
+                });
+
+                clearTimeout(timeoutId);
+
+                log(`✅ Request successful!\n\nStatus: ${response.status}\nOK: ${response.ok}\n\nHeaders:\n${JSON.stringify(Object.fromEntries(response.headers.entries()), null, 2)}`, 'success');
+                
+                const data = await response.json();
+                log(`\nResponse Data:\n${JSON.stringify(data, null, 2)}`, 'success');
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    log('❌ Request timed out after 5 seconds', 'error');
+                } else {
+                    log(`❌ Error: ${error.name}\nMessage: ${error.message}\n\nStack:\n${error.stack}`, 'error');
+                }
+            }
+        }
+
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            log('Page loaded. Click "Test Backend Connection" to test.', 'info');
+        });
+    </script>
+</body>
+</html>
+

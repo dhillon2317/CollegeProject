@@ -51,5 +51,88 @@
     "userType": "Student",
     "status": "Pending",
     "aiAnalyzed": false
+  },
+  {
+    "title": "Test Complaint",
+    "description": "The wifi is not working in the library",
+    "contactInfo": "test@example.com",
+    "userType": "Student",
+    "domain": "Academic",
+    "department": "Maintenance",
+    "priority": "High",
+    "category": "Infrastructure",
+    "type": "Technical",
+    "analysis": {
+      "category": "Infrastructure",
+      "priority": "High",
+      "type": "Technical",
+      "assignedDepartment": "Maintenance",
+      "aiConfidence": 61.61
+    },
+    "aiAnalyzed": true,
+    "id": "495dd557-95ae-4fb5-b022-121769bdcd4c",
+    "createdAt": "2025-11-14T10:32:53.003067",
+    "status": "pending"
+  },
+  {
+    "title": "Test Complaint",
+    "description": "The wifi is not working in the library",
+    "contactInfo": "test@example.com",
+    "userType": "Student",
+    "domain": "Academic",
+    "department": "Maintenance",
+    "priority": "High",
+    "category": "Infrastructure",
+    "type": "Technical",
+    "analysis": {
+      "category": "Infrastructure",
+      "priority": "High",
+      "type": "Technical",
+      "assignedDepartment": "Maintenance",
+      "aiConfidence": 61.61
+    },
+    "aiAnalyzed": true,
+    "id": "c908e4ca-ca41-441a-985f-080a54e59d09",
+    "createdAt": "2025-11-14T10:57:33.291961",
+    "status": "pending"
+  },
+  {
+    "id": "1f1ba651-6080-4d0c-a389-985769ad29d0",
+    "title": "Network connectivity issues in the library",
+    "description": "I've been experiencing frequent disconnections from the WiFi in the library, especially in the second floor study area. This has been happening for the past 3 days during peak hours.",
+    "contactInfo": "john.doe@example.com",
+    "category": "General",
+    "department": "it",
+    "priority": "high",
+    "userType": "student",
+    "domain": "localhost",
+    "status": "pending",
+    "createdAt": "2025-11-14T17:49:03.033107"
+  },
+  {
+    "id": "303d6f2a-96db-46d6-b846-b39b8fdf57f2",
+    "title": "Network connectivity issues in the library",
+    "description": "I've been experiencing frequent disconnections from the WiFi in the library, especially in the second floor study area. This has been happening for the past 3 days during peak hours.",
+    "contactInfo": "john.doe@example.com",
+    "category": "General",
+    "department": "it",
+    "priority": "high",
+    "userType": "student",
+    "domain": "localhost",
+    "status": "pending",
+    "createdAt": "2025-11-14T17:50:26.941425"
+  },
+  {
+    "id": "0336f5a4-7035-4b94-8e5b-aafa516a2b3d",
+    "title": "Network connectivity issues in the library",
+    "description": "I've been experiencing frequent disconnections from the WiFi in the library, especially in the second floor study area. This has been happening for the past 3 days during peak hours.",
+    "contactInfo": "john.doe@example.com",
+    "category": "General",
+    "department": "it",
+    "priority": "high",
+    "userType": "student",
+    "domain": "localhost",
+    "status": "pending",
+    "createdAt": "2025-11-14T18:32:20.977147"
   }
 ]

@@ -1,348 +1,155 @@
-from flask import Flask, request, jsonify, make_response
-from flask_cors import CORS, cross_origin
-
-from datetime import timedelta
-
-# Initialize Flask app
-app = Flask(__name__)
-
-# Configure CORS
-app.config['CORS_HEADERS'] = 'Content-Type'
-
-# Enable CORS for all routes during development
-CORS(app, resources={r"/*": {"origins": "*"}})
-
-# Add CORS headers to all responses
-@app.after_request
-def after_request(response):
-    # Allow requests from any origin with credentials
-    response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin', '*'))
-    response.headers.add('Access-Control-Allow-Credentials', 'true')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-    response.headers.add('Access-Control-Max-Age', '600')
-    return response
-from dotenv import load_dotenv
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
-from datetime import datetime
-import joblib
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.naive_bayes import MultinomialNB
-import numpy as np
-from pymongo import MongoClient
-from bson import ObjectId
-
-# Load models at startup
-MODELS_DIR = os.path.join(os.path.dirname(__file__), "models")
-REQUIRED_MODELS = [
-    'category_model.pkl',
-    'priority_model.pkl',
-    'type_model.pkl',
-    'department_model.pkl'
-]
-
-# Ensure models directory exists
-if not os.path.exists(MODELS_DIR):
-    os.makedirs(MODELS_DIR, exist_ok=True)
-    print(f"Created models directory at: {MODELS_DIR}")
-
-# List and verify available models
-print(f"Looking for models in: {MODELS_DIR}")
-try:
-    model_files = os.listdir(MODELS_DIR)
-    print(f"Found files: {model_files}")
-    
-    # Check for missing models
-    missing_models = [model for model in REQUIRED_MODELS if model not in model_files]
-    if missing_models:
-        print(f"Missing required model files: {missing_models}")
-        print("Attempting to train new models...")
-        
-        # Load training data
-        df = pd.read_csv(os.path.join(os.path.dirname(__file__), '..', 'sbackend', 'camplaint-analyzer', 'complaints.csv'))
-        
-        # Train and save models
-        vectorizer = TfidfVectorizer()
-        X = vectorizer.fit_transform(df['complaint_text'])
-        
-        for target in ['category', 'priority', 'department', 'type']:
-            model = MultinomialNB()
-            model.fit(X, df[target])
-            joblib.dump(model, os.path.join(MODELS_DIR, f'{target}_model.pkl'))
-            print(f"Trained and saved {target}_model.pkl")
-            
-        print("All models trained and saved successfully")
-        model_files = os.listdir(MODELS_DIR)
-        
-except Exception as e:
-    print(f"Error accessing or training models: {str(e)}")
-    raise
-
-# Load models
-try:
-    category_model = joblib.load(os.path.join(MODELS_DIR, 'category_model.pkl'))
-    priority_model = joblib.load(os.path.join(MODELS_DIR, 'priority_model.pkl'))
-    type_model = joblib.load(os.path.join(MODELS_DIR, 'type_model.pkl'))
-    department_model = joblib.load(os.path.join(MODELS_DIR, 'department_model.pkl'))
-    print("All models loaded successfully")
-except Exception as e:
-    print(f"Error loading models: {str(e)}")
-    raise
-
-# Save vectorizer globally
-vectorizer = TfidfVectorizer()
-df = pd.read_csv(os.path.join(os.path.dirname(__file__), '..', 'sbackend', 'camplaint-analyzer', 'complaints.csv'))
-vectorizer.fit(df['complaint_text'])
+import pymongo
+from werkzeug.security import generate_password_hash, check_password_hash
+import jwt
+from datetime import datetime, timedelta
+import uuid
+from pathlib import Path
+import json
 
 app = Flask(__name__)
+CORS(app)
 
-# Configure CORS to allow requests from your frontend
-cors = CORS(app, resources={
-    r"/api/*": {
-        "origins": ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5001", "http://localhost:3001", "http://127.0.0.1:3001"],
-        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"],
-        "supports_credentials": True
+# MongoDB Configuration
+MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/')
+client = pymongo.MongoClient(MONGODB_URI)
+db = client.complaintsdb  # Database name
+users_collection = db.users
+
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key')
+
+# Paths
+BASE_DIR = Path(__file__).parent
+DATA_DIR = BASE_DIR / 'data'
+COMPLAINTS_FILE = DATA_DIR / 'complaints.json'
+
+# Ensure data directory exists
+DATA_DIR.mkdir(exist_ok=True)
+
+# Initialize complaints file if it doesn't exist
+if not COMPLAINTS_FILE.exists():
+    with open(COMPLAINTS_FILE, 'w') as f:
+        json.dump([], f, indent=2)
+
+@app.route('/api/health')
+def health_check():
+    return jsonify({'status': 'healthy'})
+
+@app.route('/api/auth/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    if not data or not data.get('email') or not data.get('password'):
+        return jsonify({'error': 'Email and password are required'}), 400
+
+    if users_collection.find_one({'email': data['email']}):
+        return jsonify({'error': 'User already exists'}), 400
+
+    hashed_password = generate_password_hash(data['password'])
+
+    new_user = {
+        'id': str(uuid.uuid4()),
+        'email': data['email'],
+        'password': hashed_password,
+        'name': data.get('name', data['email'].split('@')[0]),
+        'role': data.get('role', 'student'),
+        'createdAt': datetime.utcnow().isoformat()
     }
-})
 
-# MongoDB setup
-from urllib.parse import quote_plus
+    users_collection.insert_one(new_user)
 
-def get_database():
-    try:
-        import ssl
-        
-        # Use these hardcoded values temporarily for testing
-        username = "dhillon2317"
-        password = "dhillon1000"
-        cluster = "cluster0.6ebj5lk.mongodb.net"
-        
-        # Properly encode the username and password
-        encoded_username = quote_plus(username)
-        encoded_password = quote_plus(password)
-        
-        # Construct the MongoDB URI with SSL options
-        mongo_uri = f"mongodb+srv://{encoded_username}:{encoded_password}@{cluster}/?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=true"
-        
-        print(f"Connecting to MongoDB at: {cluster}")
-        
-        # Configure MongoDB client with SSL workaround for Python 3.14
-        mongo_client = MongoClient(
-            mongo_uri,
-            serverSelectionTimeoutMS=5000,
-            connectTimeoutMS=10000,
-            socketTimeoutMS=30000,
-            tls=True,
-            tlsAllowInvalidCertificates=True
-        )
-        
-        # Test the connection
-        mongo_client.server_info()
-        
-        mongo_db = mongo_client['complaints_db']
-        complaints_collection = mongo_db['complaints']
-        print("Connected to MongoDB successfully!")
-        return complaints_collection
-        
-    except Exception as e:
-        print(f"MongoDB connection error: {str(e)}")
-        raise
+    return jsonify({'message': 'User registered successfully', 'id': new_user['id']}), 201
 
-# Initialize MongoDB connection
-try:
-    complaints_collection = get_database()
-    print("MongoDB connected successfully!")
-except Exception as e:
-    print(f"WARNING: Failed to initialize MongoDB: {str(e)}")
-    print("Application will start but database features will be limited")
-    complaints_collection = None
+@app.route('/api/auth/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    if not data or not data.get('email') or not data.get('password'):
+        return jsonify({'error': 'Email and password are required'}), 400
 
-@app.after_request
-def after_request(response):
-    # The CORS headers are now handled by flask-cors
-    return response
+    user = users_collection.find_one({'email': data['email']})
 
-@app.route('/analyze', methods=['POST'])
-def analyze_complaint():
-    try:
-        data = request.get_json()
-        print(f"Received data for analysis: {data}")  # Debug print
-        
-        # Handle both direct text and description field
-        text = data.get('text') or data.get('description')
-        if not text or not isinstance(text, str):
-            return jsonify({"success": False, "error": "Missing or invalid text"}), 400
+    if not user or not check_password_hash(user['password'], data['password']):
+        return jsonify({'error': 'Invalid credentials'}), 401
 
-        # Vectorize and predict
-        text_vectorized = vectorizer.transform([text])
-        
-        category = category_model.predict(text_vectorized)[0]
-        priority = priority_model.predict(text_vectorized)[0]
-        department = department_model.predict(text_vectorized)[0]
-        type_pred = type_model.predict(text_vectorized)[0]
-        
-        analysis = {
-            "category": category,
-            "priority": priority,
-            "department": department,
-            "type": type_pred
-        }
-        
-        print(f"Analysis results: {analysis}")  # Debug print
-        return jsonify({"success": True, "data": analysis})
-    except Exception as e:
-        print(f"Analysis error: {str(e)}")  # Debug print
-        return jsonify({"success": False, "error": str(e)}), 500
+    token = jwt.encode({
+        'email': user['email'],
+        'exp': datetime.utcnow() + timedelta(days=1)
+    }, app.config['SECRET_KEY'], algorithm='HS256')
 
-def save_complaint(complaint_data):
-    try:
-        result = complaints_collection.insert_one(complaint_data)
-        saved_complaint = complaints_collection.find_one({"_id": result.inserted_id})
-        saved_complaint['_id'] = str(saved_complaint['_id'])
-        return saved_complaint
-    except Exception as e:
-        raise Exception(f"Database error: {str(e)}")
+    return jsonify({'token': token}), 200
 
-@app.route('/api/complaints', methods=['POST', 'OPTIONS'])
-@cross_origin()
+
+@app.route('/api/complaints', methods=['POST'])
 def create_complaint():
-    if request.method == 'OPTIONS':
-        return _build_cors_preflight_response()
-        
-    if not request.is_json:
-        return jsonify({"success": False, "error": "Request must be JSON"}), 400
+    data = request.get_json()
+    if not data or not data.get('title') or not data.get('description') or not data.get('contactInfo'):
+        return jsonify({'error': 'Title, description, and contactInfo are required'}), 400
+
+    complaints = []
     try:
-        data = request.get_json()
-        print("Received complaint data:", data)  # Debug print
-        
-        if not data or not data.get('description'):
-            return jsonify({"success": False, "error": "Missing description"}), 400
+        with open(COMPLAINTS_FILE, 'r') as f:
+            complaints = json.load(f)
+    except FileNotFoundError:
+        pass  # Handle case where file doesn't exist yet
 
-        # Set default values in case AI analysis fails
-        default_values = {
-            "category": "General",
-            "priority": "Medium",
-            "department": "General",
-            "type": "General"
-        }
-        
-        # Try AI analysis, but don't fail if it doesn't work
-        try:
-            text_vectorized = vectorizer.transform([data['description']])
-            
-            # Get predictions from all models
-            analysis = {
-                "category": category_model.predict(text_vectorized)[0],
-                "priority": priority_model.predict(text_vectorized)[0],
-                "department": department_model.predict(text_vectorized)[0],
-                "type": type_model.predict(text_vectorized)[0]
-            }
-            
-            # Update the complaint data with AI analysis
-            data.update(analysis)
-            print("AI Analysis results:", analysis)  # Debug print
-            
-        except Exception as e:
-            print(f"Analysis warning: {str(e)} - Using default values")  # Debug print
-            # Use default values if analysis fails
-            data.update(default_values)
+    new_complaint = {
+        'id': str(uuid.uuid4()),
+        'title': data['title'],
+        'description': data['description'],
+        'contactInfo': data['contactInfo'],
+        'category': data.get('category', ''),
+        'department': data.get('department', ''),
+        'priority': data.get('priority', 'Medium'),
+        'userType': data.get('userType', 'Student'),
+        'domain': data.get('domain', 'default'),
+        'status': 'pending',
+        'createdAt': datetime.utcnow().isoformat()
+    }
 
-        # Add metadata
-        data['createdAt'] = datetime.utcnow().isoformat()
-        data['status'] = 'Pending'
-        
-        # Save to MongoDB
-        if complaints_collection is None:
-            print("WARNING: MongoDB not available, returning analysis only")
-            return jsonify({"success": True, "data": data, "warning": "Database unavailable, complaint not saved"}), 201
-        
-        try:
-            saved = save_complaint(data)
-            print("Saved complaint:", saved)  # Debug print
-            return jsonify({"success": True, "data": saved}), 201
-        except Exception as e:
-            print(f"Database error: {str(e)}")  # Debug print
-            return jsonify({"success": False, "error": "Failed to save complaint"}), 500
-            
-    except Exception as e:
-        print(f"Create complaint error: {str(e)}")  # Debug print
-        return jsonify({"success": False, "error": str(e)}), 500
+    complaints.append(new_complaint)
+
+    with open(COMPLAINTS_FILE, 'w') as f:
+        json.dump(complaints, f, indent=2)
+
+    return jsonify({'message': 'Complaint submitted successfully', 'id': new_complaint['id']}), 201
 
 @app.route('/api/complaints', methods=['GET'])
 def get_complaints():
-    if complaints_collection is None:
-        # Return mock data for development when MongoDB is unavailable
-        mock_complaints = [
-            {
-                "_id": "mock1",
-                "name": "John Doe",
-                "email": "john@example.com",
-                "description": "The wifi connection keeps dropping in the library",
-                "category": "Infrastructure",
-                "priority": "High",
-                "department": "IT Department",
-                "type": "Technical",
-                "status": "Pending",
-                "createdAt": "2025-11-10T10:30:00.000Z"
-            },
-            {
-                "_id": "mock2",
-                "name": "Jane Smith",
-                "email": "jane@example.com",
-                "description": "Cafeteria food quality has decreased significantly",
-                "category": "Food Services",
-                "priority": "Medium",
-                "department": "Administration",
-                "type": "Service",
-                "status": "In Progress",
-                "createdAt": "2025-11-09T14:20:00.000Z"
-            },
-            {
-                "_id": "mock3",
-                "name": "Bob Johnson",
-                "email": "bob@example.com",
-                "description": "Classroom AC not working properly",
-                "category": "Infrastructure",
-                "priority": "High",
-                "department": "Maintenance",
-                "type": "Technical",
-                "status": "Resolved",
-                "createdAt": "2025-11-08T09:15:00.000Z"
-            }
-        ]
-        return jsonify({
-            "success": True,
-            "data": mock_complaints,
-            "warning": "Using mock data - MongoDB not connected"
-        }), 200
-    
     try:
-        complaints = list(complaints_collection.find())
-        for complaint in complaints:
-            complaint['_id'] = str(complaint['_id'])
-            
-        return jsonify({
-            "success": True,
-            "data": complaints
-        }), 200
-    except Exception as e:
-        return jsonify({
-            "success": False,
-            "error": f"Failed to fetch complaints: {str(e)}"
-        }), 500
+        with open(COMPLAINTS_FILE, 'r') as f:
+            complaints = json.load(f)
+        return jsonify({'success': True, 'data': complaints}), 200
+    except FileNotFoundError:
+        return jsonify({'success': False, 'data': []}), 200
 
-def _build_cors_preflight_response():
-    response = make_response()
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    response.headers.add('Access-Control-Allow-Headers', "*")
-    response.headers.add('Access-Control-Allow-Methods', "*")
-    return response
+@app.route('/api/analytics', methods=['GET'])
+def get_analytics():
+    try:
+        with open(COMPLAINTS_FILE, 'r') as f:
+            complaints = json.load(f)
 
-@app.route('/api/health', methods=['GET'])
-def health_check():
-    return jsonify({"status": "healthy", "message": "Backend service is running"}), 200
+        total_complaints = len(complaints)
+        resolved_count = sum(1 for c in complaints if c['status'] == 'resolved')
+        pending_count = sum(1 for c in complaints if c['status'] == 'pending')
+
+        category_distribution = {}
+        for c in complaints:
+            category = c.get('category', 'Other')
+            if category in category_distribution:
+                category_distribution[category] += 1
+            else:
+                category_distribution[category] = 1
+
+        analytics_data = {
+            'total_complaints': total_complaints,
+            'resolved_count': resolved_count,
+            'pending_count': pending_count,
+            'category_distribution': category_distribution
+        }
+        return jsonify(analytics_data), 200
+    except FileNotFoundError:
+        return jsonify({'error': 'Complaints file not found'}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(debug=True, port=5001)

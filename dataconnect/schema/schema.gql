@@ -1,0 +1,50 @@
+type User @table {
+  username: String!
+  email: String!
+  passwordHash: String!
+  createdAt: Timestamp!
+  role: String!
+  displayName: String
+  lastLoginAt: Timestamp
+}
+
+type Organization @table {
+  name: String!
+  createdAt: Timestamp!
+  contactEmail: String
+  industry: String
+}
+
+type Complaint @table {
+  text: String!
+  submittedAt: Timestamp!
+  sentiment: String!
+  status: String!
+  organization: Organization
+  source: String
+  customerIdentifier: String
+  aiSummary: String
+}
+
+type Category @table {
+  name: String!
+  createdAt: Timestamp!
+  organization: Organization
+  description: String
+}
+
+type ComplaintCategory @table(key: ["complaint", "category"]) {
+  complaint: Complaint!
+  category: Category!
+  assignedAt: Timestamp!
+  assignedByUser: User
+}
+
+type AnalysisResult @table {
+  complaint: Complaint
+  analyzedAt: Timestamp!
+  keyPhrases: [String]!
+  topics: [String]!
+  suggestedAction: String
+  confidenceScore: Float
+}

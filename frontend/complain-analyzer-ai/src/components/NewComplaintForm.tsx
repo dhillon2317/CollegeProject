@@ -72,20 +72,23 @@ export function NewComplaintForm() {
         setIsLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5001/api/complaints', {
+            // Use relative URL via Vite proxy
+            const response = await fetch('/api/complaints', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    complaintText: `${formData.title}\n\n${formData.description}`,
+                    title: formData.title,
+                    description: formData.description,
                     category: formData.category,
                     priority: formData.priority,
                     type: formData.userType,
-                    assignedDepartment: formData.department,
+                    department: formData.department,
                     contactInfo: formData.contactInfo,
-                    status: 'Pending',
-                    createdAt: new Date().toISOString()
+                    userType: formData.userType,
+                    domain: 'default',
+                    status: 'pending'
                 }),
             });
 

@@ -196,12 +196,28 @@ export function ComplaintForm() {
     setIsSubmitting(true);
 
     try {
-      // Check if backend is reachable
+      // Check if backend is reachable (using relative URL via Vite proxy)
       try {
-        await fetch('http://localhost:5001/api/health');
-      } catch (error) {
+        console.log('Checking backend health at /api/health...');
+        const healthCheck = await fetch('/api/health', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log('Health check response status:', healthCheck.status);
+        if (!healthCheck.ok) {
+          const errorText = await healthCheck.text();
+          console.error('Health check failed:', errorText);
+          throw new Error(`Backend health check failed: ${healthCheck.status} - ${errorText}`);
+        }
+        const healthData = await healthCheck.json();
+        console.log('Backend is healthy:', healthData);
+      } catch (error: any) {
         console.error('Backend connection error:', error);
-        throw new Error('Unable to connect to the server. Please make sure the backend is running on http://localhost:5001');
+        const errorMsg = error.message || 'Unable to connect to the server';
+        toast.error(`Connection Error: ${errorMsg}. Please ensure:\n1. Backend is running on http://localhost:5001\n2. Frontend dev server has been restarted`);
+        throw error;
       }
 
       // Prepare the submission data with all required fields
@@ -224,8 +240,9 @@ export function ComplaintForm() {
       
       // Use the complaintService to submit the complaint
       const response = await complaintService.createComplaint(submissionData);
+      console.log('Complaint submission response:', response);
       
-      if (response && response.id) {
+      if (response && (response.id || response._id || (response as any).id)) {
         toast.success('Complaint submitted successfully!');
         setIsSuccess(true);
         setFormData({
@@ -238,12 +255,13 @@ export function ComplaintForm() {
           domain: window.location.hostname,
         });
         
-        // Redirect to complaints list after a short delay
+        // Redirect to dashboard/complaints list after a short delay
         setTimeout(() => {
-          navigate('/complaints');
+          navigate('/dashboard');
         }, 1500);
       } else {
-        throw new Error('Invalid response from server');
+        console.error('Invalid response from server:', response);
+        throw new Error('Invalid response from server - no ID received');
       }
       
       return response;
@@ -252,37 +270,38 @@ export function ComplaintForm() {
       
       let errorMessage = 'Failed to submit complaint.';
       
-      // Handle specific error cases
-      if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-        errorMessage = "Unable to connect to the server. Please check your internet connection and try again.";
-      } else if (error.status === 401) {
-        errorMessage = "Your session has expired. Please log in again.";
-        // Optionally redirect to login
-        // navigate('/login');
-      } else if (error.status === 400) {
-        errorMessage = error.message || "Invalid data. Please check your input and try again.";
-      } else if (error.status === 500) {
-        errorMessage = "Server error. Please try again later or contact support if the problem persists.";
-      } else if (error.response?.data?.message) {
-        errorMessage = error.response.data.message;
-      } else if (error.message) {
+      // Handle network errors
+      if (error.isNetworkError || error.message?.includes('Network Error') || error.message?.includes('Unable to connect')) {
+        errorMessage = "Network Error: Unable to connect to the backend server. Please ensure the backend is running on http://localhost:5001";
+      } 
+      // Handle Axios errors
+      else if (error.response) {
+        const status = error.response.status;
+        if (status === 401) {
+          errorMessage = "Your session has expired. Please log in again.";
+        } else if (status === 400) {
+          errorMessage = error.response.data?.error || error.response.data?.message || "Invalid data. Please check your input and try again.";
+        } else if (status === 500) {
+          errorMessage = error.response.data?.error || "Server error. Please try again later or contact support if the problem persists.";
+        } else {
+          errorMessage = error.response.data?.error || error.response.data?.message || `Server error (${status})`;
+        }
+      }
+      // Handle request errors (no response)
+      else if (error.request) {
+        errorMessage = "Network Error: The request was sent but no response was received. Please check if the backend is running.";
+      }
+      // Handle other errors
+      else if (error.message) {
         errorMessage = error.message;
       }
       
       console.error("Error details:", {
         name: error.name,
         message: error.message,
-        status: error.status,
-        stack: error.stack
-      });
-      
-      toast.error(`Error: ${errorMessage}`);
-      
-      console.error("Error details:", {
-        name: error.name,
-        message: error.message,
-        status: error.status,
-        stack: error.stack
+        response: error.response?.data,
+        status: error.response?.status,
+        isNetworkError: error.isNetworkError
       });
       
       toast.error(errorMessage);
