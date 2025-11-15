@@ -1,18 +1,16 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 // Layouts
-import App from '../App';
+import Layout from '../components/Layout';
+import App from '../../App';
 
 // Components
 import LoginPage from '../components/LoginPage';
 import SignUpPage from '../components/SignUpPage';
-import { ComplaintForm } from '../components/ComplaintForm';
 import LandingPage from '../components/LandingPage';
 import NotFoundPage from '../components/NotFoundPage';
-import Profile from '../components/Profile';
-
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -42,7 +40,7 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (currentUser) {
-    return <Navigate to="/app/dashboard" replace />;
+    return <Navigate to="/app" replace />;
   }
 
   return <>{children}</>;
@@ -51,7 +49,7 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Layout />,
     children: [
       // Public Routes
       {
@@ -75,7 +73,7 @@ const router = createBrowserRouter([
       // Redirect old routes to new /app routes
       {
         path: 'dashboard',
-        element: <Navigate to="/app/dashboard" replace />,
+        element: <Navigate to="/app" replace />,
       },
       {
         path: 'profile',
@@ -86,30 +84,9 @@ const router = createBrowserRouter([
         element: <Navigate to="/app/complaints" replace />,
       },
       // App routes (protected)
-          {
-            path: 'app',
-            element: <ProtectedRoute><Outlet /></ProtectedRoute>,
-        children: [
-          {
-          },
-          {
-            path: 'profile',
-            element: <Profile />,
-          },
-          {
-            path: 'complaints',
-            element: (
-              <div>
-                <ComplaintForm 
-                  onSubmit={async (data: any) => {
-                    console.log('Complaint:', data);
-                    return Promise.resolve();
-                  }} 
-                />
-              </div>
-            ),
-          },
-        ],
+      {
+        path: 'app',
+        element: <ProtectedRoute><App /></ProtectedRoute>,
       },
       // 404 Route - Keep this at the bottom
       {

@@ -28,7 +28,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
           <div className="text-center p-6 max-w-sm mx-auto bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-bold text-red-600 mb-4">Something went wrong</h2>
             <p className="text-gray-700">We're working on fixing this issue. Please try refreshing the page.</p>
-            <button 
+            <button
               className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               onClick={() => window.location.reload()}
             >
@@ -50,30 +50,27 @@ if (!rootElement) {
   throw new Error('Failed to find the root element');
 }
 
-const root = ReactDOM.createRoot(rootElement);
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 
-// Initial render with error boundary
-const App = () => {
-  return (
-    <React.StrictMode>
-      <ErrorBoundary>
-        <AuthProvider>
-          <Suspense 
-            fallback={
-              <div className="flex items-center justify-center h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-              </div>
-            }
-          >
-            <RouterProvider router={router} />
-          </Suspense>
-        </AuthProvider>
-      </ErrorBoundary>
-    </React.StrictMode>
-  );
-};
-
-root.render(<App />);
+root.render(
+  <React.StrictMode>
+    <ErrorBoundary>
+      <AuthProvider>
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center h-screen">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+          }
+        >
+          <RouterProvider router={router} />
+        </Suspense>
+      </AuthProvider>
+    </ErrorBoundary>
+  </React.StrictMode>
+);
 
 // Log any uncaught errors
 window.addEventListener('error', (event) => {

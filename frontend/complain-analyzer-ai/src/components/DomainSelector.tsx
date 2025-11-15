@@ -3,7 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { CheckCircle, ArrowRight } from "lucide-react";
-import { DOMAIN_CONFIGS, setCurrentDomain, type DomainConfig } from "./DomainConfig";
+import { DOMAIN_CONFIGS, setCurrentDomain } from "./DomainConfig";
+import type { DomainConfig } from "../src/config/domains";
 
 
 interface DomainSelectorProps {
@@ -62,33 +63,7 @@ export function DomainSelector({ onDomainSelected }: DomainSelectorProps) {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-medium mb-2">Key Categories:</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {domain.categories.slice(0, 4).map((category) => (
-                        <Badge key={category} variant="secondary" className="text-xs">
-                          {category}
-                        </Badge>
-                      ))}
-                      {domain.categories.length > 4 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{domain.categories.length - 4} more
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-medium mb-2">Features:</h4>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>• AI-powered categorization</li>
-                      <li>• Smart department routing</li>
-                      <li>• Priority assessment</li>
-                      <li>• Analytics & insights</li>
-                    </ul>
-                  </div>
-                </div>
+                
               </CardContent>
             </Card>
           ))}

@@ -391,7 +391,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
   const domain = getCurrentDomain();
   // Use analyticsData if available, otherwise fall back to calculating from complaints
   const stats = analyticsData ? {
-    totalComplaints: analyticsData.statusDistribution ? 
+    totalComplaints: analyticsData.statusDistribution ?
       Object.values(analyticsData.statusDistribution).reduce((sum: number, count: any) => sum + Number(count), 0) : 0,
     resolvedCount: analyticsData.statusDistribution?.Resolved || 0,
     pendingCount: analyticsData.statusDistribution?.Pending || 0,
@@ -400,17 +400,17 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
   } : {
     // Fallback to calculating from complaints if analyticsData is not available
     totalComplaints: complaints.length,
-    resolvedCount: complaints.filter(c => c.status === 'Resolved').length,
-    pendingCount: complaints.filter(c => c.status === 'Pending').length,
-    inProgressCount: complaints.filter(c => c.status === 'In Progress').length,
+    resolvedCount: complaints.filter(c => c.status?.toLowerCase() === 'resolved').length,
+    pendingCount: complaints.filter(c => c.status?.toLowerCase() === 'pending').length,
+    inProgressCount: complaints.filter(c => c.status?.toLowerCase() === 'in progress').length,
   };
 
   // Initialize tracking variables with data from analytics if available
-  const totalResolutionTime = analyticsData?.metrics?.totalResolutionTime || 0;
-  const resolvedCount = stats.resolvedCount;
-  const totalSentiment = analyticsData?.metrics?.totalSentiment || 0;
-  const totalResponseTime = analyticsData?.metrics?.totalResponseTime || 0;
-  const responseCount = analyticsData?.metrics?.responseCount || 0;
+  let totalResolutionTime = analyticsData?.metrics?.totalResolutionTime || 0;
+  let resolvedCount = stats.resolvedCount;
+  let totalSentiment = analyticsData?.metrics?.totalSentiment || 0;
+  let totalResponseTime = analyticsData?.metrics?.totalResponseTime || 0;
+  let responseCount = analyticsData?.metrics?.responseCount || 0;
 
   // Initialize AI Analysis Stats with data from analyticsData if available
   const aiAnalysisStats = analyticsData?.aiInsights ? {
@@ -422,15 +422,15 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
     },
     commonKeywords: analyticsData.aiInsights.commonKeywords || [],
     totalAnalyzed: analyticsData.aiInsights.totalAnalyzed || 0,
-    totalComplaints: analyticsData.statusDistribution ? 
+    totalComplaints: analyticsData.statusDistribution ?
       Object.values(analyticsData.statusDistribution).reduce((sum: number, count: any) => sum + Number(count), 0) : 0,
     averageConfidence: analyticsData.aiInsights.averageConfidence || 0,
     categories: analyticsData.aiInsights.categories || {},
     departments: analyticsData.aiInsights.departments || {},
-    
+
     // Priority metrics
     priorities: analyticsData.aiInsights.priorities || {},
-    
+
     // Sentiment analysis
     sentiment: analyticsData.aiInsights.sentiment || {
       positive: 0,
@@ -439,7 +439,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
       avgSentiment: 0,
       sentimentTrend: []
     },
-    
+
     // Model performance metrics
     modelMetrics: analyticsData.aiInsights.modelMetrics || {
       confidenceThreshold: 0.8,
@@ -451,7 +451,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
       predictionAccuracy: 0.87,
       anomalies: []
     },
-    
+
     // Resolution metrics
     resolutionMetrics: analyticsData.aiInsights.resolutionMetrics || {
       avgResolutionTime: 0,
@@ -563,7 +563,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
     // Process categories
     if (complaint.category) {
       const cat = complaint.category;
-      aiAnalysisStats.categories[cat] = aiAnalysisStats.categories[cat] || { 
+      aiAnalysisStats.categories[cat] = aiAnalysisStats.categories[cat] || {
         count: 0,
         avgConfidence: 0,
         avgResolution: 0,
@@ -602,7 +602,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
     }, {});
 
     const total = complaints.length || 1;
-    
+
     return Object.entries(counts).map(([name, count]) => ({
       name,
       complaints: count,
@@ -615,8 +615,8 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
       // Process categories with confidence
       if (complaint.category) {
         const cat = complaint.category;
-        const current = aiAnalysisStats.categories[cat] || { 
-          count: 0, 
+        const current = aiAnalysisStats.categories[cat] || {
+          count: 0,
           avgConfidence: 0,
           avgResolution: 0,
           sentiment: 0
@@ -624,7 +624,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
         const newCount = current.count + 1;
         aiAnalysisStats.categories[cat] = {
           count: newCount,
-          avgConfidence: current.count > 0 
+          avgConfidence: current.count > 0
             ? (current.avgConfidence * current.count + (complaint.aiConfidence || 0)) / newCount
             : (complaint.aiConfidence || 0),
           avgResolution: current.avgResolution,
@@ -635,21 +635,21 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
       // Process departments with resolution metrics
       if (complaint.department) {
         const dept = complaint.department;
-        const current = aiAnalysisStats.departments[dept] || { 
-          count: 0, 
+        const current = aiAnalysisStats.departments[dept] || {
+          count: 0,
           totalResolutionTime: 0,
           avgResolution: 0,
           avgConfidence: 0,
           satisfaction: 0
         };
-        
+
         const resolutionTime = complaint.resolutionTime || 0;
         const newCount = current.count + 1;
         const newTotalResolutionTime = current.totalResolutionTime + resolutionTime;
         const newAvgResolution = newCount > 0 ? newTotalResolutionTime / newCount : 0;
         const newAvgConfidence = current.count > 0 ? (current.avgConfidence * current.count + (complaint.aiConfidence || 0)) / newCount : 0;
         const newSatisfaction = current.count > 0 ? (current.satisfaction * current.count + (complaint.satisfaction || 0)) / newCount : 0;
-        
+
         aiAnalysisStats.departments[dept] = {
           count: newCount,
           totalResolutionTime: newTotalResolutionTime,
@@ -658,7 +658,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
           satisfaction: newSatisfaction
         };
 
-        if (complaint.status === 'Resolved' && resolutionTime > 0) {
+        if (complaint.status?.toLowerCase() === 'resolved' && resolutionTime > 0) {
           totalResolutionTime += resolutionTime;
           resolvedCount++;
         }
@@ -701,7 +701,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
     : 0;
 
   aiAnalysisStats.resolutionMetrics.resolutionRate = complaints.length > 0
-    ? (complaints.filter(c => c.status === 'Resolved').length / complaints.length) * 100
+    ? (complaints.filter(c => c.status?.toLowerCase() === 'resolved').length / complaints.length) * 100
     : 0;
 
 
@@ -725,8 +725,8 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
     .map(item => ({
       ...item,
       color: item.name === 'High' ? '#ef4444' :
-             item.name === 'Medium' ? '#f59e0b' :
-             item.name === 'Low' ? '#10b981' : '#6b7280'
+        item.name === 'Medium' ? '#f59e0b' :
+          item.name === 'Low' ? '#10b981' : '#6b7280'
     }));
 
   // Calculate average confidence if available
@@ -909,10 +909,10 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
 
   // User type statistics
   const userTypeData = calculateStats('userType');
-  
+
   // Department statistics
   const departmentData = calculateStats('department');
-  
+
   // Status statistics
   const statusData = calculateStats('status');
 
@@ -940,7 +940,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
             </div>
             <div className="absolute right-4 top-4">
               <div className={`h-2 w-2 rounded-full ${aiAnalysisStats.averageConfidence > 90 ? 'bg-green-500' :
-                  aiAnalysisStats.averageConfidence > 80 ? 'bg-yellow-500' : 'bg-red-500'
+                aiAnalysisStats.averageConfidence > 80 ? 'bg-yellow-500' : 'bg-red-500'
                 }`}></div>
             </div>
           </CardHeader>
@@ -988,7 +988,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
                 <div className="relative h-2 w-full overflow-hidden rounded-full bg-muted">
                   <div
                     className={`h-full w-full flex-1 transition-all ${aiAnalysisStats.averageConfidence > 90 ? 'bg-green-500' :
-                        aiAnalysisStats.averageConfidence > 80 ? 'bg-yellow-500' : 'bg-red-500'
+                      aiAnalysisStats.averageConfidence > 80 ? 'bg-yellow-500' : 'bg-red-500'
                       }`}
                     style={{
                       transform: `translateX(-${100 - (aiAnalysisStats.averageConfidence || 0)}%)`,
@@ -1065,8 +1065,8 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
                       <div className="flex justify-between text-sm">
                         <span className="font-medium truncate max-w-[100px]">{dept}</span>
                         <span className={`font-mono text-xs px-1.5 py-0.5 rounded ${isGood ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-                            isWarning ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
-                              'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
+                          isWarning ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
+                            'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
                           }`}>
                           {avgHours}h
                         </span>
@@ -1074,7 +1074,7 @@ const AnalyticsDashboard = ({ onSelectComplaint, complaints, analyticsData }: An
                       <div className="h-2 w-full bg-muted/50 rounded-full overflow-hidden">
                         <div
                           className={`h-full rounded-full ${isGood ? 'bg-green-500' :
-                              isWarning ? 'bg-yellow-500' : 'bg-red-500'
+                            isWarning ? 'bg-yellow-500' : 'bg-red-500'
                             }`}
                           style={{ width: `${Math.min(100, 100 - (avgHours / 168) * 100)}%` }}
                         />

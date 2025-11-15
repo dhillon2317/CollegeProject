@@ -23,7 +23,8 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key')
 # Paths
 BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / 'data'
-COMPLAINTS_FILE = DATA_DIR / 'complaints.json'
+COMPLAINTS_FILE = BASE_DIR / 'data' / 'complaints.json'
+
 
 # Ensure data directory exists
 DATA_DIR.mkdir(exist_ok=True)

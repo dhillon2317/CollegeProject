@@ -134,5 +134,44 @@
     "domain": "localhost",
     "status": "pending",
     "createdAt": "2025-11-14T18:32:20.977147"
+  },
+  {
+    "id": "4ac8ded0-a5b0-4f33-86bd-41614cf56b9b",
+    "title": "Network connectivity issues in the library",
+    "description": "I've been experiencing frequent disconnections from the WiFi in the library, especially in the second floor study area. This has been happening for the past 3 days during peak hours.",
+    "contactInfo": "john.doe@example.com",
+    "category": "General",
+    "department": "it",
+    "priority": "high",
+    "userType": "student",
+    "domain": "localhost",
+    "status": "pending",
+    "createdAt": "2025-11-15T09:59:35.902333"
+  },
+  {
+    "id": "de1d0e1b-ef90-4bef-9252-3aea83359a4e",
+    "title": "Network connectivity issues in the library",
+    "description": "I've been experiencing frequent disconnections from the WiFi in the library, especially in the second floor study area. This has been happening for the past 3 days during peak hours.",
+    "contactInfo": "john.doe@example.com",
+    "category": "General",
+    "department": "it",
+    "priority": "high",
+    "userType": "student",
+    "domain": "localhost",
+    "status": "pending",
+    "createdAt": "2025-11-15T10:19:10.525404"
+  },
+  {
+    "id": "1de07d2c-4ec1-4c16-b9c0-91d84798a9f3",
+    "title": "Network connectivity issues in the library",
+    "description": "I've been experiencing frequent disconnections from the WiFi in the library, especially in the second floor study area. This has been happening for the past 3 days during peak hours.",
+    "contactInfo": "john.doe@example.com",
+    "category": "General",
+    "department": "it",
+    "priority": "high",
+    "userType": "student",
+    "domain": "localhost",
+    "status": "pending",
+    "createdAt": "2025-11-15T11:06:49.948054"
   }
 ]

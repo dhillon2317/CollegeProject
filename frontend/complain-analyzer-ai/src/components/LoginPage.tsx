@@ -19,7 +19,7 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     if (!email || !password) {
       setError('Please fill in all fields');
       return;
@@ -28,7 +28,7 @@ export default function LoginPage() {
     try {
       setIsLoading(true);
       await login(email, password);
-      navigate('/app/dashboard');
+      navigate('/app');
     } catch (err) {
       setError('Failed to log in. Please check your credentials and try again.');
       console.error('Login error:', err);
@@ -55,7 +55,7 @@ export default function LoginPage() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -68,7 +68,7 @@ export default function LoginPage() {
                 autoComplete="username"
               />
             </div>
-            
+
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
@@ -87,7 +87,7 @@ export default function LoginPage() {
               />
             </div>
           </CardContent>
-          
+
           <CardFooter className="flex flex-col space-y-4">
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? (
@@ -100,7 +100,7 @@ export default function LoginPage() {
                 </>
               ) : 'Sign In'}
             </Button>
-            
+
             <div className="text-center text-sm text-gray-500">
               Don't have an account?{' '}
               <Link to="/register" className="text-blue-600 hover:underline">

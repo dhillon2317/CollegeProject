@@ -8,8 +8,19 @@ import { toast } from "sonner";
 import styles from "../styles/scrollbar.module.css";
 import { Complaint, AnalysisResult } from '../services/api';
 
-interface ComplaintWithAnalysis extends Omit<Complaint, 'analysis'> {
-  analysis: AnalysisResult;
+interface ComplaintWithAnalysis {
+  id: string;
+  title: string;
+  description: string;
+  status: string;
+  createdAt: string;
+  priority?: string;
+  category?: string;
+  department?: string;
+  userType?: string;
+  contactInfo?: string;
+  aiAnalyzed?: boolean;
+  analysis?: AnalysisResult;
 }
 
 interface DashboardProps {
@@ -17,17 +28,20 @@ interface DashboardProps {
   isLoading: boolean;
   isRefreshing: boolean;
   onRefresh: () => void;
+  setComplaints: (complaints: ComplaintWithAnalysis[]) => void;
+  setIsLoading: (isLoading: boolean) => void;
+  setIsRefreshing: (isRefreshing: boolean) => void;
 }
 
-export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: DashboardProps) {
+export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh, setComplaints, setIsLoading, setIsRefreshing }: DashboardProps) {
   const domain = getCurrentDomain();
 
   // Calculate statistics from real data
   const stats = {
     total: complaints.length,
-    pending: complaints.filter(c => c.status === 'pending').length,
-    resolved: complaints.filter(c => c.status === 'resolved').length,
-    critical: complaints.filter(c => c.analysis?.priority === 'High').length,
+    pending: complaints.filter(c => c.status?.toLowerCase() === 'pending').length,
+    resolved: complaints.filter(c => c.status?.toLowerCase() === 'resolved').length,
+    critical: complaints.filter(c => c.analysis?.priority === 'High' || c.priority === 'High').length,
   };
 
   // Commented out for now as it's not used in the current implementation
@@ -144,7 +158,7 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
       </div>
 
       {/* Recent Complaints */}
-      <div className="bg-gray-100 p-2 rounded-[10px]">
+      <div className="bg-blue-50 p-1 rounded-[10px]">
         <Card className="bg-white rounded-[10px] p-4">
           <div className="bg-blue-50 rounded-[10px] py-2">
 
@@ -171,7 +185,7 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
               </Button>
             </CardHeader>
           </div>
-          <CardContent>
+          <CardContent className="bg-gray-100 rounded-[10px] p-3">
             <div className={`space-y-4 max-h-[70vh] overflow-y-auto pr-2 ${styles.customScrollbar}`}>
               {isLoading ? (
                 <div className="flex items-center justify-center h-32">
@@ -180,7 +194,7 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
               ) : recentComplaints.length > 0 ? (
                 recentComplaints.map((complaint) => (
                   <div
-                    key={complaint._id}
+                    key={complaint.id}
                     className="group flex flex-col p-5 border rounded-xl space-y-3 hover:shadow-md transition-all duration-200 bg-card"
                   >
                     <div className="flex items-start justify-between">
@@ -190,8 +204,8 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
                             {complaint.title || 'No Title'}
                           </h4>
                           <div className="flex items-center gap-2 flex-wrap">
-                            <Badge 
-                              variant={getSeverityColor(complaint.analysis?.priority || '')} 
+                            <Badge
+                              variant={getSeverityColor(complaint.analysis?.priority || '')}
                               className="text-xs capitalize"
                             >
                               {complaint.analysis?.priority || 'Normal'}
@@ -212,7 +226,7 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
                         )}
                       </div>
 
-                      {complaint.aiAnalyzed && (
+                      {(complaint.aiAnalyzed || complaint.analysis) && (
                         <Badge variant="secondary" className="ml-2 bg-green-100 text-green-800 hover:bg-green-100">
                           AI Analyzed
                         </Badge>
@@ -220,7 +234,7 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
                     </div>
 
                     <div>
-                      {/* <Button onClick={() => deleteComplaint(complaint._id)}>Delete</Button> */}
+                      {/* <Button onClick={() => deleteComplaint(complaint.id)}>Delete</Button> */}
                     </div>
 
                     <div className="pt-2 border-t border-border/50 mt-2">
@@ -308,6 +322,6 @@ export function Dashboard({ complaints, isLoading, isRefreshing, onRefresh }: Da
           </CardContent>
         </Card>
       </div>
-      </div>
-      );
+    </div>
+  );
 }
